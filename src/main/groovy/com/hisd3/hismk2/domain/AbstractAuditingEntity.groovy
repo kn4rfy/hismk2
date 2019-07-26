@@ -1,8 +1,8 @@
 package com.hisd3.hismk2.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import org.hibernate.annotations.Parameter
 import org.hibernate.annotations.Type
-import org.joda.time.DateTime
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
@@ -12,6 +12,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import javax.persistence.Column
 import javax.persistence.EntityListeners
 import javax.persistence.MappedSuperclass
+import java.sql.Date
+import java.time.Instant
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener)
@@ -23,11 +25,10 @@ abstract class AbstractAuditingEntity {
     String createdBy
 
     @CreatedDate
-    //@NotNull
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+   /* @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime",
+            parameters = [ @Parameter(name = "javaZone", value = "jvm")])*/
     @Column(name = "created_date", nullable = false)
-    //@JsonIgnore
-    DateTime createdDate
+    Instant createdDate
 
     @LastModifiedBy
     @Column(name = "last_modified_by", length = 50)
@@ -35,8 +36,9 @@ abstract class AbstractAuditingEntity {
     String lastModifiedBy
 
     @LastModifiedDate
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+  /*  @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime",
+            parameters = [ @Parameter(name = "javaZone", value = "jvm")])*/
     @Column(name = "last_modified_date")
     @JsonIgnore
-    DateTime  lastModifiedDate
+    Instant lastModifiedDate
 }

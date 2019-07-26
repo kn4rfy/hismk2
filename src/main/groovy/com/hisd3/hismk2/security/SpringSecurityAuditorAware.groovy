@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component
 class SpringSecurityAuditorAware implements AuditorAware<String> {
     @Override
     Optional<String> getCurrentAuditor() {
-        return Constants.SYSTEM_ACCOUNT
+        return  new Optional<String>(Constants.SYSTEM_ACCOUNT)
     }
 }

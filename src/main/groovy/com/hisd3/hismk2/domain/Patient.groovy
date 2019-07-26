@@ -1,14 +1,15 @@
 package com.hisd3.hismk2.domain
 
+import org.hibernate.annotations.Formula
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
-import org.joda.time.LocalDate
 
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.Table
+import java.time.LocalDateTime
 
 @Entity
 @Table(schema = "pms", name = "patients")
@@ -24,6 +25,9 @@ class Patient extends AbstractAuditingEntity {
 
     @Column(name = "patient_no", columnDefinition = "varchar")
     String patientNo
+
+    @Column(name = "firstname", columnDefinition = "varchar")
+    String firstname
 
     @Column(name = "lastname", columnDefinition = "varchar")
     String lastname
@@ -53,9 +57,9 @@ class Patient extends AbstractAuditingEntity {
     @Column(name = "gender", columnDefinition = "varchar")
     String gender
 
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+
     @Column(name = "dob", columnDefinition = "date")
-    LocalDate dob
+    LocalDateTime dob
 
     @Column(name = "allergies", columnDefinition = "varchar")
     String allergies
@@ -97,6 +101,10 @@ class Patient extends AbstractAuditingEntity {
 
     @Column(name = "guarantor_contact_no", columnDefinition = "varchar")
     String guarantorContactNo
+
+    @Formula("concat(lastname , coalesce(', ' || nullif(firstname,'') , ''), coalesce(' ' || nullif(middlename,'') , ''), coalesce(' ' || nullif(name_suffix,'') , ''))")
+    String fullname
+
 
 
 }

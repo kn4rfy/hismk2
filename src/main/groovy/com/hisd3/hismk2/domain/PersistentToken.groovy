@@ -2,8 +2,6 @@ package com.hisd3.hismk2.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.annotations.Type
-import org.joda.time.LocalDate
-
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
@@ -12,6 +10,7 @@ import javax.persistence.Table
 import javax.persistence.Transient
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
+import java.time.LocalDate
 
 
 @Entity
@@ -31,7 +30,6 @@ class PersistentToken {
 
     @JsonIgnore
     @Column(name = "token_date")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     LocalDate tokenDate
 
 

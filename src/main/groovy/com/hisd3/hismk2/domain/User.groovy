@@ -2,7 +2,6 @@ package com.hisd3.hismk2.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.annotations.Type
-import org.joda.time.DateTime
 
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -20,6 +19,7 @@ import javax.persistence.Transient
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
+import java.time.LocalDateTime
 
 
 @Entity
@@ -71,9 +71,9 @@ class User {
     String resetKey
 
 
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+   // @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "reset_date", nullable = true)
-    DateTime resetDate
+    LocalDateTime resetDate
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])

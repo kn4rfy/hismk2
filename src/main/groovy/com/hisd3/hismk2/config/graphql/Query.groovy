@@ -26,9 +26,15 @@ class Query implements GraphQLQueryResolver{
 
 
     //<editor-fold desc= "From  graphql/pms.graphqls">
-    List<Patient> getPatients( String filtername, Integer page ,Integer size){
 
+    List<Patient> getPatients( String filtername, Integer page ,Integer size){
+        return patientDao.getPatients(filtername,page,size)
     }
+
+    Patient getPatient(UUID id){
+        return patientDao.getPatient(id)
+    }
+
 
     //</editor-fold>
 
