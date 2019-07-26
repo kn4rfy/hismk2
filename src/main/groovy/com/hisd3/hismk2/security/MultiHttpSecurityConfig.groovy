@@ -51,13 +51,9 @@ class MultiHttpSecurityConfig {
             http.cors().and().csrf().disable()
                     .authorizeRequests()
 
-                  /*  .antMatchers( "/api/register").permitAll()
-                    .antMatchers( "/api/ping").permitAll()
-                    .antMatchers( "/api/activate").permitAll()
-                    .antMatchers( "/api/getfile/**").permitAll()*/
                     .antMatchers( "/graphql/**").authenticated()
                     .antMatchers( "/api/**").authenticated()
-                    .antMatchers( "/").permitAll()
+                    .antMatchers( "/ping").permitAll()
                     .and()
                     .exceptionHandling()
                     .accessDeniedHandler(accessDeniedHandler())
