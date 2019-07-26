@@ -1,0 +1,10 @@
+type Patient {
+    id: ID
+    patientNo: String
+    lastname: String
+}
+
+extend type Query {
+    getPatients( filtername:String, page: Int, size: Int ) :[Patient]
+
+}
