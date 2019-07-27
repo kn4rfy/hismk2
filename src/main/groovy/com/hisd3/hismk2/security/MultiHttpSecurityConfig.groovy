@@ -22,6 +22,7 @@ class MultiHttpSecurityConfig {
 
 
 
+    /*
     @Configuration
     class JWTWebSecurityConfigurerAdapter extends  WebSecurityConfigurerAdapter{
 
@@ -66,6 +67,55 @@ class MultiHttpSecurityConfig {
 
         }
     }
+    */
+
+    @Configuration
+    class FormWebSecurityConfigurerAdapter extends  WebSecurityConfigurerAdapter {
+
+        @Autowired
+        UserDetailsService userDetailsService
+
+        @Bean
+        PasswordEncoder passwordEncoder() {
+            return new SecurePasswordEncoder()
+        }
 
 
-}
+        @Bean
+        AccessDeniedHandler accessDeniedHandler(){
+            return new CustomAccessDeniedHandler()
+        }
+
+
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder())
+        }
+
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+
+
+            http.cors().and().csrf().disable()
+                    .authorizeRequests()
+
+                    .antMatchers( "/graphql/**").authenticated()
+                    .antMatchers( "/api/**").authenticated()
+                    .antMatchers( "/ping").permitAll()
+                    .and()
+                    .exceptionHandling()
+                    .accessDeniedHandler(accessDeniedHandler())
+                    .and()
+                    .formLogin()
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+
+
+        }
+
+
+    }
+
+
+    }
