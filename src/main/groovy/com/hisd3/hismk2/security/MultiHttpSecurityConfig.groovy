@@ -100,16 +100,18 @@ class MultiHttpSecurityConfig {
             http.cors().and().csrf().disable()
                     .authorizeRequests()
 
-                    .antMatchers( "/graphql/**").authenticated()
-                    .antMatchers( "/api/**").authenticated()
-                    .antMatchers( "/ping").permitAll()
+                        .antMatchers( "/graphql/**").authenticated()
+                        .antMatchers( "/api/**").authenticated()
+                        .antMatchers( "/ping").permitAll()
+                        .antMatchers( "/public/**").permitAll()
                     .and()
                     .exceptionHandling()
-                    .accessDeniedHandler(accessDeniedHandler())
+                        .accessDeniedHandler(accessDeniedHandler())
                     .and()
                     .formLogin()
-                    .usernameParameter("username")
-                    .passwordParameter("password")
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/api")
 
 
         }

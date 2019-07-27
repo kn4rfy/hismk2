@@ -54,8 +54,8 @@ class UserDetailsService implements org.springframework.security.core.userdetail
         def lowercaseLogin = login.toLowerCase()
         def userFromDatabase  = userRepository.findOneByLogin(lowercaseLogin)
 
-        if(userRepository == null)
-            throw UsernameNotFoundException("User $lowercaseLogin was not found in the database")
+        if(userFromDatabase == null)
+            throw new UsernameNotFoundException("User $lowercaseLogin was not found in the database")
 
 
         def grantedAuthorities = [] as Set<GrantedAuthority>
