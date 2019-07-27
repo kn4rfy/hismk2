@@ -1,5 +1,7 @@
-package com.hisd3.hismk2.security
+package com.hisd3.hismk2.config
 
+import com.hisd3.hismk2.security.SecurePasswordEncoder
+import com.hisd3.hismk2.security.UserDetailsService
 import com.hisd3.hismk2.security.filters.JWTAuthenticationFilter
 import com.hisd3.hismk2.security.filters.JWTAuthorizationFilter
 import com.hisd3.hismk2.security.handlers.CustomAccessDeniedHandler
@@ -112,6 +114,8 @@ class MultiHttpSecurityConfig {
                         .usernameParameter("username")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/api")
+                    .and()
+                    .httpBasic()
 
 
         }

@@ -6,4 +6,13 @@ import org.springframework.stereotype.Component
 
 @Component
 class PatientResolver implements GraphQLResolver<Patient> {
+
+    // Just a sample property Resolver for Patient
+    List<String> aliases(Patient patient){
+
+        return ["Apple","Mango","Orange"]
+    }
+
+
+
 }

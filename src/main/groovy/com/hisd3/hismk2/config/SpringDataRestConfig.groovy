@@ -1,6 +1,8 @@
 package com.hisd3.hismk2.config
 
 import com.hisd3.hismk2.domain.Patient
+import com.hisd3.hismk2.resthandler.pms.PatientHandler
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer
@@ -12,5 +14,11 @@ class SpringDataRestConfig implements   RepositoryRestConfigurer {
     void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
 
         config.exposeIdsFor(Patient)
+    }
+
+
+    @Bean
+    PatientHandler patientHandler(){
+        return  new PatientHandler()
     }
 }
