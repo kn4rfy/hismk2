@@ -5,7 +5,6 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.security.HISUser
 import com.hisd3.hismk2.security.SecurityConstants
-import org.apache.commons.io.IOUtils
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication

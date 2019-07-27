@@ -1,8 +1,0 @@
-type Query {
-    version:String
-    ping(payload:String):String
-}
-
-type Mutation {
-
-}

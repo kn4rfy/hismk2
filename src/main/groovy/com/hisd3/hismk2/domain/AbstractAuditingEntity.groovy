@@ -17,16 +17,13 @@ import java.time.Instant
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener)
-abstract class AbstractAuditingEntity {
+class AbstractAuditingEntity {
     @CreatedBy
-    // @NotNull
     @Column(name = "created_by", nullable = false, length = 50, updatable = false)
     @JsonIgnore
     String createdBy
 
     @CreatedDate
-   /* @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime",
-            parameters = [ @Parameter(name = "javaZone", value = "jvm")])*/
     @Column(name = "created_date", nullable = false)
     Instant createdDate
 
@@ -36,8 +33,6 @@ abstract class AbstractAuditingEntity {
     String lastModifiedBy
 
     @LastModifiedDate
-  /*  @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime",
-            parameters = [ @Parameter(name = "javaZone", value = "jvm")])*/
     @Column(name = "last_modified_date")
     @JsonIgnore
     Instant lastModifiedDate
