@@ -103,9 +103,11 @@ class MultiHttpSecurityConfig {
                     .authorizeRequests()
 
                         .antMatchers( "/graphql/**").authenticated()
+                        .antMatchers( "/graphiql/**").authenticated()
                         .antMatchers( "/api/**").authenticated()
                         .antMatchers( "/ping").permitAll()
                         .antMatchers( "/public/**").permitAll()
+                        .antMatchers( "/").permitAll()
                     .and()
                     .exceptionHandling()
                         .accessDeniedHandler(accessDeniedHandler())
@@ -113,7 +115,7 @@ class MultiHttpSecurityConfig {
                     .formLogin()
                         .usernameParameter("username")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/ping")
+                        .defaultSuccessUrl("/graphiql")
                     .and()
                     .httpBasic()
 

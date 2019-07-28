@@ -11,4 +11,9 @@ class CommonResource {
     String ping(){
         "PONG"
     }
+
+    @RequestMapping("/")
+    String index(){
+        "WELCOME TO HISMK2 GraphQL Server."
+    }
 }
