@@ -8,6 +8,7 @@
     <include file="classpath:config/liquibase/changelog/1_albert_schema_and_patients.sql" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/2_albert_auditing.sql" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/3_albert__setpasswords.sql" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/4_albert__patientcases.sql" relativeToChangelogFile="false"/>
 
 
 

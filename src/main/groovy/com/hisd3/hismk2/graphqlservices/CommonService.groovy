@@ -2,9 +2,9 @@ package com.hisd3.hismk2.graphqlservices
 
 import io.leangen.graphql.annotations.GraphQLQuery
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 
-@Service
+@Component
 @GraphQLApi
 class CommonService {
 

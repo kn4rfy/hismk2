@@ -1,5 +1,6 @@
 package com.hisd3.hismk2.domain
 
+import groovy.transform.ToString
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.Formula
 import org.hibernate.annotations.GenericGenerator
@@ -7,8 +8,10 @@ import org.hibernate.annotations.Type
 
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.OneToMany
 import javax.persistence.Table
 import java.time.LocalDateTime
 
@@ -131,6 +134,10 @@ class Patient extends AbstractAuditingEntity {
     @GraphQLQuery
     @Formula("concat(lastname , coalesce(', ' || nullif(firstname,'') , ''), coalesce(' ' || nullif(middlename,'') , ''), coalesce(' ' || nullif(name_suffix,'') , ''))")
     String fullname
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
+    Set<PatientCase> patientCases = [] as Set
 
 
 
