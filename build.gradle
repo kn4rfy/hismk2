@@ -15,6 +15,11 @@ repositories {
 }
 
 dependencies {
+
+	compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-parameter-names', version: '2.9.9'
+	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.9.9'
+	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.9'
+
 	compile group: 'com.graphql-java', name: 'graphiql-spring-boot-starter', version: '5.0.2'
 	compile group: 'io.leangen.graphql', name: 'graphql-spqr-spring-boot-starter', version: '0.0.4'
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'

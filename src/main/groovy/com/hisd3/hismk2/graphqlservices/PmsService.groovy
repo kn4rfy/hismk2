@@ -1,6 +1,7 @@
 package com.hisd3.hismk2.graphqlservices
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.hisd3.hismk2.domain.Patient
 import com.hisd3.hismk2.repository.PatientRepository
 import com.hisd3.hismk2.services.GeneratorService
@@ -30,6 +31,8 @@ class PmsService {
     @Autowired
     GeneratorService generatorService
 
+    @Autowired
+    ObjectMapper objectMapper
 
 
     @GraphQLQuery(name = "patient", description = "Get Patient By Id")
@@ -44,13 +47,14 @@ class PmsService {
                          @GraphQLArgument(name = "fields") Map<String,Object> fields
                                ){
 
-        ObjectMapper mapper = new ObjectMapper()
+
+
 
         if(id){
 
 
             def patient = patientRepository.findById(UUID.fromString(id)).get()
-            mapper.updateValue(patient,fields)
+            objectMapper.updateValue(patient,fields)
 
             patient = patientRepository.save(patient)
 
@@ -58,7 +62,7 @@ class PmsService {
         }
         else {
 
-            def patient =   mapper.convertValue(fields,Patient)
+            def patient =   objectMapper.convertValue(fields,Patient)
             patient.patientNo = generatorService.getNextValue(GeneratorType.PATIENT_NO){ Long no ->
                  StringUtils.leftPad(no.toString(),5,"0")
             }
