@@ -113,7 +113,7 @@ class MultiHttpSecurityConfig {
                     .formLogin()
                         .usernameParameter("username")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/api")
+                        .defaultSuccessUrl("/ping")
                     .and()
                     .httpBasic()
 
