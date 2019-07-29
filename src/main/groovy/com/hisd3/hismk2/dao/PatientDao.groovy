@@ -8,6 +8,7 @@ import io.leangen.graphql.execution.relay.Page
 import io.leangen.graphql.execution.relay.generic.PageFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -35,7 +36,7 @@ class PatientDao {
     }
 
     Page<Patient> getPatientRelayPage(int first, int offset){
-      def pageable=  patientRepository.findAll(new OffsetBasedPageRequest(offset,first))
+      def pageable=  patientRepository.findAll(new OffsetBasedPageRequest(offset,first,new Sort(Sort.Direction.ASC,"patientNo")))
 
         PageFactory.createOffsetBasedPage(pageable.content, pageable.totalElements, offset)
 

@@ -28,12 +28,13 @@ const PATIENTSBYPAGE = gql`
 
     query
     patientPage($first:Int!, $after: String!) {
-        query(first:$first,after:$after){
+        patients:  patientsByPage (first:$first,after:$after){
             edges{
                 node {
                     id
                     lastname
                     firstname
+                    patientNo
                 }
                 cursor
             }
@@ -47,22 +48,22 @@ const PATIENTSBYPAGE = gql`
 
     }
 
-    
+
 `;
 
 
 const  ADDPATIENT = gql`
 
-    
-    
+
+
     mutation ($fields:Map_String_ObjectScalar){
-       upsertPatient(fields: $fields){
-           id
-           lastname
-           firstname
-           patientNo
-       }  
-    } 
+        upsertPatient(fields: $fields){
+            id
+            lastname
+            firstname
+            patientNo
+        }
+    }
 `;
 
 
@@ -70,8 +71,8 @@ class App extends React.Component {
 
 
     state={
-      lastname:'',
-      firstname:''
+        lastname:'',
+        firstname:''
     };
     render() {
 
@@ -125,10 +126,10 @@ class App extends React.Component {
                                     e.preventDefault();
 
                                     addPatient({ variables: { fields: this.state } });
-                                   this.setState({
-                                       lastname:'',
-                                       firstname:''
-                                   })
+                                    this.setState({
+                                        lastname:'',
+                                        firstname:''
+                                    })
                                 }}
                             >
 
@@ -161,31 +162,82 @@ class App extends React.Component {
 
                     <hr/>
                     <h4>Patient List Pagination</h4>
-                    {/*
-            <table border="1">
-                <tbody>
-            <Query query={PatientsQuery}
-                   variables={{ first:3 , after:"0"}}
-               >
-                {({ data , loading, fetchMore }) => {
 
-                    console.log(data)
 
-                    return <tr>
+                    <Query query={PATIENTSBYPAGE}
+                           variables={{ first:3 , after:"0"}}
+                    >
+                        {({ data , loading,error, fetchMore }) => {
 
-                    </tr>
-                }
-                }
-            </Query>
-                </tbody>
-            </table>*/}
+                            if (loading) return  <p>Loading...</p> ;
+                            if (error) return   <p>Error...</p> ;
+                            let patients = data.patients.edges.map((item)=>{ return item.node});
 
-                </ApolloProvider>
 
-            </div>
-        )
+                            let forrender=   patients.map(({ id, lastname, firstname,patientNo }) => (
+                                <tr key={id}>
+                                    <td>{id} </td>
+                                    <td>{lastname} </td>
+                                    <td>{firstname} </td>
+                                    <td>{patientNo}</td>
+                                </tr>
+                            ));
 
-    }
+
+                            return <div>
+                                <table border="1">
+                                    <tbody>
+                                    {forrender}
+                                    </tbody>
+                                </table>
+                                <button type={"button"} onClick={(e)=>{
+
+                                    fetchMore({
+                                        variables: {
+                                            after: data.patients.pageInfo.endCursor
+                                        },
+                                        updateQuery:(previousResult, { fetchMoreResult }) => {
+
+                                            const newEdges = fetchMoreResult.patients.edges;
+                                            const pageInfo = fetchMoreResult.patients.pageInfo;
+
+                                            console.log(pageInfo)
+                                            return newEdges.length
+                                                ? {
+                                                    // Put the new records at the end of the list and update `pageInfo`
+                                                    // so we have the new `endCursor` and `hasNextPage` values
+                                                    patients: {
+                                                        __typename: previousResult.patients.__typename,
+                                                        edges: [...previousResult.patients.edges, ...newEdges],
+                                                        pageInfo
+                                                    }
+                                                }
+                                                : previousResult;
+
+                                        }
+                                    })
+                                }
+                                }>Load More</button>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+
+                                    </div>
+
+                                }
+                                }
+
+
+                            </Query>
+                        </ApolloProvider>
+                        </div>
+                        )
+        }
 }
 
 export default App;
