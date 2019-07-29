@@ -102,9 +102,9 @@ class MultiHttpSecurityConfig {
             http.cors().and().csrf().disable()
                     .authorizeRequests()
 
-                        .antMatchers( "/graphql/**").authenticated()
-                        .antMatchers( "/graphiql/**").authenticated()
-                        .antMatchers( "/api/**").authenticated()
+                        .antMatchers( "/graphql/**").permitAll()
+                        .antMatchers( "/graphiql/**").permitAll()
+                        .antMatchers( "/api/**").permitAll()
                         .antMatchers( "/ping").permitAll()
                         .antMatchers( "/public/**").permitAll()
                         .antMatchers( "/").permitAll()
