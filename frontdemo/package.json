@@ -2,8 +2,12 @@
   "name": "frontdemo",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
+    "apollo-boost": "^0.4.3",
+    "graphql": "^14.4.2",
     "react": "^16.8.6",
+    "react-apollo": "^2.5.8",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1"
   },
