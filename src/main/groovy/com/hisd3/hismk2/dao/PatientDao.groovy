@@ -7,7 +7,6 @@ import com.hisd3.hismk2.utils.OffsetBasedPageRequest
 import io.leangen.graphql.execution.relay.Page
 import io.leangen.graphql.execution.relay.generic.PageFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
