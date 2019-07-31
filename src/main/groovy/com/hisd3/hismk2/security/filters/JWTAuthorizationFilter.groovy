@@ -14,7 +14,7 @@ import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JWTAuthorizationFilter extends  BasicAuthenticationFilter{
+class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     JWTAuthorizationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager)
     }
@@ -33,7 +33,7 @@ class JWTAuthorizationFilter extends  BasicAuthenticationFilter{
             def authentication = getAuthentication(request)
             SecurityContextHolder.getContext().authentication = authentication
         }
-        catch (Exception e){
+        catch (Exception e) {
             // response.sendError(403,e.message)
             //  throw  RuntimeException(e)
         }
@@ -52,19 +52,17 @@ class JWTAuthorizationFilter extends  BasicAuthenticationFilter{
 
 
             def user = parsed.subject
-            def authorities =parsed.getClaim("roles")
-            def granted= (authorities as String[]).collect {
+            def authorities = parsed.getClaim("roles")
+            def granted = (authorities as String[]).collect {
                 new SimpleGrantedAuthority(it)
             }
 
 
-
-              if (user != null) {
-               return new   UsernamePasswordAuthenticationToken(user, null,granted )
-            } else  return null
+            if (user != null) {
+                return new UsernamePasswordAuthenticationToken(user, null, granted)
+            } else return null
 
         }
-
 
 
         return null

@@ -1,26 +1,18 @@
 package com.hisd3.hismk2.domain
 
-import groovy.transform.ToString
+
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.NotFound
 import org.hibernate.annotations.NotFoundAction
 import org.hibernate.annotations.Type
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
-import javax.persistence.Table
+import javax.persistence.*
 import java.time.LocalDateTime
-
 
 @Entity
 @Table(schema = "pms", name = "patient_cases")
-class PatientCase extends AbstractAuditingEntity{
+class PatientCase extends AbstractAuditingEntity {
 
     @GraphQLQuery
     @Id
@@ -30,11 +22,10 @@ class PatientCase extends AbstractAuditingEntity{
     @Type(type = "pg-uuid")
     UUID id
 
-
     @NotFound(action = NotFoundAction.IGNORE)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient", referencedColumnName = "id")
-    Patient  patient
+    Patient patient
 
     @GraphQLQuery
     @Column(name = "case_no", columnDefinition = "varchar")
@@ -47,7 +38,6 @@ class PatientCase extends AbstractAuditingEntity{
     @GraphQLQuery
     @Column(name = "accomodation_type", columnDefinition = "varchar")
     String accomodationType
-
 
     @GraphQLQuery
     @Column(name = "registry_type", columnDefinition = "varchar")
@@ -64,7 +54,6 @@ class PatientCase extends AbstractAuditingEntity{
     @GraphQLQuery
     @Column(name = "maygohome_datetime", columnDefinition = "timestamp")
     LocalDateTime maygohome_datetime
-
 
     @GraphQLQuery
     @Column(name = "admitting_diagnosis", columnDefinition = "varchar")
@@ -103,10 +92,7 @@ class PatientCase extends AbstractAuditingEntity{
     @Column(name = "case_informant_relation", columnDefinition = "varchar")
     String caseInformantRelation
 
-
     @GraphQLQuery
     @Column(name = "case_informant_address", columnDefinition = "varchar")
     String caseInformantAddress
-
-
 }

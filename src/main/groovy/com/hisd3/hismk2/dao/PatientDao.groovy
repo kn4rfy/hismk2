@@ -26,22 +26,22 @@ class PatientDao {
     @PersistenceContext
     EntityManager entityManager
 
-    List<Patient> getAllPatients(){
+    List<Patient> getAllPatients() {
         return patientRepository.findAll()
     }
 
-    Patient findById(String id){
+    Patient findById(String id) {
         return patientRepository.findById(UUID.fromString(id)).get()
     }
 
-    Page<Patient> getPatientRelayPage(int first, int offset){
-      def pageable=  patientRepository.findAll(new OffsetBasedPageRequest(offset,first,new Sort(Sort.Direction.ASC,"patientNo")))
+    Page<Patient> getPatientRelayPage(int first, int offset) {
+        def pageable = patientRepository.findAll(new OffsetBasedPageRequest(offset, first, new Sort(Sort.Direction.ASC, "patientNo")))
 
         PageFactory.createOffsetBasedPage(pageable.content, pageable.totalElements, offset)
 
     }
 
-    Set<PatientCase> getPatientCases(Patient patient){
+    Set<PatientCase> getPatientCases(Patient patient) {
 
         def epatient = entityManager.merge(patient)
         epatient.patientCases.size()
@@ -49,7 +49,7 @@ class PatientDao {
     }
 
 
-    Patient save(Patient patient){
+    Patient save(Patient patient) {
         patientRepository.save(patient)
     }
 

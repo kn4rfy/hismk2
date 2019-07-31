@@ -1,26 +1,12 @@
 package com.hisd3.hismk2.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import org.hibernate.annotations.Type
 
-import javax.persistence.CascadeType
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.JoinTable
-import javax.persistence.ManyToMany
-import javax.persistence.OneToMany
-import javax.persistence.Table
-import javax.persistence.Transient
+import javax.persistence.*
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 import java.time.LocalDateTime
-
 
 @Entity
 @Table(name = "T_USER")
@@ -47,7 +33,7 @@ class User {
 
     @Size(max = 50)
     @Column(name = "last_name", length = 50)
-    String lastName 
+    String lastName
 
     @Email
     @Size(max = 100)
@@ -71,14 +57,14 @@ class User {
     String resetKey
 
 
-   // @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    // @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "reset_date", nullable = true)
     LocalDateTime resetDate
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinTable(name = "T_USER_AUTHORITY",
-            joinColumns = [ @JoinColumn(name = "user_id", referencedColumnName = "id")],
+            joinColumns = [@JoinColumn(name = "user_id", referencedColumnName = "id")],
             inverseJoinColumns = [@JoinColumn(name = "authority_name", referencedColumnName = "name")])
     Set<Authority> authorities = []
 
@@ -89,7 +75,7 @@ class User {
 
 
     @Transient
-    List<String> getRoles(){
+    List<String> getRoles() {
 
         def roles = []
         if (authorities != null)

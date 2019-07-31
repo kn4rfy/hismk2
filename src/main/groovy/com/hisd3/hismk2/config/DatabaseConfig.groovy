@@ -18,12 +18,12 @@ import javax.sql.DataSource
 
 @Configuration
 @EnableJpaRepositories("com.hisd3.hismk2.repository")
-@EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware" )
+@EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @EnableTransactionManagement
-class DatabaseConfig implements EnvironmentAware{
+class DatabaseConfig implements EnvironmentAware {
 
     private def log = LoggerFactory.getLogger(DatabaseConfig)
-    private def Environment env
+    private Environment env
 
     @Override
     void setEnvironment(Environment environment) {
@@ -31,12 +31,12 @@ class DatabaseConfig implements EnvironmentAware{
     }
 
     @Bean(destroyMethod = "close")
-    DataSource dataSource(){
+    DataSource dataSource() {
 
         log.debug("Configuring Datasource")
         println("Configuring Datasource")
 
-        if (env.containsProperty("spring.datasource.url")   && env.containsProperty("spring.datasource.databaseName")  ) {
+        if (env.containsProperty("spring.datasource.url") && env.containsProperty("spring.datasource.databaseName")) {
             log.error("Your database connection pool configuration is incorrect! The application" + " cannot start. Please check your Spring profile, current profiles are: {}",
                     Arrays.toString(env.activeProfiles))
 
@@ -45,9 +45,8 @@ class DatabaseConfig implements EnvironmentAware{
         }
 
 
-
         println("Configuring HikariConfig")
-        def config = new  HikariConfig()
+        def config = new HikariConfig()
         config.dataSourceClassName = env.getProperty("spring.datasource.dataSourceClassName")
         if (StringUtils.isEmpty(env.getProperty("spring.datasource.url"))) {
             config.addDataSourceProperty("databaseName", env.getProperty("spring.datasource.databaseName"))
@@ -63,8 +62,8 @@ class DatabaseConfig implements EnvironmentAware{
     }
 
     @Bean
-    SpringLiquibase liquibase(DataSource dataSource )  {
-        def liquibase = new  SpringLiquibase()
+    SpringLiquibase liquibase(DataSource dataSource) {
+        def liquibase = new SpringLiquibase()
         liquibase.dataSource = dataSource
         liquibase.changeLog = "classpath:config/liquibase/master.xml"
         liquibase.contexts = env.getProperty("liquiBase.context")
@@ -73,7 +72,6 @@ class DatabaseConfig implements EnvironmentAware{
         println("Configuring Liquibase")
         return liquibase
     }
-
 
 
 }

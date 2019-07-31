@@ -41,8 +41,8 @@ class PersistentToken {
     @Column(name = "user_agent")
     String userAgent
 
-    void setUserAgent(String value){
-        if (userAgent!=null && userAgent.size() >= MAX_USER_AGENT_LEN) {
+    void setUserAgent(String value) {
+        if (userAgent != null && userAgent.size() >= MAX_USER_AGENT_LEN) {
             userAgent = userAgent?.substring(0, MAX_USER_AGENT_LEN - 1)
         } else {
             userAgent = userAgent
@@ -74,7 +74,6 @@ class PersistentToken {
 
         return true
     }*/
-
 
 
 }

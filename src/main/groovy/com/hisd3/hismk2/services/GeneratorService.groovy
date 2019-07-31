@@ -5,49 +5,49 @@ import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Service
 
 
-enum  GeneratorType {
+enum GeneratorType {
 
     PATIENT_NO
 }
+
 @Service
 class GeneratorService {
 
 
     @Autowired
-     JdbcTemplate jdbcTemplate
+    JdbcTemplate jdbcTemplate
 
-    void initGenerator(GeneratorType type){
+    void initGenerator(GeneratorType type) {
 
         def name = type.name().toLowerCase()
         def count = jdbcTemplate.queryForObject(" SELECT count(*) FROM pg_class where relkind='S' and relname = ? ",
-                Long ,
-        name + "_gen"
+                Long,
+                name + "_gen"
         )
 
 
-        if(!count){
+        if (!count) {
 
             try {
                 jdbcTemplate.execute(" CREATE SEQUENCE " + (name + "_gen") + " INCREMENT 1  MINVALUE 1 START 1 ")
-            } catch (Exception e ) {
+            } catch (Exception e) {
                 e.printStackTrace()
             }
 
         }
 
 
-
     }
 
 
-    Long getCurrentValue(GeneratorType type){
+    Long getCurrentValue(GeneratorType type) {
         initGenerator(type)
         def name = type.name().toLowerCase()
 
         return jdbcTemplate.queryForObject(" SELECT last_value FROM  ${name}_gen", Long) as Long
     }
 
-    String getNextValue(GeneratorType type){
+    String getNextValue(GeneratorType type) {
         initGenerator(type)
 
         def name = type.name().toLowerCase()
@@ -57,7 +57,7 @@ class GeneratorService {
     }
 
 
-    Long getNextValueLong(GeneratorType type){
+    Long getNextValueLong(GeneratorType type) {
         initGenerator(type)
 
         def name = type.name().toLowerCase()
@@ -66,12 +66,12 @@ class GeneratorService {
         return nextVal
     }
 
-    String getNextValue(GeneratorType type, Closure closure){
+    String getNextValue(GeneratorType type, Closure closure) {
 
         initGenerator(type)
 
         def name = type.name().toLowerCase()
-        def nextVal = jdbcTemplate.queryForObject(" select nextval('" + (name + "_gen") + "')",Long ) as Long
+        def nextVal = jdbcTemplate.queryForObject(" select nextval('" + (name + "_gen") + "')", Long) as Long
         return closure(nextVal)
     }
 

@@ -13,7 +13,7 @@ interface PatientRepository extends JpaRepository<Patient, UUID> {
     @Query(value = """
     Select p from Patient p where lowercase(p.fullname) like concat('%',:filter,'%')
      """,
-    countQuery =  """
+            countQuery = """
     Select count(p) from Patient p where lowercase(p.fullname) like concat('%',:filter,'%')
      """)
     Page<Patient> getPatients(@Param("filter") String filter, Pageable pageable)

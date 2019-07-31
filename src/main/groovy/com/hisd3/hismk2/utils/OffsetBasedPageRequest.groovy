@@ -16,16 +16,16 @@ class OffsetBasedPageRequest implements Pageable, Serializable {
      * Creates a new {@link OffsetBasedPageRequest} with sort parameters applied.
      *
      * @param offset zero-based offset.
-     * @param limit  the size of the elements to be returned.
-     * @param sort   can be {@literal null}.
+     * @param limit the size of the elements to be returned.
+     * @param sort can be {@literal null}.
      */
-     OffsetBasedPageRequest(int offset, int limit, Sort sort) {
+    OffsetBasedPageRequest(int offset, int limit, Sort sort) {
         if (offset < 0) {
-            throw new IllegalArgumentException("Offset index must not be less than zero!");
+            throw new IllegalArgumentException("Offset index must not be less than zero!")
         }
 
         if (limit < 1) {
-            throw new IllegalArgumentException("Limit must not be less than one!");
+            throw new IllegalArgumentException("Limit must not be less than one!")
         }
         this.limit = limit
         this.offset = offset
@@ -35,77 +35,77 @@ class OffsetBasedPageRequest implements Pageable, Serializable {
     /**
      * Creates a new {@link OffsetBasedPageRequest} with sort parameters applied.
      *
-     * @param offset     zero-based offset.
-     * @param limit      the size of the elements to be returned.
-     * @param direction  the direction of the {@link Sort} to be specified, can be {@literal null}.
+     * @param offset zero-based offset.
+     * @param limit the size of the elements to be returned.
+     * @param direction the direction of the {@link Sort} to be specified, can be {@literal null}.
      * @param properties the properties to sort by, must not be {@literal null} or empty.
      */
-     OffsetBasedPageRequest(int offset, int limit, Sort.Direction direction, String... properties) {
-        this(offset, limit, new Sort(direction, properties));
+    OffsetBasedPageRequest(int offset, int limit, Sort.Direction direction, String... properties) {
+        this(offset, limit, new Sort(direction, properties))
     }
 
     /**
      * Creates a new {@link OffsetBasedPageRequest} with sort parameters applied.
      *
      * @param offset zero-based offset.
-     * @param limit  the size of the elements to be returned.
+     * @param limit the size of the elements to be returned.
      */
-     OffsetBasedPageRequest(int offset, int limit) {
-        this(offset, limit, new Sort(Sort.Direction.ASC,"id"));
+    OffsetBasedPageRequest(int offset, int limit) {
+        this(offset, limit, new Sort(Sort.Direction.ASC, "id"))
     }
 
     @Override
-     int getPageNumber() {
+    int getPageNumber() {
         return offset / limit
     }
 
     @Override
-     int getPageSize() {
+    int getPageSize() {
         return limit
     }
 
     @Override
-     long getOffset() {
+    long getOffset() {
         return offset
     }
 
     @Override
-     Sort getSort() {
+    Sort getSort() {
         return sort
     }
 
     @Override
-     Pageable next() {
-        return new OffsetBasedPageRequest(getOffset() + getPageSize(), getPageSize(), getSort());
+    Pageable next() {
+        return new OffsetBasedPageRequest(getOffset() + getPageSize(), getPageSize(), getSort())
     }
 
-     OffsetBasedPageRequest previous() {
-        return hasPrevious() ? new OffsetBasedPageRequest(getOffset() - getPageSize(), getPageSize(), getSort()) : this;
+    OffsetBasedPageRequest previous() {
+        return hasPrevious() ? new OffsetBasedPageRequest(getOffset() - getPageSize(), getPageSize(), getSort()) : this
     }
 
 
     @Override
-     Pageable previousOrFirst() {
-        return hasPrevious() ? previous() : first();
+    Pageable previousOrFirst() {
+        return hasPrevious() ? previous() : first()
     }
 
     @Override
-     Pageable first() {
-        return new OffsetBasedPageRequest(0, getPageSize(), getSort());
+    Pageable first() {
+        return new OffsetBasedPageRequest(0, getPageSize(), getSort())
     }
 
     @Override
-     boolean hasPrevious() {
+    boolean hasPrevious() {
         return offset > limit
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
+    boolean equals(Object o) {
+        if (this == o) return true
 
-        if (!(o instanceof OffsetBasedPageRequest)) return false;
+        if (!(o instanceof OffsetBasedPageRequest)) return false
 
-        OffsetBasedPageRequest that = (OffsetBasedPageRequest) o;
+        OffsetBasedPageRequest that = (OffsetBasedPageRequest) o
 
         return new EqualsBuilder()
                 .append(limit, that.limit)
@@ -115,7 +115,7 @@ class OffsetBasedPageRequest implements Pageable, Serializable {
     }
 
     @Override
-     int hashCode() {
+    int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(limit)
                 .append(offset)
@@ -124,7 +124,7 @@ class OffsetBasedPageRequest implements Pageable, Serializable {
     }
 
     @Override
-     String toString() {
+    String toString() {
         return new ToStringBuilder(this)
                 .append("limit", limit)
                 .append("offset", offset)

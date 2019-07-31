@@ -5,7 +5,7 @@ import com.hisd3.hismk2.security.SecurePasswordEncoder
 class PasswordEncoderApp {
 
 
-    static void main(String []args){
+    static void main(String[] args) {
 
         println("Enter desired password")
         def password = System.in.newReader().readLine()

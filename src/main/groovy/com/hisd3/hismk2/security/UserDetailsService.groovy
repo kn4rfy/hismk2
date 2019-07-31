@@ -1,6 +1,6 @@
 package com.hisd3.hismk2.security
 
-import com.hisd3.hismk2.domain.User
+
 import com.hisd3.hismk2.repository.UserRepository
 import org.apache.commons.lang3.StringUtils
 import org.slf4j.LoggerFactory
@@ -9,7 +9,6 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
-import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -31,7 +30,7 @@ class UserDetailsService implements org.springframework.security.core.userdetail
         this.request = request
     }
 
-    String getClientIp()  {
+    String getClientIp() {
 
         String remoteAddr = ""
 
@@ -46,15 +45,14 @@ class UserDetailsService implements org.springframework.security.core.userdetail
     }
 
 
-
     @Override
     UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         log.info("Authenticating {} from IP {}", login, getClientIp())
 
         def lowercaseLogin = login.toLowerCase()
-        def userFromDatabase  = userRepository.findOneByLogin(lowercaseLogin)
+        def userFromDatabase = userRepository.findOneByLogin(lowercaseLogin)
 
-        if(userFromDatabase == null)
+        if (userFromDatabase == null)
             throw new UsernameNotFoundException("User $lowercaseLogin was not found in the database")
 
 
@@ -68,7 +66,7 @@ class UserDetailsService implements org.springframework.security.core.userdetail
                     if (StringUtils.equals(authority?.name, "ROLE_USER"))
                         hasROLE_USER = true
 
-                    def grantedAuthority = new  SimpleGrantedAuthority(authority?.name)
+                    def grantedAuthority = new SimpleGrantedAuthority(authority?.name)
                     grantedAuthorities.add(grantedAuthority)
             }
 
@@ -78,16 +76,15 @@ class UserDetailsService implements org.springframework.security.core.userdetail
         // all user should be a ROLE_USER
         if (!hasROLE_USER) {
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"))
-            if(userFromDatabase.id==null)
-            {
-                grantedAuthorities.add( new SimpleGrantedAuthority("ROLE_PATIENT"))
+            if (userFromDatabase.id == null) {
+                grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_PATIENT"))
             }
         }
 
 
         return new HISUser(
                 login,
-                userFromDatabase.password?:"",
+                userFromDatabase.password ?: "",
                 grantedAuthorities,
                 true,
                 true,

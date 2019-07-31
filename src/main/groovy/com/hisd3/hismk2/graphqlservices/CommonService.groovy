@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 class CommonService {
 
     @GraphQLQuery
-    String version(){
+    String version() {
         return "1.0.0"
     }
 }

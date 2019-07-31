@@ -140,5 +140,4 @@ class Patient extends AbstractAuditingEntity {
     Set<PatientCase> patientCases = [] as Set
 
 
-
 }

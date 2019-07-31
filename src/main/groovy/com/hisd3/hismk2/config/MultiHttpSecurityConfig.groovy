@@ -2,8 +2,6 @@ package com.hisd3.hismk2.config
 
 import com.hisd3.hismk2.security.SecurePasswordEncoder
 import com.hisd3.hismk2.security.UserDetailsService
-import com.hisd3.hismk2.security.filters.JWTAuthenticationFilter
-import com.hisd3.hismk2.security.filters.JWTAuthorizationFilter
 import com.hisd3.hismk2.security.handlers.CustomAccessDeniedHandler
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -13,15 +11,12 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.access.AccessDeniedHandler
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 class MultiHttpSecurityConfig {
-
-
 
 
     /*
@@ -72,7 +67,7 @@ class MultiHttpSecurityConfig {
     */
 
     @Configuration
-    class FormWebSecurityConfigurerAdapter extends  WebSecurityConfigurerAdapter {
+    class FormWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
         @Autowired
         UserDetailsService userDetailsService
@@ -84,7 +79,7 @@ class MultiHttpSecurityConfig {
 
 
         @Bean
-        AccessDeniedHandler accessDeniedHandler(){
+        AccessDeniedHandler accessDeniedHandler() {
             return new CustomAccessDeniedHandler()
         }
 
@@ -102,20 +97,20 @@ class MultiHttpSecurityConfig {
             http.cors().and().csrf().disable()
                     .authorizeRequests()
 
-                        .antMatchers( "/graphql/**").permitAll()
-                        .antMatchers( "/graphiql/**").permitAll()
-                        .antMatchers( "/api/**").permitAll()
-                        .antMatchers( "/ping").permitAll()
-                        .antMatchers( "/public/**").permitAll()
-                        .antMatchers( "/").permitAll()
+                    .antMatchers("/graphql/**").permitAll()
+                    .antMatchers("/graphiql/**").permitAll()
+                    .antMatchers("/api/**").permitAll()
+                    .antMatchers("/ping").permitAll()
+                    .antMatchers("/public/**").permitAll()
+                    .antMatchers("/").permitAll()
                     .and()
                     .exceptionHandling()
-                        .accessDeniedHandler(accessDeniedHandler())
+                    .accessDeniedHandler(accessDeniedHandler())
                     .and()
                     .formLogin()
-                        .usernameParameter("username")
-                        .passwordParameter("password")
-                        .defaultSuccessUrl("/graphiql")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .defaultSuccessUrl("/graphiql")
                     .and()
                     .httpBasic()
 
@@ -126,4 +121,4 @@ class MultiHttpSecurityConfig {
     }
 
 
-    }
+}

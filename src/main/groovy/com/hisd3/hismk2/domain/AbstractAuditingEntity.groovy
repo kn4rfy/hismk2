@@ -1,8 +1,6 @@
 package com.hisd3.hismk2.domain
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import org.hibernate.annotations.Parameter
-import org.hibernate.annotations.Type
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
@@ -12,7 +10,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import javax.persistence.Column
 import javax.persistence.EntityListeners
 import javax.persistence.MappedSuperclass
-import java.sql.Date
 import java.time.Instant
 
 @MappedSuperclass
