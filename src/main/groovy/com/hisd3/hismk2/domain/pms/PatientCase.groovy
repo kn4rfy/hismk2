@@ -96,9 +96,9 @@ class PatientCase extends AbstractAuditingEntity {
 	@Column(name = "case_informant_address", columnDefinition = "varchar")
 	String caseInformantAddress
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient_case")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patientCase")
 	Set<NurseNote> nurseNotes = [] as Set
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient_case")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patientCase")
 	Set<VitalSign> vitalSigns = [] as Set
 }
