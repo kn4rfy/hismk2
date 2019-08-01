@@ -10,6 +10,6 @@ interface NurseNoteRepository extends JpaRepository<NurseNote, UUID> {
     @Query(value = "Select nn from NurseNote nn")
     List<NurseNote> getNurseNotes()
 
-    @Query(value = "Select nn from NurseNote nn where pvs.patientCase = :patientCase")
+    @Query(value = "Select nn from NurseNote nn where nn.patientCase = :patientCase")
     List<NurseNote> getNurseNotesByCase(@Param("patientCase") String patientCase)
 }
