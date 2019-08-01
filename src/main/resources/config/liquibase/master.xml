@@ -22,5 +22,7 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/10_ace_patient_names_update.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/11_ace_patient_intake_table_rename.sql"
+             relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
