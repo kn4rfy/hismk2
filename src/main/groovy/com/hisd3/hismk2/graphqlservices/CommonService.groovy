@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component
 @Component
 @GraphQLApi
 class CommonService {
-
-    @GraphQLQuery
-    String version() {
-        return "1.0.0"
-    }
+	
+	@GraphQLQuery
+	String version() {
+		return "1.0.0"
+	}
 }
