@@ -37,8 +37,8 @@ class PatientCase extends AbstractAuditingEntity {
 	String serviceType
 	
 	@GraphQLQuery
-	@Column(name = "accomodation_type", columnDefinition = "varchar")
-	String accomodationType
+	@Column(name = "accommodation_type", columnDefinition = "varchar")
+	String accommodationType
 	
 	@GraphQLQuery
 	@Column(name = "registry_type", columnDefinition = "varchar")
@@ -46,15 +46,15 @@ class PatientCase extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
-	LocalDateTime entryDatetime
+	LocalDateTime entryDateTime
 	
 	@GraphQLQuery
 	@Column(name = "discharged_datetime", columnDefinition = "timestamp")
-	LocalDateTime discharged_datetime
+	LocalDateTime dischargedDateTime
 	
 	@GraphQLQuery
-	@Column(name = "maygohome_datetime", columnDefinition = "timestamp")
-	LocalDateTime maygohome_datetime
+	@Column(name = "may_go_home_datetime", columnDefinition = "timestamp")
+	LocalDateTime mayGoHomeDateTime
 	
 	@GraphQLQuery
 	@Column(name = "admitting_diagnosis", columnDefinition = "varchar")
@@ -73,12 +73,12 @@ class PatientCase extends AbstractAuditingEntity {
 	String pertinentMedicalHistory
 	
 	@GraphQLQuery
-	@Column(name = "preop_diagnosis", columnDefinition = "varchar")
-	String preopDiagnosis
+	@Column(name = "pre_op_diagnosis", columnDefinition = "varchar")
+	String preOpDiagnosis
 	
 	@GraphQLQuery
-	@Column(name = "postop_diagnosis", columnDefinition = "varchar")
-	String postopDiagnosis
+	@Column(name = "post_op_diagnosis", columnDefinition = "varchar")
+	String postOpDiagnosis
 	
 	@GraphQLQuery
 	@Column(name = "surgical_procedure", columnDefinition = "varchar")

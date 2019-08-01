@@ -11,7 +11,7 @@ import javax.persistence.*
 import java.time.LocalDateTime
 
 @Entity
-@Table(schema = "pms", name = "patient_vitalsigns")
+@Table(schema = "pms", name = "patient_vital_signs")
 class Vitalsign extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
@@ -53,5 +53,5 @@ class Vitalsign extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
-	LocalDateTime entryDatetime
+	LocalDateTime entryDateTime
 }
