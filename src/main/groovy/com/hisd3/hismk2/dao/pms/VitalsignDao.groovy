@@ -1,7 +1,7 @@
-package com.hisd3.hismk2.dao.patientDao
+package com.hisd3.hismk2.dao.pms
 
-import com.hisd3.hismk2.domain.patientDom.Vitalsign
-import com.hisd3.hismk2.repository.patientRepo.VitalsignRepository
+import com.hisd3.hismk2.domain.pms.Vitalsign
+import com.hisd3.hismk2.repository.pms.VitalsignRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -19,7 +19,7 @@ class VitalsignDao {
 	@PersistenceContext
 	EntityManager entityManager
 	
-	List<Vitalsign> getVitalsignsByCase(String patientCase) {
+	List<Vitalsign> getVitalsignsByPatientCase(String patientCase) {
 		return vitalsignRepository.getVitalsignsByCase(patientCase)
 	}
 	

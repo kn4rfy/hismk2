@@ -1,6 +1,6 @@
-package com.hisd3.hismk2.repository
+package com.hisd3.hismk2.repository.pms
 
-import com.hisd3.hismk2.domain.Patient
+import com.hisd3.hismk2.domain.pms.Patient
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository

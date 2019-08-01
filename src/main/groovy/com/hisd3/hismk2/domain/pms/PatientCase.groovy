@@ -1,5 +1,7 @@
-package com.hisd3.hismk2.domain
+package com.hisd3.hismk2.domain.pms
 
+import com.hisd3.hismk2.domain.AbstractAuditingEntity
+import com.hisd3.hismk2.domain.pms.Patient
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.NotFound

@@ -1,8 +1,8 @@
-package com.hisd3.hismk2.dao
+package com.hisd3.hismk2.dao.pms
 
-import com.hisd3.hismk2.domain.Patient
-import com.hisd3.hismk2.domain.PatientCase
-import com.hisd3.hismk2.repository.PatientRepository
+import com.hisd3.hismk2.domain.pms.Patient
+import com.hisd3.hismk2.domain.pms.PatientCase
+import com.hisd3.hismk2.repository.pms.PatientRepository
 import com.hisd3.hismk2.utils.OffsetBasedPageRequest
 import io.leangen.graphql.execution.relay.Page
 import io.leangen.graphql.execution.relay.generic.PageFactory

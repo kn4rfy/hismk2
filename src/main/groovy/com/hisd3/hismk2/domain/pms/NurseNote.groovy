@@ -1,7 +1,6 @@
-package com.hisd3.hismk2.domain.patientDom
+package com.hisd3.hismk2.domain.pms
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
-import com.hisd3.hismk2.domain.PatientCase
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.NotFound
@@ -12,8 +11,8 @@ import javax.persistence.*
 import java.time.LocalDateTime
 
 @Entity
-@Table(schema = "pms", name = "patient_vitalsigns")
-class Vitalsign extends AbstractAuditingEntity {
+@Table(schema = "pms", name = "patient_nurse_notes")
+class NurseNote extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Id
@@ -29,28 +28,20 @@ class Vitalsign extends AbstractAuditingEntity {
 	PatientCase patientCase
 	
 	@GraphQLQuery
-	@Column(name = "systolic", columnDefinition = "varchar")
-	String systolic
+	@Column(name = "focus", columnDefinition = "varchar")
+	String focus
 	
 	@GraphQLQuery
-	@Column(name = "diastolic", columnDefinition = "varchar")
-	String diastolic
+	@Column(name = "data", columnDefinition = "varchar")
+	String data
 	
 	@GraphQLQuery
-	@Column(name = "temperature", columnDefinition = "varchar")
-	String temperature
+	@Column(name = "action", columnDefinition = "varchar")
+	String action
 	
 	@GraphQLQuery
-	@Column(name = "pulse_rate", columnDefinition = "varchar")
-	String pulseRate
-	
-	@GraphQLQuery
-	@Column(name = "respiratory_rate", columnDefinition = "varchar")
-	String respiratoryRate
-	
-	@GraphQLQuery
-	@Column(name = "oxygen_saturation", columnDefinition = "varchar")
-	String oxygenSaturation
+	@Column(name = "response", columnDefinition = "varchar")
+	String response
 	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")

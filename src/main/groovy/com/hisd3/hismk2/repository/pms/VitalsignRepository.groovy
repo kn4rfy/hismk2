@@ -1,6 +1,6 @@
-package com.hisd3.hismk2.repository.patientRepo
+package com.hisd3.hismk2.repository.pms
 
-import com.hisd3.hismk2.domain.patientDom.Vitalsign
+import com.hisd3.hismk2.domain.pms.Vitalsign
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
@@ -11,6 +11,6 @@ interface VitalsignRepository extends JpaRepository<Vitalsign, UUID> {
 	List<Vitalsign> getVitalsigns()
 	
 	@Query(value = "Select pvs from Vitalsign pvs where pvs.patientCase = :patientCase")
-	List<Vitalsign> getVitalsignsByCase(@Param("patientCase") String patientCase)
+	List<Vitalsign> getVitalsignsByPatientCase(@Param("patientCase") String patientCase)
 	
 }

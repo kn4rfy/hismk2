@@ -1,9 +1,9 @@
-package com.hisd3.hismk2.graphqlservices
+package com.hisd3.hismk2.graphqlservices.pms
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.hisd3.hismk2.dao.PatientDao
-import com.hisd3.hismk2.domain.Patient
-import com.hisd3.hismk2.domain.PatientCase
+import com.hisd3.hismk2.dao.pms.PatientDao
+import com.hisd3.hismk2.domain.pms.Patient
+import com.hisd3.hismk2.domain.pms.PatientCase
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
 import io.leangen.graphql.annotations.GraphQLArgument
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component
 
 @Component
 @GraphQLApi
-class PmsService {
+class PatientService {
 	
 	@Autowired
 	PatientDao patientDao
