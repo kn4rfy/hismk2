@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 class CustomAccessDeniedHandler implements AccessDeniedHandler {
-    @Override
-    void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        response.sendError(401, accessDeniedException.message)
-    }
+	@Override
+	void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+		response.sendError(401, accessDeniedException.message)
+	}
 }

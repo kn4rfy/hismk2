@@ -15,22 +15,22 @@ import java.time.Instant
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener)
 class AbstractAuditingEntity {
-    @CreatedBy
-    @Column(name = "created_by", nullable = false, length = 50, updatable = false)
-    @JsonIgnore
-    String createdBy
-
-    @CreatedDate
-    @Column(name = "created_date", nullable = false)
-    Instant createdDate
-
-    @LastModifiedBy
-    @Column(name = "last_modified_by", length = 50)
-    @JsonIgnore
-    String lastModifiedBy
-
-    @LastModifiedDate
-    @Column(name = "last_modified_date")
-    @JsonIgnore
-    Instant lastModifiedDate
+	@CreatedBy
+	@Column(name = "created_by", nullable = false, length = 50, updatable = false)
+	@JsonIgnore
+	String createdBy
+	
+	@CreatedDate
+	@Column(name = "created_date", nullable = false)
+	Instant createdDate
+	
+	@LastModifiedBy
+	@Column(name = "last_modified_by", length = 50)
+	@JsonIgnore
+	String lastModifiedBy
+	
+	@LastModifiedDate
+	@Column(name = "last_modified_date")
+	@JsonIgnore
+	Instant lastModifiedDate
 }

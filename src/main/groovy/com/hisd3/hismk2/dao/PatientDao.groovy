@@ -14,44 +14,40 @@ import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
-
 @Service
 @Transactional
 class PatientDao {
-
-    @Autowired
-    private PatientRepository patientRepository
-
-
-    @PersistenceContext
-    EntityManager entityManager
-
-    List<Patient> getAllPatients() {
-        return patientRepository.findAll()
-    }
-
-    Patient findById(String id) {
-        return patientRepository.findById(UUID.fromString(id)).get()
-    }
-
-    Page<Patient> getPatientRelayPage(int first, int offset) {
-        def pageable = patientRepository.findAll(new OffsetBasedPageRequest(offset, first, new Sort(Sort.Direction.ASC, "patientNo")))
-
-        PageFactory.createOffsetBasedPage(pageable.content, pageable.totalElements, offset)
-
-    }
-
-    Set<PatientCase> getPatientCases(Patient patient) {
-
-        def epatient = entityManager.merge(patient)
-        epatient.patientCases.size()
-        return epatient.patientCases as Set
-    }
-
-
-    Patient save(Patient patient) {
-        patientRepository.save(patient)
-    }
-
-
+	
+	@Autowired
+	private PatientRepository patientRepository
+	
+	@PersistenceContext
+	EntityManager entityManager
+	
+	List<Patient> getAllPatients() {
+		return patientRepository.findAll()
+	}
+	
+	Patient findById(String id) {
+		return patientRepository.findById(UUID.fromString(id)).get()
+	}
+	
+	Page<Patient> getPatientRelayPage(int first, int offset) {
+		def pageable = patientRepository.findAll(new OffsetBasedPageRequest(offset, first, new Sort(Sort.Direction.ASC, "patientNo")))
+		
+		PageFactory.createOffsetBasedPage(pageable.content, pageable.totalElements, offset)
+		
+	}
+	
+	Set<PatientCase> getPatientCases(Patient patient) {
+		
+		def epatient = entityManager.merge(patient)
+		epatient.patientCases.size()
+		return epatient.patientCases as Set
+	}
+	
+	Patient save(Patient patient) {
+		patientRepository.save(patient)
+	}
+	
 }

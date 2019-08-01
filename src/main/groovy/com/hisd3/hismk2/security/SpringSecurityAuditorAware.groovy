@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class SpringSecurityAuditorAware implements AuditorAware<String> {
-    @Override
-    Optional<String> getCurrentAuditor() {
-        return new Optional<String>(Constants.SYSTEM_ACCOUNT)
-    }
+	@Override
+	Optional<String> getCurrentAuditor() {
+		return new Optional<String>(Constants.SYSTEM_ACCOUNT)
+	}
 }

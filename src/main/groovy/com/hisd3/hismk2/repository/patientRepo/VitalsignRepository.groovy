@@ -6,11 +6,11 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 
 interface VitalsignRepository extends JpaRepository<Vitalsign, UUID> {
-
-    @Query(value = "Select pvs from Vitalsign pvs")
-    List<Vitalsign> getVitalsigns()
-
-    @Query(value = "Select pvs from Vitalsign pvs where pvs.patientCase = :patientCase")
-    List<Vitalsign> getVitalsignsByCase(@Param("patientCase") String patientCase)
-
+	
+	@Query(value = "Select pvs from Vitalsign pvs")
+	List<Vitalsign> getVitalsigns()
+	
+	@Query(value = "Select pvs from Vitalsign pvs where pvs.patientCase = :patientCase")
+	List<Vitalsign> getVitalsignsByCase(@Param("patientCase") String patientCase)
+	
 }
