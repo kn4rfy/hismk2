@@ -15,8 +15,8 @@ const GETPATIENTS=gql`
     {
         patients {
             id
-            lastname
-            firstname,
+            lastName
+            firstName,
             patientNo
         }
     }
@@ -32,8 +32,8 @@ const PATIENTSBYPAGE = gql`
             edges{
                 node {
                     id
-                    lastname
-                    firstname
+                    lastName
+                    firstName
                     patientNo
                 }
                 cursor
@@ -59,8 +59,8 @@ const  ADDPATIENT = gql`
     mutation ($fields:Map_String_ObjectScalar){
         upsertPatient(fields: $fields){
             id
-            lastname
-            firstname
+            lastName
+            firstName
             patientNo
         }
     }
@@ -71,8 +71,8 @@ class App extends React.Component {
 
 
     state={
-        lastname:'',
-        firstname:''
+        lastName:'',
+        firstName:''
     };
     render() {
 
@@ -90,11 +90,11 @@ class App extends React.Component {
                                 if (loading) return <tr><td><p>Loading...</p></td></tr>;
                                 if (error) return  <tr><td><p>Error...</p></td></tr>;
 
-                                return data.patients.map(({ id, lastname, firstname,patientNo }) => (
+                                return data.patients.map(({ id, lastName, firstName,patientNo }) => (
                                     <tr key={id}>
                                         <td>{id} </td>
-                                        <td>{lastname} </td>
-                                        <td>{firstname} </td>
+                                        <td>{lastName} </td>
+                                        <td>{firstName} </td>
                                         <td>{patientNo}</td>
                                     </tr>
                                 ));
@@ -127,23 +127,23 @@ class App extends React.Component {
 
                                     addPatient({ variables: { fields: this.state } });
                                     this.setState({
-                                        lastname:'',
-                                        firstname:''
+                                        lastName:'',
+                                        firstName:''
                                     })
                                 }}
                             >
 
-                                <p>Lastname: <input value={this.state.lastname} type={"text"} onChange={(e)=>{
+                                <p>Lastname: <input value={this.state.lastName} type={"text"} onChange={(e)=>{
 
                                     this.setState({
-                                        lastname:e.target.value
+                                        lastName:e.target.value
                                     })
                                 }
                                 }/></p>
 
-                                <p>Firstname: <input value={this.state.firstname} type={"text"} onChange={(e)=>{
+                                <p>Firstname: <input value={this.state.firstName} type={"text"} onChange={(e)=>{
                                     this.setState({
-                                        firstname:e.target.value
+                                        firstName:e.target.value
                                     })
                                 }
                                 }/></p>
@@ -174,11 +174,11 @@ class App extends React.Component {
                             let patients = data.patients.edges.map((item)=>{ return item.node});
 
 
-                            let forrender=   patients.map(({ id, lastname, firstname,patientNo }) => (
+                            let forrender=   patients.map(({ id, lastName, firstName,patientNo }) => (
                                 <tr key={id}>
                                     <td>{id} </td>
-                                    <td>{lastname} </td>
-                                    <td>{firstname} </td>
+                                    <td>{lastName} </td>
+                                    <td>{firstName} </td>
                                     <td>{patientNo}</td>
                                 </tr>
                             ));

@@ -32,16 +32,16 @@ class Patient extends AbstractAuditingEntity {
     String patientNo
 
     @GraphQLQuery
-    @Column(name = "firstname", columnDefinition = "varchar")
-    String firstname
+    @Column(name = "first_name", columnDefinition = "varchar")
+    String firstName
 
     @GraphQLQuery
-    @Column(name = "lastname", columnDefinition = "varchar")
-    String lastname
+    @Column(name = "last_name", columnDefinition = "varchar")
+    String lastName
 
     @GraphQLQuery
-    @Column(name = "middlename", columnDefinition = "varchar")
-    String middlename
+    @Column(name = "middle_name", columnDefinition = "varchar")
+    String middleName
 
     @GraphQLQuery
     @Column(name = "name_suffix", columnDefinition = "varchar")
@@ -112,8 +112,8 @@ class Patient extends AbstractAuditingEntity {
 
 
     @GraphQLQuery
-    @Column(name = "emegency_contact_no", columnDefinition = "varchar")
-    String emegencyContactNo
+    @Column(name = "emergency_contact_no", columnDefinition = "varchar")
+    String emergencyContactNo
 
     @GraphQLQuery
     @Column(name = "guarantor_name", columnDefinition = "varchar")
@@ -132,8 +132,8 @@ class Patient extends AbstractAuditingEntity {
     String guarantorContactNo
 
     @GraphQLQuery
-    @Formula("concat(lastname , coalesce(', ' || nullif(firstname,'') , ''), coalesce(' ' || nullif(middlename,'') , ''), coalesce(' ' || nullif(name_suffix,'') , ''))")
-    String fullname
+    @Formula("concat(last_name , coalesce(', ' || nullif(first_name,'') , ''), coalesce(' ' || nullif(middle_name,'') , ''), coalesce(' ' || nullif(name_suffix,'') , ''))")
+    String fullName
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")

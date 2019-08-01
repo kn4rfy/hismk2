@@ -16,5 +16,11 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/7_ace_vitals_entry_datetime_default.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/8_ace_nurse_notes.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/9_ace_intake.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/10_ace_patient_names_update.sql"
+             relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
