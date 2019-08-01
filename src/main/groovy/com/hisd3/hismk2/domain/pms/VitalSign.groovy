@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(schema = "pms", name = "patient_vital_signs")
-class Vitalsign extends AbstractAuditingEntity {
+class VitalSign extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Id

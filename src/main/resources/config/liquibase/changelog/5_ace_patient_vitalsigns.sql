@@ -16,7 +16,7 @@ CREATE TABLE pms.patient_vitalsigns
 
 
   PRIMARY KEY (id),
-  CONSTRAINT fk_patient_vitalsigns_patient_cases FOREIGN KEY (patient_case)
+  CONSTRAINT fk_patient_vital_signs_patient_cases FOREIGN KEY (patient_case)
     REFERENCES pms.patient_cases (id) MATCH SIMPLE
     ON UPDATE CASCADE
     ON DELETE RESTRICT
