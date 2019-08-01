@@ -2,7 +2,8 @@ package com.hisd3.hismk2.graphqlservices.pms
 
 import com.hisd3.hismk2.dao.pms.NurseNoteDao
 import com.hisd3.hismk2.domain.pms.NurseNote
-import io.leangen.graphql.annotations.GraphQLArgument
+import com.hisd3.hismk2.domain.pms.PatientCase
+import io.leangen.graphql.annotations.GraphQLContext
 import io.leangen.graphql.annotations.GraphQLQuery
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,7 +23,7 @@ class NurseNoteService {
 	}
 	
 	@GraphQLQuery(name = "nurseNotesByPatientCase", description = "Get nurse notes by patient case")
-	List<NurseNote> getNurseNotesByPatientCase(@GraphQLArgument(name = "patientCase") String patientCase) {
+	Set<NurseNote> getNurseNotesByPatientCase(@GraphQLContext PatientCase patientCase) {
 		nurseNoteDao.getNurseNotesByPatientCase(patientCase)
 	}
 }

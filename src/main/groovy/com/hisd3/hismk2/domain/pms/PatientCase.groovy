@@ -95,4 +95,10 @@ class PatientCase extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "case_informant_address", columnDefinition = "varchar")
 	String caseInformantAddress
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient_case")
+	Set<NurseNote> nurseNotes = [] as Set
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient_case")
+	Set<VitalSign> vitalSigns = [] as Set
 }

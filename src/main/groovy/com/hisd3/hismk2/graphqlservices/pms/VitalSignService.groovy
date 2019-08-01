@@ -1,8 +1,9 @@
 package com.hisd3.hismk2.graphqlservices.pms
 
 import com.hisd3.hismk2.dao.pms.VitalSignDao
+import com.hisd3.hismk2.domain.pms.PatientCase
 import com.hisd3.hismk2.domain.pms.VitalSign
-import io.leangen.graphql.annotations.GraphQLArgument
+import io.leangen.graphql.annotations.GraphQLContext
 import io.leangen.graphql.annotations.GraphQLQuery
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
 import org.springframework.beans.factory.annotation.Autowired
@@ -21,8 +22,8 @@ class VitalSignService {
 		vitalSignDao.getVitalSigns()
 	}
 	
-	@GraphQLQuery(name = "vitalSignsByCase", description = "Get patient vital signs by case")
-	List<VitalSign> getVitalSignsByPatientCase(@GraphQLArgument(name = "patientCase") String patientCase) {
+	@GraphQLQuery(name = "vitalSignsByPatientCase", description = "Get patient vital signs by patient case")
+	Set<VitalSign> getVitalSignsByPatientCase(@GraphQLContext PatientCase patientCase) {
 		vitalSignDao.getVitalSignsByPatientCase(patientCase)
 	}
 }
