@@ -25,8 +25,8 @@ class CaseService {
 	
 	//============== All Queries ====================
 	
-	@GraphQLQuery(name = "cases", description = "Get all patient vital signs")
-	List<Case> getAllCases() {
+	@GraphQLQuery(name = "cases", description = "Get all cases")
+	List<Case> findAll() {
 		return caseDao.findAll()
 	}
 	
