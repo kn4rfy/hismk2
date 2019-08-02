@@ -24,6 +24,7 @@ class CaseService {
 	EntityManager entityManager
 	
 	//============== All Queries ====================
+	
 	@GraphQLQuery(name = "cases", description = "Get all patient vital signs")
 	List<Case> getAllCases() {
 		return caseDao.findAll()
