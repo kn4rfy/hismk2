@@ -15,5 +15,7 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/6_ace_intake.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/7_jp_newtable.sql"
+             relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
