@@ -11,7 +11,7 @@ import javax.persistence.*
 import java.time.LocalDateTime
 
 @Entity
-@Table(schema = "pms", name = "patient_vital_signs")
+@Table(schema = "pms", name = "vital_signs")
 class VitalSign extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
@@ -24,8 +24,8 @@ class VitalSign extends AbstractAuditingEntity {
 	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "patient_case", referencedColumnName = "id")
-	PatientCase patientCase
+	@JoinColumn(name = "case", referencedColumnName = "id")
+	Case parentCase
 	
 	@GraphQLQuery
 	@Column(name = "systolic", columnDefinition = "varchar")

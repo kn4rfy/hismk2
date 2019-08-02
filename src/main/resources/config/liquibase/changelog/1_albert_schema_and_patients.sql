@@ -1,33 +1,37 @@
-CREATE SCHEMA pms;
+create schema pms;
 
-
-CREATE TABLE pms.patients
+create table pms.patients
 (
-  id                             uuid,
-  patient_no                     character varying,
-  lastname                       character varying,
-  firstname                      character varying,
-  middlename                     character varying,
-  name_suffix                    character varying,
-  address                        character varying,
-  country                        character varying,
-  state_province                 character varying,
-  city_municipality              character varying,
-  barangay                       character varying,
-  gender                         character varying,
+  id                             uuid not null
+    constraint patients_pkey
+      primary key,
+  patient_no                     varchar,
+  last_name                      varchar,
+  first_name                     varchar,
+  middle_name                    varchar,
+  name_suffix                    varchar,
+  address                        varchar,
+  country                        varchar,
+  state_province                 varchar,
+  city_municipality              varchar,
+  barangay                       varchar,
+  gender                         varchar,
   dob                            date,
-  allergies                      character varying,
-  father                         character varying,
-  mother                         character varying,
-  father_occupation              character varying,
-  mother_occupation              character varying,
-  emergency_contact_name         character varying,
-  emergency_contact_address      character varying,
-  emergency_contact_relationship character varying,
-  emegency_contact_no            character varying,
-  guarantor_name                 character varying,
-  guarantor_address              character varying,
-  guarantor_relationship         character varying,
-  guarantor_contact_no           character varying,
-  PRIMARY KEY (id)
+  allergies                      varchar,
+  father                         varchar,
+  mother                         varchar,
+  father_occupation              varchar,
+  mother_occupation              varchar,
+  emergency_contact_name         varchar,
+  emergency_contact_address      varchar,
+  emergency_contact_relationship varchar,
+  emergency_contact_no           varchar,
+  guarantor_name                 varchar,
+  guarantor_address              varchar,
+  guarantor_relationship         varchar,
+  guarantor_contact_no           varchar,
+  created_by                     varchar(50),
+  created_date                   timestamp(6) default CURRENT_TIMESTAMP,
+  last_modified_by               varchar(50),
+  last_modified_date             timestamp(6) default CURRENT_TIMESTAMP
 );

@@ -12,8 +12,8 @@ import javax.persistence.*
 import java.time.LocalDateTime
 
 @Entity
-@Table(schema = "pms", name = "patient_cases")
-class PatientCase extends AbstractAuditingEntity {
+@Table(schema = "pms", name = "cases")
+class Case extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Id
@@ -96,9 +96,9 @@ class PatientCase extends AbstractAuditingEntity {
 	@Column(name = "case_informant_address", columnDefinition = "varchar")
 	String caseInformantAddress
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patientCase")
-	Set<NurseNote> nurseNotes = [] as Set
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCase")
+	Set<NurseNote> caseNurseNotes = [] as Set
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patientCase")
-	Set<VitalSign> vitalSigns = [] as Set
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCase")
+	Set<VitalSign> caseVitalSigns = [] as Set
 }

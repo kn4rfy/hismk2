@@ -125,6 +125,6 @@ class Patient extends AbstractAuditingEntity {
 	String fullName
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
-	Set<PatientCase> patientCases = [] as Set
+	Set<Case> patientCases = [] as Set
 	
 }

@@ -13,7 +13,11 @@ class NurseNoteDao {
 	@Autowired
 	private NurseNoteRepository nurseNoteRepository
 	
-	List<NurseNote> getNurseNotes() {
-		return nurseNoteRepository.getNurseNotes()
+	List<NurseNote> findAll() {
+		return nurseNoteRepository.findAll()
+	}
+	
+	NurseNote findById(String id) {
+		return nurseNoteRepository.findById(UUID.fromString(id)).get()
 	}
 }

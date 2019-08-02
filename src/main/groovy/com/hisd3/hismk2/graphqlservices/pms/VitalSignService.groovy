@@ -1,8 +1,6 @@
 package com.hisd3.hismk2.graphqlservices.pms
 
-import com.hisd3.hismk2.dao.pms.VitalSignDao
-import com.hisd3.hismk2.domain.pms.VitalSign
-import io.leangen.graphql.annotations.GraphQLQuery
+import com.hisd3.hismk2.repository.pms.VitalSignRepository
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -12,11 +10,7 @@ import org.springframework.stereotype.Component
 class VitalSignService {
 	
 	@Autowired
-	VitalSignDao vitalSignDao
+	private VitalSignRepository vitalSignRepository
 	
 	//============== All Queries ====================
-	@GraphQLQuery(name = "vitalSigns", description = "Get all patient vital signs")
-	List<VitalSign> getVitalSigns() {
-		vitalSignDao.getVitalSigns()
-	}
 }

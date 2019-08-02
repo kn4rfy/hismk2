@@ -13,7 +13,11 @@ class VitalSignDao {
 	@Autowired
 	private VitalSignRepository vitalSignRepository
 	
-	List<VitalSign> getVitalSigns() {
-		return vitalSignRepository.getVitalSigns()
+	List<VitalSign> findAll() {
+		return vitalSignRepository.findAll()
+	}
+	
+	VitalSign findById(String id) {
+		return vitalSignRepository.findById(UUID.fromString(id)).get()
 	}
 }

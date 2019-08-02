@@ -8,25 +8,12 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/1_albert_schema_and_patients.sql"
              relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/2_albert_auditing.sql" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/3_albert__setpasswords.sql" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/4_albert__patientcases.sql" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/5_ace_patient_vitalsigns.sql" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/6_ace_vitals_entry_datetime.sql"
+    <include file="classpath:config/liquibase/changelog/2_albert__setpasswords.sql" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/3_albert__patientcases.sql" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/4_ace_patient_vitalsigns.sql" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/5_ace_nurse_notes.sql"
              relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/7_ace_vitals_entry_datetime_default.sql"
-             relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/8_ace_nurse_notes.sql"
-             relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/9_ace_intake.sql"
-             relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/10_ace_patient_names_update.sql"
-             relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/11_ace_patient_intake_table_rename.sql"
-             relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/12_kn4rfy_patient_case_update.sql"
-             relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/13_kn4rfy_vitalsigns_table_rename.sql"
+    <include file="classpath:config/liquibase/changelog/6_ace_intake.sql"
              relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
