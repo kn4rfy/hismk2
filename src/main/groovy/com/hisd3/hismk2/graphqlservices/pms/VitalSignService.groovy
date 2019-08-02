@@ -16,7 +16,7 @@ class VitalSignService {
 	
 	//============== All Queries ====================
 	
-	@GraphQLQuery(name = "vitalSigns", description = "Get all nurse notes")
+	@GraphQLQuery(name = "vitalSigns", description = "Get all vital signs")
 	List<VitalSign> findAll() {
 		return vitalSignDao.findAll()
 	}
