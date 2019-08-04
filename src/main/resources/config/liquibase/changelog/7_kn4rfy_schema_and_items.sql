@@ -12,7 +12,7 @@ create table inventory.items
   minimum_level                  varchar,
   economic_order_qty             numeric,
   prepared_by                    uuid,
-  prepared_date                  timestamp,
+  prepared_date                  timestamp without time zone,
   active                         boolean      default true,
   pharmacy_item                  boolean,
   stock_classification           varchar,

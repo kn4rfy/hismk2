@@ -85,16 +85,16 @@ class Case extends AbstractAuditingEntity {
 	String surgicalProcedure
 	
 	@GraphQLQuery
-	@Column(name = "case_informant", columnDefinition = "varchar")
-	String caseInformant
+	@Column(name = "informant", columnDefinition = "varchar")
+	String informant
 	
 	@GraphQLQuery
-	@Column(name = "case_informant_relation", columnDefinition = "varchar")
-	String caseInformantRelation
+	@Column(name = "informant_relation", columnDefinition = "varchar")
+	String informantRelation
 	
 	@GraphQLQuery
-	@Column(name = "case_informant_address", columnDefinition = "varchar")
-	String caseInformantAddress
+	@Column(name = "informant_address", columnDefinition = "varchar")
+	String informantAddress
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCase")
 	Set<NurseNote> caseNurseNotes = [] as Set
