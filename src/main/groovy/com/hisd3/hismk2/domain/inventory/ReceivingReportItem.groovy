@@ -1,18 +1,26 @@
 package com.hisd3.hismk2.domain.inventory
 
+import com.hisd3.hismk2.domain.AbstractAuditingEntity
+import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
+import org.hibernate.annotations.NotFound
+import org.hibernate.annotations.NotFoundAction
 import org.hibernate.annotations.Type
 
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Entity
 @Table(schema = "inventory", name = "receiving_report_items")
-class ReceivingReportItem {
+@TypeChecked
+class ReceivingReportItem extends AbstractAuditingEntity {
 
     @GraphQLQuery
     @Id
@@ -22,29 +30,38 @@ class ReceivingReportItem {
     @Type(type = "pg-uuid")
     UUID id
 
-    @Column(name = "receiving_report")
-    String receivingReport
+    @NotFound(action = NotFoundAction.IGNORE)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "receiving_report", referencedColumnName = "id")
+    ReceivingReport receivingReport
 
-    @Column(name = "barcode")
+    @GraphQLQuery
+    @Column(name = "barcode", columnDefinition = 'varchar')
     String barcode
 
-    @Column(name = "description")
+    @GraphQLQuery
+    @Column(name = "description", columnDefinition = 'varchar')
     String description
 
-    @Column(name = "ref_no")
+    @GraphQLQuery
+    @Column(name = "ref_no", columnDefinition = 'varchar')
     String refNo
 
-    @Column(name = "po_qty")
-    Number poQty
+    @GraphQLQuery
+    @Column(name = "po_qty", columnDefinition = 'numeric')
+    String poQty
 
-    @Column(name = "qty_delivered")
-    Number qtyDelivered
+    @GraphQLQuery
+    @Column(name = "qty_delivered", columnDefinition = 'numeric')
+    String qtyDelivered
 
-    @Column(name = "po_balance_qty")
-    Number poBalanceQty
+    @GraphQLQuery
+    @Column(name = "po_balance_qty", columnDefinition = 'numeric')
+    String poBalanceQty
 
-    @Column(name = "amt")
-    Number amt
 
+    @GraphQLQuery
+    @Column(name = "amt", columnDefinition = 'numeric')
+    String amt
 
 }

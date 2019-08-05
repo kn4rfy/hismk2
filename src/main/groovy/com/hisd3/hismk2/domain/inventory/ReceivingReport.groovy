@@ -1,6 +1,8 @@
 package com.hisd3.hismk2.domain.inventory
 
+import com.hisd3.hismk2.domain.AbstractAuditingEntity
 import com.hisd3.hismk2.domain.pms.NurseNote
+import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
@@ -19,7 +21,8 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(schema = "inventory", name = "receiving_report")
-class ReceivingReport {
+@TypeChecked
+class ReceivingReport extends AbstractAuditingEntity {
 
     @GraphQLQuery
     @Id
@@ -29,21 +32,27 @@ class ReceivingReport {
     @Type(type = "pg-uuid")
     UUID id
 
-    @Column(name = "supplier")
+    @GraphQLQuery
+    @Column(name = "supplier", columnDefinition = 'varchar')
     String supplier
 
-    @Column(name = "ref_no")
+    @GraphQLQuery
+    @Column(name = "ref_no", columnDefinition = 'varchar')
     String refNo
 
-    @Column(name = "receiving_department")
+    @GraphQLQuery
+    @Column(name = "receiving_department", columnDefinition = 'varchar')
     String receivingDepartment
 
-    @Column(name = "ref_qlty")
+    @GraphQLQuery
+    @Column(name = "ref_qlty", columnDefinition = 'varchar')
     String refQlty
 
+    @GraphQLQuery
     @Column(name = "qlty_inspection_date",nullable = true)
     LocalDateTime qltyInspectionDate
 
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "receivingReport")
-    Set<ReceivingReportItem> items = [] as Set
+    Set<ReceivingReportItem> receivingItems = [] as Set
 }
