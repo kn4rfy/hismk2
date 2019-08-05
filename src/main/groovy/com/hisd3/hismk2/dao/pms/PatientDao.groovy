@@ -24,7 +24,7 @@ class PatientDao {
 	@PersistenceContext
 	EntityManager entityManager
 	
-	List<Patient> findAll() {
+	Set<Patient> findAll() {
 		return patientRepository.findAll()
 	}
 	

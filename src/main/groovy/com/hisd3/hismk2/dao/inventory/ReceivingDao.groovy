@@ -10,23 +10,22 @@ import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 import javax.transaction.Transactional
 
-
 @Service
 @Transactional
 class ReceivingDao {
-    @Autowired
-    ReceivingReportRepository receivingReportRepository
-
-    @PersistenceContext
-    EntityManager entityManager
-
-    List<ReceivingReport> findAll(){
-        return  receivingReportRepository.findAll()
-    }
-
-    Set<ReceivingReportItem> getReceivingItems(ReceivingReport receivingReport){
-        def mergedItem = entityManager.merge(receivingReport)
-        mergedItem.receivingItems.size()
-        return mergedItem.receivingItems as Set
-    }
+	@Autowired
+	ReceivingReportRepository receivingReportRepository
+	
+	@PersistenceContext
+	EntityManager entityManager
+	
+	List<ReceivingReport> findAll() {
+		return receivingReportRepository.findAll()
+	}
+	
+	Set<ReceivingReportItem> getReceivingItems(ReceivingReport receivingReport) {
+		def mergedItem = entityManager.merge(receivingReport)
+		mergedItem.receivingItems.size()
+		return mergedItem.receivingItems as Set
+	}
 }
