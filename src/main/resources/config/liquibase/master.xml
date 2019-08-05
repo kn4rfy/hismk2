@@ -19,5 +19,7 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/8_kn4rfy_item_prices.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/8_jp_newtable.sql"
+             relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
