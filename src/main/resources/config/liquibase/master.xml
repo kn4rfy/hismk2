@@ -21,5 +21,7 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/8_jp_newtable.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/9_gregg_rename_items.sql.sql"
+             relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
