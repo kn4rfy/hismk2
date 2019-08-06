@@ -22,27 +22,23 @@ class Item {
 
     @GraphQLQuery
     @Column(name = "stock_code")
-    String stock_code
-
-    @GraphQLQuery
-    @Column(name = "desc_short")
-    String desc_short
+    String stockCode
 
     @GraphQLQuery
     @Column(name = "desc_long")
-    String desc_long
+    String descLong
 
     @GraphQLQuery
     @Column(name = "unit_measure")
-    String unit_measure
+    String unitMeasure
 
     @GraphQLQuery
     @Column(name = "minimum_level")
-    String minimum_level
+    String minimumLevel
 
     @GraphQLQuery
     @Column(name = "economic_order_qty")
-    BigDecimal economic_order_qty
+    BigDecimal economicOrderQty
 
     @GraphQLQuery
     @Column(name = "active")
@@ -50,11 +46,11 @@ class Item {
 
     @GraphQLQuery
     @Column(name = "stock_classification")
-    String stock_classification
+    String stockClassification
 
     @GraphQLQuery
     @Column(name = "indication_code")
-    BigDecimal indication_code
+    BigDecimal indicationCode
 
     @GraphQLQuery
     @Column(name = "brand")
@@ -62,19 +58,19 @@ class Item {
 
     @GraphQLQuery
     @Column(name = "generic_name")
-    String generic_name
+    String genericName
 
     @GraphQLQuery
     @Column(name = "is_medicine")
-    Boolean is_medicine
+    Boolean isMedicine
 
     @GraphQLQuery
     @Column(name = "indication_desc")
-    String indication_desc
+    String indicationDesc
 
     @GraphQLQuery
     @Column(name = "medication_description")
-    String medication_description
+    String medicationDescription
 
     @GraphQLQuery
     @Column(name = "sku")
@@ -86,11 +82,11 @@ class Item {
 
     @GraphQLQuery
     @Column(name = "package_name")
-    String package_name
+    String packageName
 
     @GraphQLQuery
     @Column(name = "package_content_count")
-    BigDecimal package_content_count
+    BigDecimal packageContentCount
 
     @GraphQLQuery
     @Column(name = "dose")
@@ -98,11 +94,11 @@ class Item {
 
     @GraphQLQuery
     @Column(name = "dose_unit")
-    BigDecimal dose_unit
+    BigDecimal doseUnit
 
     @GraphQLQuery
     @Column(name = "s2_drug")
-    Boolean s2_drug
+    Boolean s2Drug
 
     @GraphQLQuery
     @Column(name = "form")
@@ -130,15 +126,15 @@ class Item {
 
     @GraphQLQuery
     @Column(name = "sub_category")
-    String sub_category
+    String subCategory
 
     @GraphQLQuery
     @Column(name = "sub_sub_category")
-    String sub_sub_category
+    String subSubCategory
 
     @GraphQLQuery
     @Column(name = "formulary_item")
-    String formulary_item
+    String formularyItem
 
     @GraphQLQuery
     @Column(name = "fluid")
@@ -150,7 +146,7 @@ class Item {
 
     @GraphQLQuery
     @Column(name = "direct_asset")
-    Boolean direct_asset
+    Boolean directAsset
 
     @GraphQLQuery
     @Column(name = "consignor")
@@ -158,33 +154,17 @@ class Item {
 
     @GraphQLQuery
     @Column(name = "consignment_item")
-    Boolean consignment_item
+    Boolean consignmentItem
 
     @GraphQLQuery
     @Column(name = "consignor_name")
-    String consignor_name
+    String consignorName
 
     @GraphQLQuery
     @Column(name = "comlogic_medicine_code")
-    String comlogic_medicine_code
+    String comlogicMedicineCode
 
     @GraphQLQuery
     @Column(name = "comlogic_medicine_generic_code")
-    String comlogic_medicine_generic_code
-
-    @GraphQLQuery
-    @Column(name = "created_by")
-    String created_by
-
-    @GraphQLQuery
-    @Column(name = "created_date",nullable = true)
-    LocalDateTime created_date
-
-    @GraphQLQuery
-    @Column(name = "last_modified_by")
-    String last_modified_by
-
-    @GraphQLQuery
-    @Column(name = "last_modified_date",nullable = true)
-    LocalDateTime last_modified_date
+    String comlogicMedicineGenericCode
 }
