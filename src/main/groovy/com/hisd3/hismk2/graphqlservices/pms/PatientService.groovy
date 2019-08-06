@@ -66,12 +66,10 @@ class PatientService {
 	) {
 		
 		if (id) {
-			
 			def patient = patientDao.findById(id)
 			objectMapper.updateValue(patient, fields)
 			return patientDao.save(patient)
 		} else {
-			
 			def patient = objectMapper.convertValue(fields, Patient)
 			patient.patientNo = generatorService.getNextValue(GeneratorType.PATIENT_NO) { Long no ->
 				StringUtils.leftPad(no.toString(), 5, "0")
