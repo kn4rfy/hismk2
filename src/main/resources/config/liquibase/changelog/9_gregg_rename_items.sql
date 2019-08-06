@@ -1,1 +1,2 @@
-ALTER TABLE inventory.items RENAME TO item;
+ALTER TABLE inventory.items
+  RENAME TO item;
