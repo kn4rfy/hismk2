@@ -1,8 +1,8 @@
 import React from 'react';
-import ApolloClient from "apollo-boost";
+import ApolloClient, { gql } from "apollo-boost";
 import { Query,Mutation , ApolloProvider} from "react-apollo";
 import './App.css';
-import { gql } from "apollo-boost";
+
 
 const client = new ApolloClient({
     uri: "http://localhost:8080/graphql"
@@ -116,9 +116,8 @@ class App extends React.Component {
                                 data: { patients: patients.concat(upsertPatient) },
                             });
 
-                        }}
+                        }}>
 
-                    >
                         {(addPatient, { data }) => {
 
                             return  <form

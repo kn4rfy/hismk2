@@ -1,7 +1,9 @@
-package com.hisd3.hismk2.graphqlservices.pms
+package com.hisd3.hismk2.graphqlservices.hrm
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.hisd3.hismk2.dao.hrm.EmployeeDao
 import com.hisd3.hismk2.dao.pms.PatientDao
+import com.hisd3.hismk2.domain.hrm.Employee
 import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.Patient
 import com.hisd3.hismk2.services.GeneratorService
@@ -18,10 +20,10 @@ import org.springframework.stereotype.Component
 
 @Component
 @GraphQLApi
-class PatientService {
+class EmployeeService {
 	
 	@Autowired
-	PatientDao patientDao
+	EmployeeDao employeeDao
 	
 	@Autowired
 	GeneratorService generatorService
@@ -31,50 +33,50 @@ class PatientService {
 	
 	//============== All Queries ====================
 	
-	@GraphQLQuery(name = "patients", description = "Get All Patients")
-	Set<Patient> findAll() {
-		patientDao.findAll()
+	@GraphQLQuery(name = "employees", description = "Get All Employees")
+	Set<Employee> findAll() {
+		employeeDao.findAll()
 	}
 	
-	@GraphQLQuery(name = "patient", description = "Get Patient By Id")
-	Patient findById(@GraphQLArgument(name = "id") String id) {
+	@GraphQLQuery(name = "employee", description = "Get Employee By Id")
+	Employee findById(@GraphQLArgument(name = "id") String id) {
 		
-		return patientDao.findById(id)
+		return employeeDao.findById(id)
 	}
 	
-	@GraphQLQuery(name = "patientsByPage", description = "Get All Patients By Page")
-	Page<Patient> getAllPatientsByPage(
+	@GraphQLQuery(name = "employeesByPage", description = "Get All Employees By Page")
+	Page<Employee> getAllEmployeesByPage(
 			@GraphQLArgument(name = "first") int first,
 			@GraphQLArgument(name = "after") String after = "0"
 	) {
-		
-		patientDao.getPatientRelayPage(first, Integer.parseInt(after))
+
+		employeeDao.getEmployeeRelayPage(first, Integer.parseInt(after))
 	}
 	
-	@GraphQLQuery(name = "patientCases", description = "Get All Patient Cases")
-	Set<Case> getCases(@GraphQLContext Patient patient) {
+	@GraphQLQuery(name = "employeeCases", description = "Get All Employee Cases")
+	Set<Case> getCases(@GraphQLContext Employee employee) {
 		
-		return patientDao.getPatientCases(patient)
+		return employeeDao.getEmployeeCases(employee)
 	}
 	
 	//============== All Mutations ====================
 	
 	@GraphQLMutation
-	Patient upsertPatient(
+	Employee upsertEmployee(
 			@GraphQLArgument(name = "id") String id,
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
 		
 		if (id) {
-			def patient = patientDao.findById(id)
-			objectMapper.updateValue(patient, fields)
-			return patientDao.save(patient)
+			def employee = employeeDao.findById(id)
+			objectMapper.updateValue(employee, fields)
+			return employeeDao.save(employee)
 		} else {
-			def patient = objectMapper.convertValue(fields, Patient)
-			patient.patientNo = generatorService.getNextValue(GeneratorType.PATIENT_NO) { Long no ->
+			def employee = objectMapper.convertValue(fields, Employee)
+			employee.employeeNo = generatorService.getNextValue(GeneratorType.PATIENT_NO) { Long no ->
 				StringUtils.leftPad(no.toString(), 5, "0")
 			}
-			return patientDao.save(patient)
+			return employeeDao.save(employee)
 		}
 	}
 }
