@@ -1,7 +1,6 @@
 package com.hisd3.hismk2.domain.pms
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
-import com.hisd3.hismk2.domain.pms.Patient
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.NotFound
@@ -69,8 +68,8 @@ class Case extends AbstractAuditingEntity {
 	String historyPresentIllness
 	
 	@GraphQLQuery
-	@Column(name = "pertinent_medical_history", columnDefinition = "varchar")
-	String pertinentMedicalHistory
+	@Column(name = "past_medical_history", columnDefinition = "varchar")
+	String pastMedicalHistory
 	
 	@GraphQLQuery
 	@Column(name = "pre_op_diagnosis", columnDefinition = "varchar")

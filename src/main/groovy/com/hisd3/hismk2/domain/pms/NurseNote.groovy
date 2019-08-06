@@ -24,7 +24,7 @@ class NurseNote extends AbstractAuditingEntity {
 	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "case", referencedColumnName = "id")
+	@JoinColumn(name = "`case`", referencedColumnName = "id")
 	Case parentCase
 	
 	@GraphQLQuery

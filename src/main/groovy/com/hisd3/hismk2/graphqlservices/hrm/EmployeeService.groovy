@@ -3,11 +3,9 @@ package com.hisd3.hismk2.graphqlservices.hrm
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.UserDao
 import com.hisd3.hismk2.dao.hrm.EmployeeDao
-import com.hisd3.hismk2.dao.pms.PatientDao
 import com.hisd3.hismk2.domain.User
 import com.hisd3.hismk2.domain.hrm.Employee
 import com.hisd3.hismk2.domain.pms.Case
-import com.hisd3.hismk2.domain.pms.Patient
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
 import io.leangen.graphql.annotations.GraphQLArgument
@@ -26,10 +24,10 @@ class EmployeeService {
 	
 	@Autowired
 	EmployeeDao employeeDao
-
+	
 	@Autowired
 	UserDao userDao
-
+	
 	@Autowired
 	GeneratorService generatorService
 	
@@ -54,7 +52,7 @@ class EmployeeService {
 			@GraphQLArgument(name = "first") int first,
 			@GraphQLArgument(name = "after") String after = "0"
 	) {
-
+		
 		employeeDao.getEmployeeRelayPage(first, Integer.parseInt(after))
 	}
 	
@@ -75,21 +73,21 @@ class EmployeeService {
 		if (id) {
 			def employee = employeeDao.findById(id)
 			objectMapper.updateValue(employee, fields)
-
+			
 			return employeeDao.save(employee)
 		} else {
 			def employee = objectMapper.convertValue(fields, Employee)
-
+			
 			def userId = fields["userId"]
-
+			
 			User user = userDao.findById(userId as String)
-
+			
 			employee.user = user
-
+			
 			employee.employeeNo = generatorService.getNextValue(GeneratorType.PATIENT_NO) { Long no ->
 				StringUtils.leftPad(no.toString(), 5, "0")
 			}
-
+			
 			return employeeDao.save(employee)
 		}
 	}
