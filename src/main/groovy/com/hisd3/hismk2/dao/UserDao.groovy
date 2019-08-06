@@ -24,6 +24,6 @@ class UserDao {
 	}
 	
 	User findById(String id) {
-		return userRepository.findById(UUID.fromString(id)).get()
+		return userRepository.findById(Long.parseLong(id)).get()
 	}
 }

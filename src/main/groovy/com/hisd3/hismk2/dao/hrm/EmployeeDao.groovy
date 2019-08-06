@@ -44,5 +44,4 @@ class EmployeeDao {
 	Employee save(Employee employee) {
 		employeeRepository.save(employee)
 	}
-	
 }
