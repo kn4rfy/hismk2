@@ -20,5 +20,7 @@
     <include file="classpath:config/liquibase/changelog/9_jp_addautingcolumn.sql" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/10_ace_create_employees.sql" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/11_ace_create_rooms.sql" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/12_kn4rfy_update_employees.sql"
+             relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
