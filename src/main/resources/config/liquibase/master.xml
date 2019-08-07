@@ -28,5 +28,7 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/14_crisnil_services_table.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/15_crisnil_orderslip.sql"
+             relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
