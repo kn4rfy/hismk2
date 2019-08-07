@@ -22,5 +22,11 @@
     <include file="classpath:config/liquibase/changelog/11_ace_create_rooms.sql" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/12_kn4rfy_update_employees.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/12_crisnil_schema_ancillary.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/13_crisnil_ancillary_tables.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/14_crisnil_services_table.sql"
+             relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
