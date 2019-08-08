@@ -14,26 +14,26 @@ import org.springframework.stereotype.Component
 @Component
 @GraphQLApi
 class ReceivingReportService {
-
-    @Autowired
-    ReceivingReportRepository receivingReportRepository
-
-    @Autowired
-    ReceivingDao receivingDao
-
-    @GraphQLQuery(name = "receivingReport", description = "list of receiving report")
-    List<ReceivingReport> receivingReportList (){
-       return  receivingDao.findAll()
-    }
-
-    @GraphQLQuery(name = "receivingItems", description = "get list of items")
-    Set<ReceivingReportItem> getItems(@GraphQLContext ReceivingReport receivingReport){
-        return receivingDao.getReceivingItems(receivingReport)
-    }
-
-    @GraphQLQuery(name = "getReceivingById", description = "get receiving report")
-    ReceivingReport getReceivingById(@GraphQLArgument(name = "id") UUID id){
-        return  receivingDao.getReceivingReport(id)
-    }
-
+	
+	@Autowired
+	ReceivingReportRepository receivingReportRepository
+	
+	@Autowired
+	ReceivingDao receivingDao
+	
+	@GraphQLQuery(name = "receivingReport", description = "list of receiving report")
+	List<ReceivingReport> receivingReportList() {
+		return receivingDao.findAll()
+	}
+	
+	@GraphQLQuery(name = "receivingItems", description = "get list of items")
+	Set<ReceivingReportItem> getItems(@GraphQLContext ReceivingReport receivingReport) {
+		return receivingDao.getReceivingItems(receivingReport)
+	}
+	
+	@GraphQLQuery(name = "getReceivingById", description = "get receiving report")
+	ReceivingReport getReceivingById(@GraphQLArgument(name = "id") UUID id) {
+		return receivingDao.getReceivingReport(id)
+	}
+	
 }
