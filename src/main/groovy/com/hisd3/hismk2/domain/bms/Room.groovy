@@ -20,6 +20,22 @@ class Room extends AbstractAuditingEntity {
 	UUID id
 	
 	@GraphQLQuery
+	@Column(name = "room_no", columnDefinition = "varchar")
+	String roomNo
+	
+	@GraphQLQuery
+	@Column(name = "bed_no", columnDefinition = "varchar")
+	String bedNo
+	
+	@GraphQLQuery
+	@Column(name = "description", columnDefinition = "varchar")
+	String description
+	
+	@GraphQLQuery
+	@Column(name = "price", columnDefinition = "numeric")
+	BigDecimal price
+	
+	@GraphQLQuery
 	@Column(name = "status", columnDefinition = "varchar")
 	String status
 }
