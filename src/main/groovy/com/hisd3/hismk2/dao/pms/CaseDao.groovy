@@ -4,6 +4,7 @@ import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.NurseNote
 import com.hisd3.hismk2.domain.pms.VitalSign
 import com.hisd3.hismk2.repository.pms.CaseRepository
+import groovy.transform.TypeChecked
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -11,22 +12,27 @@ import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
+@TypeChecked
 @Service
 @Transactional
 class CaseDao {
 	
 	@Autowired
-	private CaseRepository parentCaseRepository
+	private CaseRepository caseRepository
 	
 	@PersistenceContext
 	EntityManager entityManager
 	
 	List<Case> findAll() {
-		return parentCaseRepository.findAll()
+		return caseRepository.findAll()
 	}
 	
 	Case findById(String id) {
-		return parentCaseRepository.findById(UUID.fromString(id)).get()
+		return caseRepository.findById(UUID.fromString(id)).get()
+	}
+	
+	Case getPatientActiveCase(UUID patientId) {
+		return caseRepository.getPatientActiveCase(patientId)
 	}
 	
 	Set<NurseNote> getNurseNotes(Case parentCase) {

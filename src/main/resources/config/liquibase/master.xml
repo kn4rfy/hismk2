@@ -30,5 +30,7 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/15_crisnil_orderslip.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/16_kn4rfy_insert_case_columns.sql"
+             relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
