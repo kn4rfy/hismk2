@@ -18,4 +18,8 @@ class Room extends AbstractAuditingEntity {
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
+	
+	@GraphQLQuery
+	@Column(name = "status", columnDefinition = "varchar")
+	String status
 }
