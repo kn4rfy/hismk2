@@ -106,8 +106,7 @@ class Item {
 	@GraphQLQuery
 	@Column(name = "vatable")
 	Boolean vatable
-
-
+	
 	@GraphQLQuery
 	@Column(name = "preparation")
 	String preparation

@@ -1,11 +1,11 @@
 ALTER TABLE "public"."department"
-    RENAME TO "departments";
+  RENAME TO "departments";
 
 ALTER TABLE "public"."departments"
-    RENAME COLUMN "name" TO "department_name";
+  RENAME COLUMN "name" TO "department_name";
 
 ALTER TABLE "public"."departments"
-    RENAME COLUMN "description" TO "department_desc";
+  RENAME COLUMN "description" TO "department_desc";
 
 ALTER TABLE "public"."departments"
-    ADD COLUMN "department_code" varchar;
+  ADD COLUMN "department_code" varchar;

@@ -12,22 +12,20 @@ import org.springframework.stereotype.Component
 @Component
 @GraphQLApi
 class OrderslipService {
-
-    @Autowired
-    OrderslipDao orderslipDao
-
-    @Autowired
-    GeneratorService generatorService
-
-
-
-    @Autowired
-    ObjectMapper objectMapper
-
-    //============== All Queries ====================
-
-    @GraphQLQuery(name = "orderslips", description = "Get All Orderslips")
-    Set<Orderslip> findAll() {
-        orderslipDao.findAll()
-    }
+	
+	@Autowired
+	OrderslipDao orderslipDao
+	
+	@Autowired
+	GeneratorService generatorService
+	
+	@Autowired
+	ObjectMapper objectMapper
+	
+	//============== All Queries ====================
+	
+	@GraphQLQuery(name = "orderslips", description = "Get All Orderslips")
+	Set<Orderslip> findAll() {
+		orderslipDao.findAll()
+	}
 }
