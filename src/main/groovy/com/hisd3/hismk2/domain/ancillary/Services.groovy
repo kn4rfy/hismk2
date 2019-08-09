@@ -1,7 +1,7 @@
 package com.hisd3.hismk2.domain.ancillary
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
-import com.hisd3.hismk2.domain.User
+import com.hisd3.hismk2.domain.Department
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.NotFound
@@ -24,11 +24,8 @@ class Services extends AbstractAuditingEntity {
 
     @NotFound(action = NotFoundAction.IGNORE)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "revenuecenter", referencedColumnName = "id")
-    RevenueCenter revenueCenter
-
-    @Column(name = "department", columnDefinition = "uuid")
-    UUID department
+    @JoinColumn(name = "department", referencedColumnName = "id")
+    Department department
 
     @GraphQLQuery
     @Column(name = "servicename", columnDefinition = "varchar")
