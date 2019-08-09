@@ -1,6 +1,5 @@
 package com.hisd3.hismk2.domain
 
-import com.hisd3.hismk2.domain.AbstractAuditingEntity
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
@@ -8,7 +7,7 @@ import org.hibernate.annotations.Type
 import javax.persistence.*
 
 @Entity
-@Table(schema = "public", name = "department")
+@Table(schema = "public", name = "departments")
 class Department extends AbstractAuditingEntity {
 
     @GraphQLQuery
@@ -20,39 +19,47 @@ class Department extends AbstractAuditingEntity {
     UUID id
 
     @GraphQLQuery
-    @Column(name = "description", columnDefinition = "varchar")
-    String description
+    @Column(name = "department_code", columnDefinition = "varchar")
+    String departmentCode
 
     @GraphQLQuery
-    @Column(name = "parent_department", columnDefinition = "uuid")
-    String parent_department
+    @Column(name = "department_name", columnDefinition = "varchar")
+    String departmentName
 
     @GraphQLQuery
-    @Column(name = "department_head", columnDefinition = "uuid")
-    String department_head
+    @Column(name = "department_desc", columnDefinition = "varchar")
+    String departmentDesc
 
     @GraphQLQuery
-    @Column(name = "deprecated", columnDefinition = "varchar")
-    String deprecated
+    @Column(name = "department_head", columnDefinition = "uuid default null")
+    UUID departmentHead
 
     @GraphQLQuery
-    @Column(name = "special_area", columnDefinition = "boolean")
-    String special_area
+    @Column(name = "parent_department", columnDefinition = "uuid default null")
+    UUID parentDepartment
 
     @GraphQLQuery
-    @Column(name = "cost_center", columnDefinition = "boolean")
-    String costCenter
+    @Column(name = "special_area", columnDefinition = "boolean default false")
+    Boolean specialArea
 
     @GraphQLQuery
-    @Column(name = "revenue_center", columnDefinition = "boolean")
-    String revenueCenter
+    @Column(name = "cost_center", columnDefinition = "boolean default false")
+    Boolean costCenter
 
     @GraphQLQuery
-    @Column(name = "sub_department", columnDefinition = "boolean")
-    String subDepartment
+    @Column(name = "revenue_center", columnDefinition = "boolean default false")
+    Boolean revenueCenter
 
     @GraphQLQuery
-    @Column(name = "deleted", columnDefinition = "boolean")
-    String deleted
+    @Column(name = "sub_department", columnDefinition = "boolean default false")
+    Boolean subDepartment
+
+    @GraphQLQuery
+    @Column(name = "deleted", columnDefinition = "boolean default false")
+    Boolean deleted
+
+    @GraphQLQuery
+    @Column(name = "deprecated", columnDefinition = "boolean")
+    Boolean deprecated
 
 }
