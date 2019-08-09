@@ -40,6 +40,18 @@ class Department extends AbstractAuditingEntity {
     String special_area
 
     @GraphQLQuery
+    @Column(name = "cost_center", columnDefinition = "boolean")
+    String costCenter
+
+    @GraphQLQuery
+    @Column(name = "revenue_center", columnDefinition = "boolean")
+    String revenueCenter
+
+    @GraphQLQuery
+    @Column(name = "sub_department", columnDefinition = "boolean")
+    String subDepartment
+
+    @GraphQLQuery
     @Column(name = "deleted", columnDefinition = "boolean")
     String deleted
 
