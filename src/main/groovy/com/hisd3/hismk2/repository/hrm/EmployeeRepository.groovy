@@ -14,4 +14,10 @@ interface EmployeeRepository extends JpaRepository<Employee, UUID> {
 			countQuery = "Select count(e) from Employee e where lower(e.fullName) like concat('%',:filter,'%')"
 	)
 	Page<Employee> getEmployees(@Param("filter") String filter, Pageable pageable)
+
+	@Query(
+			value = "Select e from Employee e where lower(e.fullName) like concat('%',:filter,'%')",
+			countQuery = "Select count(e) from Employee e where lower(e.fullName) like concat('%',:filter,'%')"
+	)
+	List<Employee> searchEmployees(@Param("filter") String filter)
 }
