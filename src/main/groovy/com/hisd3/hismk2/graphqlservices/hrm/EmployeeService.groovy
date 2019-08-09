@@ -47,7 +47,6 @@ class EmployeeService {
 
 	@GraphQLQuery(name = "searchEmployees", description = "Search employees")
 	List<Employee> searchEmployees(@GraphQLArgument(name = "filter") String filter) {
-		println("_---------------------- " + filter)
 		employeeDao.searchEmployees(filter)
 	}
 
@@ -71,7 +70,6 @@ class EmployeeService {
 			@GraphQLArgument(name = "id") String id,
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
-		
 		if (id) {
 			def employee = employeeDao.findById(id)
 			objectMapper.updateValue(employee, fields)

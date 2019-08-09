@@ -38,6 +38,7 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/19_crisnil_alter_departments.sql"
              relativeToChangelogFile="false"/>
-
+    <include file="classpath:config/liquibase/changelog/20_ace_rename_department_columns.sql"
+             relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

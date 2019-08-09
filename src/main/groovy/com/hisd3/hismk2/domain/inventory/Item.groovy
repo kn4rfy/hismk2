@@ -105,8 +105,9 @@ class Item {
 	
 	@GraphQLQuery
 	@Column(name = "vatable")
-	String vatable
-	
+	Boolean vatable
+
+
 	@GraphQLQuery
 	@Column(name = "preparation")
 	String preparation
@@ -133,7 +134,7 @@ class Item {
 	
 	@GraphQLQuery
 	@Column(name = "formulary_item")
-	String formularyItem
+	Boolean formularyItem
 	
 	@GraphQLQuery
 	@Column(name = "fluid")
@@ -149,7 +150,7 @@ class Item {
 	
 	@GraphQLQuery
 	@Column(name = "consignor")
-	String consignor
+	UUID consignor
 	
 	@GraphQLQuery
 	@Column(name = "consignment_item")
