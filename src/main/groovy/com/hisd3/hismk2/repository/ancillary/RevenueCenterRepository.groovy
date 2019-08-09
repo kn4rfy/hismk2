@@ -8,9 +8,4 @@ import org.springframework.data.jpa.repository.Query
 
 interface RevenueCenterRepository extends JpaRepository<RevenueCenter, UUID> {
 
-    @Query(
-            value = "Select r from RevenueCenter r",
-            countQuery = "Select count(r) from RevenueCenter r"
-    )
-    List<RevenueCenter> getAllRevenueCenters()
 }

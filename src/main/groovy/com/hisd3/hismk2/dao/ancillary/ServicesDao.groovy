@@ -22,7 +22,11 @@ class ServicesDao {
     @PersistenceContext
     EntityManager entityManager
 
-    Set<Services> getServices() {
-        return servicesRepository.getAllServices()
+    Set<Services> findAll() {
+        return servicesRepository.findAll()
+    }
+
+    Services findById(String id){
+        return servicesRepository.findById(Long.parseLong(id)).get()
     }
 }

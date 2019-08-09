@@ -10,9 +10,4 @@ import org.springframework.data.jpa.repository.Query
 
 interface OrderslipRepository extends JpaRepository<Orderslip, UUID> {
 
-    @Query(
-            value = "Select o from Orderslip o",
-            countQuery = "Select count(p) from Patient p"
-    )
-    List<Patient> getAllOrderslip()
 }

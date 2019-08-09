@@ -1,6 +1,7 @@
 package com.hisd3.hismk2.domain.ancillary
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
+import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.NotFound
@@ -10,6 +11,7 @@ import org.hibernate.annotations.Type
 import javax.persistence.*
 import java.time.LocalDateTime
 
+@TypeChecked
 @Entity
 @Table(schema = "ancillary", name = "services")
 class Orderslip extends AbstractAuditingEntity {

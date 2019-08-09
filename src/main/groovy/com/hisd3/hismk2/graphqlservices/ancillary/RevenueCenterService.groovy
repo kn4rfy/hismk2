@@ -1,8 +1,10 @@
 package com.hisd3.hismk2.graphqlservices.ancillary
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.hisd3.hismk2.dao.RevenueCenterDao
 import com.hisd3.hismk2.dao.ancillary.ServicesDao
 import com.hisd3.hismk2.dao.pms.PatientDao
+import com.hisd3.hismk2.domain.ancillary.RevenueCenter
 import com.hisd3.hismk2.domain.ancillary.Services
 import com.hisd3.hismk2.domain.pms.Patient
 import com.hisd3.hismk2.repository.ancillary.ServicesRepository
@@ -15,24 +17,23 @@ import org.springframework.stereotype.Component
 
 @Component
 @GraphQLApi
-class ServicesService {
+class RevenueCenterService {
 
     @Autowired
-    ServicesDao servicesDao
+    RevenueCenterDao revenueCenterDao
 
     @Autowired
     GeneratorService generatorService
 
-    @Autowired
-    private ServicesRepository servicesRepository
+
 
     @Autowired
     ObjectMapper objectMapper
 
     //============== All Queries ====================
 
-    @GraphQLQuery(name = "services", description = "Get All Services")
-    Set<Services> findAll() {
-        servicesDao.findAll()
+    @GraphQLQuery(name = "revenuecenter", description = "Get All RevenueCenters")
+    Set<RevenueCenter> findAll() {
+        revenueCenterDao.findAll()
     }
 }

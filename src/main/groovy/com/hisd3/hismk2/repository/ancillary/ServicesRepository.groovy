@@ -9,9 +9,4 @@ import org.springframework.data.jpa.repository.Query
 
 interface ServicesRepository extends JpaRepository<Services, UUID> {
 
-    @Query(
-            value = "Select s from Services s",
-            countQuery = "Select count(s) from Services s"
-    )
-    List<Services> getAllServices()
 }
