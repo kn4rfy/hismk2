@@ -1,10 +1,7 @@
 package com.hisd3.hismk2.dao
 
-import com.hisd3.hismk2.domain.Department
-import com.hisd3.hismk2.domain.User
+
 import com.hisd3.hismk2.domain.ancillary.Orderslip
-import com.hisd3.hismk2.repository.DepartmentRepository
-import com.hisd3.hismk2.repository.UserRepository
 import com.hisd3.hismk2.repository.ancillary.OrderslipRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

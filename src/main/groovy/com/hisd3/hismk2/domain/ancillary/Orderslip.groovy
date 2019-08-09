@@ -13,7 +13,7 @@ import java.time.LocalDateTime
 
 @TypeChecked
 @Entity
-@Table(schema = "ancillary", name = "services")
+@Table(schema = "ancillary", name = "orderslips")
 class Orderslip extends AbstractAuditingEntity {
 
     @GraphQLQuery
@@ -26,7 +26,7 @@ class Orderslip extends AbstractAuditingEntity {
 
     @NotFound(action = NotFoundAction.IGNORE)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "services", referencedColumnName = "id")
+    @JoinColumn(name = "service", referencedColumnName = "id")
     Services service
 
     @Column(name = "department", columnDefinition = "uuid")

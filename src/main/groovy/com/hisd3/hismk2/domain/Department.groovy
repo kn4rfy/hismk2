@@ -3,12 +3,9 @@ package com.hisd3.hismk2.domain
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
-import org.hibernate.annotations.NotFound
-import org.hibernate.annotations.NotFoundAction
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
-import java.time.LocalDateTime
 
 @Entity
 @Table(schema = "public", name = "department")
