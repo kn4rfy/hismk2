@@ -13,23 +13,23 @@ import org.springframework.stereotype.Component
 @Component
 @GraphQLApi
 class ServicesService {
-
-    @Autowired
-    ServicesDao servicesDao
-
-    @Autowired
-    GeneratorService generatorService
-
-    @Autowired
-    private ServicesRepository servicesRepository
-
-    @Autowired
-    ObjectMapper objectMapper
-
-    //============== All Queries ====================
-
-    @GraphQLQuery(name = "services", description = "Get All Services")
-    Set<Services> findAll() {
-        servicesDao.findAll()
-    }
+	
+	@Autowired
+	ServicesDao servicesDao
+	
+	@Autowired
+	GeneratorService generatorService
+	
+	@Autowired
+	private ServicesRepository servicesRepository
+	
+	@Autowired
+	ObjectMapper objectMapper
+	
+	//============== All Queries ====================
+	
+	@GraphQLQuery(name = "services", description = "Get All Services")
+	Set<Services> findAll() {
+		servicesDao.findAll()
+	}
 }

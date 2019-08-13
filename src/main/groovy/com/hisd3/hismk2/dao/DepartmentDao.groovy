@@ -12,18 +12,26 @@ import javax.persistence.PersistenceContext
 @Service
 @Transactional
 class DepartmentDao {
-
-    @Autowired
-    private DepartmentRepository departmentRepository
-
-    @PersistenceContext
-    EntityManager entityManager
-
-    List<Department> findAll() {
-        return departmentRepository.findAll()
-    }
-
-    Department findById(String id) {
-        return departmentRepository.findById(Long.parseLong(id)).get()
-    }
+	
+	@Autowired
+	private DepartmentRepository departmentRepository
+	
+	@PersistenceContext
+	EntityManager entityManager
+	
+	List<Department> findAll() {
+		return departmentRepository.findAll()
+	}
+	
+	List<Department> searchDepartments(String filter) {
+		return departmentRepository.searchDepartments(filter)
+	}
+	
+	Department findById(String id) {
+		return departmentRepository.findById(UUID.fromString(id)).get()
+	}
+	
+	Department save(Department department) {
+		departmentRepository.save(department)
+	}
 }

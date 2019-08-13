@@ -1,2 +1,2 @@
 ALTER TABLE "ancillary"."orderslips"
-ADD COLUMN "department" uuid;
+  ADD COLUMN "department" uuid;
