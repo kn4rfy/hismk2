@@ -2,6 +2,7 @@ package com.hisd3.hismk2.domain.bms
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
 import io.leangen.graphql.annotations.GraphQLQuery
+import org.hibernate.annotations.Formula
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
 
@@ -38,4 +39,8 @@ class Room extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "status", columnDefinition = "varchar")
 	String status
+	
+	@GraphQLQuery
+	@Formula("concat(room_no, coalesce('-' || nullif(bed_no,''), ''), coalesce('-' || nullif(status,'') , ''))")
+	String roomName
 }

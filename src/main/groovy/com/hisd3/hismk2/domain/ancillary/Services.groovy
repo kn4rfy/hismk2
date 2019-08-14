@@ -29,11 +29,15 @@ class Services extends AbstractAuditingEntity {
 
     @GraphQLQuery
     @Column(name = "servicename", columnDefinition = "varchar")
-    String service_name
+    String serviceName
 
     @GraphQLQuery
     @Column(name = "service_code", columnDefinition = "varchar")
-    String service_code
+    String serviceCode
+
+    @GraphQLQuery
+    @Column(name = "process_code", columnDefinition = "varchar")
+    String processCode
 
     @GraphQLQuery
     @Column(name = "description", columnDefinition = "varchar")
@@ -44,19 +48,31 @@ class Services extends AbstractAuditingEntity {
     String category
 
     @GraphQLQuery
+    @Column(name = "`package`", columnDefinition = "boolean")
+    String packageType
+
+    @GraphQLQuery
+    @Column(name = "available", columnDefinition = "boolean")
+    String available
+
+    @GraphQLQuery
     @Column(name = "notes", columnDefinition = "varchar")
     String notes
 
     @GraphQLQuery
     @Column(name = "base_price", columnDefinition = "numeric")
-    Number base_price
+    Number basePrice
 
     @GraphQLQuery
     @Column(name = "cost", columnDefinition = "numeric")
     Number cost
 
     @GraphQLQuery
+    @Column(name = "markup", columnDefinition = "numeric")
+    Number markup
+
+    @GraphQLQuery
     @Column(name = "readersfee", columnDefinition = "numeric")
-    Number readers_fee
+    Number readersFee
 
 }

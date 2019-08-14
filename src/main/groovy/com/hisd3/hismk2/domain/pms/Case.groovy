@@ -39,6 +39,12 @@ class Case extends AbstractAuditingEntity {
 	@Column(name = "status", columnDefinition = "varchar")
 	String status
 	
+	@PrePersist
+	void preInsert() {
+		if (this.status == null)
+			this.status = 'ACTIVE'
+	}
+	
 	@GraphQLQuery
 	@Column(name = "service_type", columnDefinition = "varchar")
 	String serviceType
