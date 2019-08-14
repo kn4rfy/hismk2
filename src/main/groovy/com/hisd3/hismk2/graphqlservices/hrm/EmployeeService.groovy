@@ -67,13 +67,13 @@ class EmployeeService {
 		if (id) {
 			def employee = employeeDao.findById(id)
 			objectMapper.updateValue(employee, fields)
-
-            def userId = fields["userId"]
-
-            User user = userDao.findById(userId as String)
-
-            employee.user = user
-
+			
+			def userId = fields["userId"]
+			
+			User user = userDao.findById(userId as String)
+			
+			employee.user = user
+			
 			return employeeDao.save(employee)
 		} else {
 			def employee = objectMapper.convertValue(fields, Employee)

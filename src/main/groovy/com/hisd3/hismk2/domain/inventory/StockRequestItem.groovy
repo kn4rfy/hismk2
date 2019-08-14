@@ -18,6 +18,5 @@ class StockRequestItem extends AbstractAuditingEntity {
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
-
-
+	
 }
