@@ -12,7 +12,7 @@ import javax.persistence.*
 
 @Entity
 @Table(schema = "ancillary", name = "services")
-class Services extends AbstractAuditingEntity {
+class Service extends AbstractAuditingEntity {
 
     @GraphQLQuery
     @Id
@@ -49,11 +49,11 @@ class Services extends AbstractAuditingEntity {
 
     @GraphQLQuery
     @Column(name = "`package`", columnDefinition = "boolean")
-    String packageType
+    Boolean packageType
 
     @GraphQLQuery
     @Column(name = "available", columnDefinition = "boolean")
-    String available
+    Boolean available
 
     @GraphQLQuery
     @Column(name = "notes", columnDefinition = "varchar")
@@ -61,18 +61,18 @@ class Services extends AbstractAuditingEntity {
 
     @GraphQLQuery
     @Column(name = "base_price", columnDefinition = "numeric")
-    Number basePrice
+    BigDecimal basePrice
 
     @GraphQLQuery
     @Column(name = "cost", columnDefinition = "numeric")
-    Number cost
+    BigDecimal cost
 
     @GraphQLQuery
     @Column(name = "markup", columnDefinition = "numeric")
-    Number markup
+    BigDecimal markup
 
     @GraphQLQuery
     @Column(name = "readersfee", columnDefinition = "numeric")
-    Number readersFee
+    BigDecimal readersFee
 
 }

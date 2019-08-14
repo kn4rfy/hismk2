@@ -27,7 +27,7 @@ class Orderslip extends AbstractAuditingEntity {
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "service", referencedColumnName = "id")
-	Services service
+	Service service
 	
 	@Column(name = "department", columnDefinition = "uuid")
 	UUID department
