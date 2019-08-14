@@ -40,18 +40,18 @@ class ReceivingReportItem extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "po_qty", columnDefinition = 'numeric')
-	String poQty
+	Integer poQty
 	
 	@GraphQLQuery
 	@Column(name = "qty_delivered", columnDefinition = 'numeric')
-	String qtyDelivered
+	Integer qtyDelivered
 	
 	@GraphQLQuery
 	@Column(name = "po_balance_qty", columnDefinition = 'numeric')
-	String poBalanceQty
+	Integer poBalanceQty
 	
 	@GraphQLQuery
 	@Column(name = "amt", columnDefinition = 'numeric')
-	String amt
+	Integer amt
 	
 }
