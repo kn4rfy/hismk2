@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.inventory.ReceivingDao
 import com.hisd3.hismk2.domain.inventory.ReceivingReport
 import com.hisd3.hismk2.domain.inventory.ReceivingReportItem
-import com.hisd3.hismk2.domain.pms.Patient
 import com.hisd3.hismk2.repository.inventory.ReceivingReportRepository
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLContext
@@ -23,7 +22,7 @@ class ReceivingReportService {
 	
 	@Autowired
 	ReceivingDao receivingDao
-
+	
 	@Autowired
 	ObjectMapper objectMapper
 	
@@ -41,11 +40,11 @@ class ReceivingReportService {
 	ReceivingReport getReceivingById(@GraphQLArgument(name = "id") UUID id) {
 		return receivingDao.getReceivingReport(id)
 	}
-
+	
 	@GraphQLMutation
 	ReceivingReport addReceivingReport(
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
-	){
+	) {
 		def receiving = objectMapper.convertValue(fields, ReceivingReport)
 		return receivingDao.save(receiving)
 	}
