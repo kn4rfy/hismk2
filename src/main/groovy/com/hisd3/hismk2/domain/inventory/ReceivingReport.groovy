@@ -39,7 +39,9 @@ class ReceivingReport extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "qlty_inspection_date", nullable = true)
 	LocalDateTime qltyInspectionDate
-	
+
+
+	@GraphQLQuery
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "receivingReport")
 	Set<ReceivingReportItem> receivingItems = [] as Set
 }

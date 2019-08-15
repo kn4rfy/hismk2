@@ -22,7 +22,11 @@ class Item {
 	@GraphQLQuery
 	@Column(name = "stock_code")
 	String stockCode
-	
+
+	@GraphQLQuery
+	@Column(name = "barcode")
+	String barcode
+
 	@GraphQLQuery
 	@Column(name = "desc_long")
 	String descLong
