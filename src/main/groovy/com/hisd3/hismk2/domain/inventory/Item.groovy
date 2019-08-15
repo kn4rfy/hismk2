@@ -24,6 +24,10 @@ class Item {
 	String stockCode
 	
 	@GraphQLQuery
+	@Column(name = "barcode")
+	String barcode
+	
+	@GraphQLQuery
 	@Column(name = "desc_long")
 	String descLong
 	

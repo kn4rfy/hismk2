@@ -5,8 +5,8 @@ import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Service
 
 enum GeneratorType {
-	
-	PATIENT_NO
+	PATIENT_NO,
+	CASE_NO
 }
 
 @Service

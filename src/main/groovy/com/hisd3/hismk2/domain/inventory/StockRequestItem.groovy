@@ -18,6 +18,10 @@ class StockRequestItem extends AbstractAuditingEntity {
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
-
-
+	
+	@GraphQLQuery
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "stock_request", referencedColumnName = "id")
+	StockRequest stockRequest
+	
 }
