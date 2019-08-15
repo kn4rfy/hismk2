@@ -25,8 +25,8 @@ class RoomDao {
 		return roomRepository.findAll()
 	}
 	
-	Room findById(UUID id) {
-		return roomRepository.findById(id).get()
+	Room findById(String id) {
+		return roomRepository.findById(UUID.fromString(id)).get()
 	}
 	
 	List<Room> getAvailableRooms() {
