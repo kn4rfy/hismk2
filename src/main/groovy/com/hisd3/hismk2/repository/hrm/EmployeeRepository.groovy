@@ -1,5 +1,6 @@
 package com.hisd3.hismk2.repository.hrm
 
+import com.hisd3.hismk2.domain.User
 import com.hisd3.hismk2.domain.hrm.Employee
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -20,4 +21,6 @@ interface EmployeeRepository extends JpaRepository<Employee, UUID> {
 			countQuery = "Select count(e) from Employee e where lower(e.fullName) like concat('%',:filter,'%')"
 	)
 	List<Employee> searchEmployees(@Param("filter") String filter)
+	
+	Employee findOneByUser(@Param("user") User user)
 }
