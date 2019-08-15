@@ -1,8 +1,6 @@
 package com.hisd3.hismk2.graphqlservices.inventory
 
-import com.hisd3.hismk2.domain.inventory.Item
 import com.hisd3.hismk2.domain.inventory.StockRequest
-import com.hisd3.hismk2.repository.inventory.ItemRepository
 import com.hisd3.hismk2.repository.inventory.StockRequestRepository
 import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLArgument
@@ -23,12 +21,12 @@ class StockRequestService {
 	List<StockRequest> allStockRequests() {
 		return stockRequestRepository.findAll()
 	}
-
+	
 	@GraphQLQuery(name = "stockrequests", description = "List of Stock Requests with filter and status")
-	List<StockRequest> allStockRequests(@GraphQLArgument(name = "status") String status,@GraphQLArgument(name = "filter") String filter) {
+	List<StockRequest> allStockRequests(@GraphQLArgument(name = "status") String status, @GraphQLArgument(name = "filter") String filter) {
 		return stockRequestRepository.stockRequestByFilter(status, filter)
 	}
-
+	
 	@GraphQLQuery(name = "stockrequest", description = "Get stockrequest By Id")
 	StockRequest findById(@GraphQLArgument(name = "id") UUID id) {
 		return stockRequestRepository.findById(id).get()

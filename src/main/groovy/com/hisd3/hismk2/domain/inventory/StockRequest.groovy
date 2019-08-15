@@ -6,7 +6,6 @@ import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
-import java.time.LocalDateTime
 
 @Entity
 @Table(schema = "inventory", name = "stock_request")
@@ -19,29 +18,28 @@ class StockRequest extends AbstractAuditingEntity {
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
-
+	
 	@GraphQLQuery
 	@Column(name = "stock_request_no")
 	String stockRequestNo
-
+	
 	@GraphQLQuery
 	@Column(name = "status")
 	String status
-
+	
 	@GraphQLQuery
 	@Column(name = "patient")
 	String patient
-
+	
 	@GraphQLQuery
 	@Column(name = "requested_by")
 	String requestedBy
-
+	
 	@GraphQLQuery
 	@Column(name = "requesting_department")
 	String requestingDepartment
-
-
+	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "stockRequest")
 	List<StockRequestItem> stockRequestItems
-
+	
 }
