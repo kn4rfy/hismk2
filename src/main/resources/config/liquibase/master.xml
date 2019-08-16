@@ -40,11 +40,17 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20_ace_rename_department_columns.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/21_ace_transfer_table.sql"
+             relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/21_gregg_msri.sql"
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/22_gregg_msri.sql"
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/23_gregg_stockrequest.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/24_ace_transfers_datetime_column.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/25_jp_newcolumn.sql"
              relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
