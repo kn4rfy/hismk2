@@ -1,15 +1,12 @@
 package com.hisd3.hismk2.dao.pms
 
-
 import com.hisd3.hismk2.domain.pms.Transfer
 import com.hisd3.hismk2.repository.pms.TransferRepository
-
-import javax.persistence.EntityManager
-
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
+import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
 @Service
@@ -29,7 +26,7 @@ class TransferDao {
 	List<Transfer> searchTransfers(String filter) {
 		return transferRepository.searchTransfers(filter)
 	}
-
+	
 	List<Transfer> getTransfersByCase(String caseNo) {
 		return transferRepository.getTransfersByCase(caseNo)
 	}

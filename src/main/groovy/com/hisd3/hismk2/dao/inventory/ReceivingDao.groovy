@@ -19,8 +19,8 @@ class ReceivingDao {
 	ReceivingReportRepository receivingReportRepository
 	@Autowired
 	ReceivingReportItemRepository receivingReportItemRepository
-    @Autowired
-    ObjectMapper objectMapper
+	@Autowired
+	ObjectMapper objectMapper
 	@PersistenceContext
 	EntityManager entityManager
 	
@@ -47,26 +47,25 @@ class ReceivingDao {
 		}
 		return receivingReportRepository.save(receivingReport)
 	}
-
-
-	ReceivingReport deleteItems(UUID id, List<Map<String, Object>> items){
+	
+	ReceivingReport deleteItems(UUID id, List<Map<String, Object>> items) {
 		ReceivingReport receivingReport = receivingReportRepository.findById(id).get()
-
-		items.each {it ->
-            def receivingItem = objectMapper.convertValue(it, ReceivingReportItem)
-
-            receivingReportItemRepository.delete(receivingItem)
+		
+		items.each { it ->
+			def receivingItem = objectMapper.convertValue(it, ReceivingReportItem)
+			
+			receivingReportItemRepository.delete(receivingItem)
 		}
-
+		
 		return receivingReport
 	}
-
-	ReceivingReport addItems(UUID id, ReceivingReportItem item){
+	
+	ReceivingReport addItems(UUID id, ReceivingReportItem item) {
 		ReceivingReport receivingReport = receivingReportRepository.findById(id).get()
-
+		
 		item.receivingReport = receivingReport
 		receivingReportItemRepository.save(item)
-
+		
 		return receivingReport
 	}
 }
