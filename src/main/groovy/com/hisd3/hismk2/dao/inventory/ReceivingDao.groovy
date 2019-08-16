@@ -1,5 +1,6 @@
 package com.hisd3.hismk2.dao.inventory
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.domain.inventory.ReceivingReport
 import com.hisd3.hismk2.domain.inventory.ReceivingReportItem
 import com.hisd3.hismk2.repository.inventory.ReceivingReportItemRepository
@@ -18,7 +19,8 @@ class ReceivingDao {
 	ReceivingReportRepository receivingReportRepository
 	@Autowired
 	ReceivingReportItemRepository receivingReportItemRepository
-	
+    @Autowired
+    ObjectMapper objectMapper
 	@PersistenceContext
 	EntityManager entityManager
 	
@@ -43,6 +45,28 @@ class ReceivingDao {
 				receivingReportItemRepository.save(i)
 			}
 		}
-		receivingReportRepository.save(receivingReport)
+		return receivingReportRepository.save(receivingReport)
+	}
+
+
+	ReceivingReport deleteItems(UUID id, List<Map<String, Object>> items){
+		ReceivingReport receivingReport = receivingReportRepository.findById(id).get()
+
+		items.each {it ->
+            def receivingItem = objectMapper.convertValue(it, ReceivingReportItem)
+
+            receivingReportItemRepository.delete(receivingItem)
+		}
+
+		return receivingReport
+	}
+
+	ReceivingReport addItems(UUID id, ReceivingReportItem item){
+		ReceivingReport receivingReport = receivingReportRepository.findById(id).get()
+
+		item.receivingReport = receivingReport
+		receivingReportItemRepository.save(item)
+
+		return receivingReport
 	}
 }
