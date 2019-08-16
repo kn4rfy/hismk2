@@ -1,5 +1,7 @@
 package com.hisd3.hismk2.graphqlservices.inventory
 
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.inventory.ReceivingDao
 import com.hisd3.hismk2.domain.inventory.ReceivingReport
@@ -45,29 +47,19 @@ class ReceivingReportService {
 
 	@GraphQLMutation
 	ReceivingReport addReceivingReport(
+			@GraphQLArgument(name = "id") UUID id,
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	){
-		def receiving = objectMapper.convertValue(fields, ReceivingReport)
-		return receivingDao.save(receiving)
+
+		return receivingDao.save(id, fields)
 	}
 
 
     @GraphQLMutation
     ReceivingReport deleteReceivingReportItems(
-            @GraphQLArgument(name="id") UUID id,
-            @GraphQLArgument(name = "items") List<Map<String, Object>> items
+            @GraphQLArgument(name="id") UUID id
     ){
-
-        return receivingDao.deleteItems(id, items)
+        return receivingDao.delete(id)
     }
-
-	@GraphQLMutation
-	ReceivingReport addReceivingReportItems(
-			@GraphQLArgument(name="id") UUID id,
-			@GraphQLArgument(name = "item") Map<String, Object> item
-	){
-		def receivingItem = objectMapper.convertValue(item, ReceivingReportItem)
-		return receivingDao.addItems(id, receivingItem)
-	}
 	
 }
