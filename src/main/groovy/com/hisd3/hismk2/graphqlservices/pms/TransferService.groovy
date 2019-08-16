@@ -48,9 +48,6 @@ class TransferService {
 
     @GraphQLQuery(name = "getTransfersByCase", description = "Transfers by case")
     List<Transfer> getTransfersByCase(@GraphQLArgument(name = "caseNo") String caseNo) {
-
-        println("--------------")
-        println(caseNo)
         transferDao.getTransfersByCase(caseNo)
     }
 
