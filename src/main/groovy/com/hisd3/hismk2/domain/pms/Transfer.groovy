@@ -23,15 +23,15 @@ class Transfer extends AbstractAuditingEntity {
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
-
+	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
 	LocalDateTime entryDatetime
-
+	
 	@GraphQLQuery
 	@Column(name = "registry_type", columnDefinition = "varchar")
 	String registryType
-
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "department", referencedColumnName = "id")
@@ -40,12 +40,12 @@ class Transfer extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "case_no", columnDefinition = "varchar")
 	String caseNo
-
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "room", referencedColumnName = "id")
 	Room room
-
+	
 	@GraphQLQuery
 	@Column(name = "status", columnDefinition = "varchar")
 	String status
