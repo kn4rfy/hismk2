@@ -38,6 +38,12 @@ class CaseService {
 		
 		return caseDao.findById(id)
 	}
+
+	@GraphQLQuery(name = "case", description = "Get Case By Case Number")
+	Case findByCaseNo(@GraphQLArgument(name = "caseNo") String caseNo) {
+
+		return caseDao.findByCaseNo(caseNo)
+	}
 	
 	@GraphQLQuery(name = "patientActiveCase", description = "Get Patient active Case")
 	Case getPatientActiveCase(@GraphQLArgument(name = "patientId") UUID patientId) {
