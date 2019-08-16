@@ -1,7 +1,6 @@
 package com.hisd3.hismk2.domain.bms
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
-import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.Transfer
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.Formula
@@ -45,7 +44,7 @@ class Room extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Formula("concat(room_no, coalesce('-' || nullif(bed_no,''), ''), coalesce('-' || nullif(status,'') , ''))")
 	String roomName
-
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "room")
 	Set<Transfer> roomTransfers = [] as Set
 }

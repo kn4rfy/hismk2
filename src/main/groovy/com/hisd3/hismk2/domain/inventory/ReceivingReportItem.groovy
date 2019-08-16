@@ -31,6 +31,10 @@ class ReceivingReportItem extends AbstractAuditingEntity {
 	String barcode
 	
 	@GraphQLQuery
+	@Column(name = "item", columnDefinition = 'varchar')
+	String item
+	
+	@GraphQLQuery
 	@Column(name = "description", columnDefinition = 'varchar')
 	String description
 	
