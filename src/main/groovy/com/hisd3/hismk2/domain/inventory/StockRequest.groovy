@@ -21,7 +21,7 @@ class StockRequest extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "stock_request_no")
-	String stockRequestNo
+	BigDecimal stockRequestNo
 	
 	@GraphQLQuery
 	@Column(name = "status")
