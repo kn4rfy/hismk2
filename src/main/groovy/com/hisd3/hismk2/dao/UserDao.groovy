@@ -1,5 +1,7 @@
 package com.hisd3.hismk2.dao
 
+import com.hisd3.hismk2.domain.Authority
+import com.hisd3.hismk2.domain.PersistentToken
 import com.hisd3.hismk2.domain.User
 import com.hisd3.hismk2.domain.hrm.Employee
 import com.hisd3.hismk2.repository.UserRepository
@@ -36,5 +38,26 @@ class UserDao {
 		User user = userRepository.findOneByLogin(login)
 		
 		return employeeRepository.findOneByUser(user)
+	}
+	
+	Set<Authority> getAuthorities(User user) {
+		
+		def mergedUser = entityManager.merge(user)
+		mergedUser.authorities.size()
+		return mergedUser.authorities as Set
+	}
+	
+	Set<PersistentToken> getPersistentTokens(User user) {
+		
+		def mergedUser = entityManager.merge(user)
+		mergedUser.persistentTokens.size()
+		return mergedUser.persistentTokens as Set
+	}
+	
+	Set<String> getRoles(User user) {
+		
+		def mergedUser = entityManager.merge(user)
+		mergedUser.roles.size()
+		return mergedUser.roles as Set
 	}
 }
