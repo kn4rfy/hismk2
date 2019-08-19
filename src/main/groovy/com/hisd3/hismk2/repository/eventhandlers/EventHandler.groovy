@@ -12,7 +12,6 @@ import org.springframework.data.rest.core.annotation.HandleBeforeCreate
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler
 
 import javax.transaction.Transactional
-import java.time.LocalDateTime
 
 @TypeChecked
 @RepositoryEventHandler
@@ -32,11 +31,10 @@ class EventHandler {
 			
 		}
 	}
-
+	
 	@HandleAfterCreate
 	handleAfterCreatePatient(Patient patient) {
-
-
+	
 	}
 	
 	@HandleBeforeCreate

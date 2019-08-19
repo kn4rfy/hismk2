@@ -1,6 +1,5 @@
 package com.hisd3.hismk2.dao.pms
 
-import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.Patient
 import com.hisd3.hismk2.repository.pms.PatientRepository
@@ -46,7 +45,7 @@ class PatientDao {
 		mergedPatient.patientCases.size()
 		return mergedPatient.patientCases as Set
 	}
-
+	
 	List<Patient> searchPatients(String filter) {
 		return patientRepository.searchPatients(filter)
 	}
