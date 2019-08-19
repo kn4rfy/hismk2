@@ -22,7 +22,7 @@ class ReceivingDao {
     @Autowired
     ObjectMapper objectMapper
 	@PersistenceContext
-	EntityManager entityManager
+	EntityManager entityManageraddReceivingReport
 	
 	List<ReceivingReport> findAll() {
 		return receivingReportRepository.findAll()

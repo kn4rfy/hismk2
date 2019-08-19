@@ -26,4 +26,8 @@ class OrderslipDao {
 	Orderslip findById(String id) {
 		return orderslipRepository.findById(Long.parseLong(id)).get()
 	}
+
+	Orderslip save(Orderslip oSlip) {
+		orderslipRepository.save(oSlip)
+	}
 }
