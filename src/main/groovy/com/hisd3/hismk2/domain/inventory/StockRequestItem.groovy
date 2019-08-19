@@ -22,31 +22,31 @@ class StockRequestItem extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "item_description")
 	String itemDescription
-
+	
 	@GraphQLQuery
 	@Column(name = "expected_barcode")
 	String expectedBarcode
-
+	
 	@GraphQLQuery
 	@Column(name = "item_reference_id")
 	UUID itemReferenceId
-
+	
 	@GraphQLQuery
 	@Column(name = "requested_qty")
-    BigDecimal requestedQty
-
+	BigDecimal requestedQty
+	
 	@GraphQLQuery
 	@Column(name = "prepared_qty")
 	BigDecimal preparedQty
-
+	
 	@GraphQLQuery
 	@Column(name = "ordered_by")
 	String orderedBy
-
+	
 	@GraphQLQuery
 	@Column(name = "ordered_by_reference_id")
 	UUID orderedByReferenceId
-
+	
 	@GraphQLQuery
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "stock_request", referencedColumnName = "id")
