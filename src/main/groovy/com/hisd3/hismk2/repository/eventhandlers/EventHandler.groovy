@@ -7,10 +7,12 @@ import com.hisd3.hismk2.services.GeneratorType
 import groovy.transform.TypeChecked
 import org.apache.commons.lang3.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.rest.core.annotation.HandleAfterCreate
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler
 
 import javax.transaction.Transactional
+import java.time.LocalDateTime
 
 @TypeChecked
 @RepositoryEventHandler
@@ -29,6 +31,12 @@ class EventHandler {
 			})
 			
 		}
+	}
+
+	@HandleAfterCreate
+	handleAfterCreatePatient(Patient patient) {
+
+
 	}
 	
 	@HandleBeforeCreate

@@ -1,5 +1,7 @@
 package com.hisd3.hismk2.domain.inventory
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
@@ -10,8 +12,9 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(schema = "inventory", name = "receiving_report")
-class ReceivingReport extends AbstractAuditingEntity {
-	
+@JsonIgnoreProperties(ignoreUnknown = true)
+class ReceivingReport extends AbstractAuditingEntity implements Serializable{
+
 	@GraphQLQuery
 	@Id
 	@GeneratedValue(generator = "system-uuid")

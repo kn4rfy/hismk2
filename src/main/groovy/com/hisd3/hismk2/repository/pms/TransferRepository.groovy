@@ -10,6 +10,6 @@ interface TransferRepository extends JpaRepository<Transfer, UUID> {
 	@Query(value = "Select t from Transfer t")
 	List<Transfer> searchTransfers(@Param("filter") String filter)
 	
-	@Query(value = "Select t from Transfer t where t.caseNo = concat('%',:caseNo,'%')")
+	@Query(value = "Select t from Transfer t where t.caseNo = :caseNo")
 	List<Transfer> getTransfersByCase(@Param("caseNo") String caseNo)
 }

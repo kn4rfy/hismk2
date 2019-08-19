@@ -13,4 +13,9 @@ interface CaseRepository extends JpaRepository<Case, UUID> {
 			value = "Select c from Case c where c.patient.id = :patientId and c.status = 'ACTIVE'"
 	)
 	Case getPatientActiveCase(@Param("patientId") UUID patientId)
+
+	@Query(
+			value = "Select c from Case c where c.caseNo = :caseNo"
+	)
+	Case findByCaseNo(@Param("caseNo") String caseNo)
 }
