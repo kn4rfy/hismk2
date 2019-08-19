@@ -59,7 +59,14 @@ class ReceivingReportService {
     ReceivingReport deleteReceivingReportItems(
             @GraphQLArgument(name="id") UUID id
     ){
-        return receivingDao.delete(id)
+        return receivingDao.deleteItems(id)
     }
+
+	@GraphQLMutation
+	ReceivingReport deleteReceivingReport(
+			@GraphQLArgument(name="id") UUID id
+	){
+		return receivingDao.delete(id)
+	}
 	
 }

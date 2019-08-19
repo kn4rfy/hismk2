@@ -76,9 +76,16 @@ class ReceivingDao {
 
 	}
 
-	ReceivingReport delete(UUID id){
-		def recevingReport = receivingReportRepository.findById(id)
+	ReceivingReport deleteItems(UUID id){
+		def recevingReportItem = receivingReportItemRepository.findById(id).get()
+		def receivingReport = recevingReportItem.receivingReport
+		receivingReportItemRepository.delete(recevingReportItem)
+		return receivingReport
+	}
 
-		return receivingReportRepository.delete(recevingReport as ReceivingReport)
+	ReceivingReport delete(UUID id){
+		def receivingReport = receivingReportRepository.findById(id).get()
+
+		receivingReportRepository.delete(receivingReport)
 	}
 }
