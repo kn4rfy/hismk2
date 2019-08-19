@@ -84,9 +84,11 @@ class TransferService {
             Department department = departmentDao.findById(departmentId as String)
             transfer.department = department
 
-            def roomId = fields["roomId"]
-            Room room = roomDao.findById(roomId as String)
-            transfer.room = room
+            if(fields["roomId"] != null) {
+                def roomId = fields["roomId"]
+                Room room = roomDao.findById(roomId as String)
+                transfer.room = room
+            }
 
             return transferDao.save(transfer)
         }

@@ -68,6 +68,11 @@ class PatientService {
 		
 		patientDao.getPatientRelayPage(first, Integer.parseInt(after))
 	}
+
+	@GraphQLQuery(name = "searchPatients", description = "Search patients")
+	List<Patient> searchPatients(@GraphQLArgument(name = "filter") String filter) {
+		patientDao.searchPatients(filter)
+	}
 	
 	@GraphQLQuery(name = "patientCases", description = "Get All Patient Cases")
 	Set<Case> getCases(@GraphQLContext Patient patient) {
