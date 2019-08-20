@@ -34,20 +34,20 @@ class ServiceService {
 	Set<Service> findAll() {
 		servicesDao.findAll()
 	}
-
+	
 	@GraphQLQuery(name = "searchServices", description = "Search Services")
 	List<Service> searchServices(@GraphQLArgument(name = "filter") String filter) {
 		servicesDao.searchHisServices(filter)
 	}
-
+	
 	@GraphQLQuery(name = "Service", description = "Get Service By Id")
 	Service findById(@GraphQLArgument(name = "id") String id) {
-
+		
 		return servicesDao.findById(id)
 	}
-
+	
 	//============== All Mutations ====================
-
+	
 	@GraphQLMutation
 	Service upsertServices(
 			@GraphQLArgument(name = "id") String id,
@@ -56,17 +56,15 @@ class ServiceService {
 		if (id) {
 			def serviceitem = servicesDao.findById(id)
 			objectMapper.updateValue(serviceitem, fields)
-
+			
 			serviceitem.available = true
-
-
+			
 			return servicesDao.save(serviceitem)
 		} else {
 			def serviceitem = objectMapper.convertValue(fields, Service)
-
+			
 			serviceitem.available = true
-
-
+			
 			return servicesDao.save(serviceitem)
 		}
 	}

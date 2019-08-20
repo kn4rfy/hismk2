@@ -56,11 +56,11 @@ class Case extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "registry_type", columnDefinition = "varchar")
 	String registryType
-
+	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
 	LocalDateTime entryDatetime
-
+	
 	@GraphQLQuery
 	@Column(name = "admission_datetime", columnDefinition = "timestamp")
 	LocalDateTime admissionDatetime
@@ -108,43 +108,43 @@ class Case extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "informant", columnDefinition = "varchar")
 	String informant
-
+	
 	@GraphQLQuery
 	@Column(name = "informant_address", columnDefinition = "varchar")
 	String informantAddress
-
+	
 	@GraphQLQuery
 	@Column(name = "informant_relation", columnDefinition = "varchar")
 	String informantRelation
-
+	
 	@GraphQLQuery
 	@Column(name = "informant_contact", columnDefinition = "varchar")
 	String informantContact
-
+	
 	@GraphQLQuery
 	@Column(name = "occupation", columnDefinition = "varchar")
 	String occupation
-
+	
 	@GraphQLQuery
 	@Column(name = "company_name", columnDefinition = "varchar")
 	String companyName
-
+	
 	@GraphQLQuery
 	@Column(name = "company_address", columnDefinition = "varchar")
 	String companyAddress
-
+	
 	@GraphQLQuery
 	@Column(name = "company_contact", columnDefinition = "varchar")
 	String companyContact
-
+	
 	@GraphQLQuery
 	@Column(name = "emergency_contact_name", columnDefinition = "varchar")
 	String emergencyContactName
-
+	
 	@GraphQLQuery
 	@Column(name = "emergency_contact_address", columnDefinition = "varchar")
 	String emergencyContactAddress
-
+	
 	@GraphQLQuery
 	@Column(name = "emergency_contact_relation", columnDefinition = "varchar")
 	String emergencyContactRelation
@@ -152,19 +152,19 @@ class Case extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "emergency_contact", columnDefinition = "varchar")
 	String emergencyContact
-
+	
 	@GraphQLQuery
 	@Column(name = "guarantor_name", columnDefinition = "varchar")
 	String guarantorName
-
+	
 	@GraphQLQuery
 	@Column(name = "guarantor_address", columnDefinition = "varchar")
 	String guarantorAddress
-
+	
 	@GraphQLQuery
 	@Column(name = "guarantor_relation", columnDefinition = "varchar")
 	String guarantorRelation
-
+	
 	@GraphQLQuery
 	@Column(name = "guarantor_contact", columnDefinition = "varchar")
 	String guarantorContact
