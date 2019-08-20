@@ -19,8 +19,8 @@ class ReceivingDao {
 	ReceivingReportRepository receivingReportRepository
 	@Autowired
 	ReceivingReportItemRepository receivingReportItemRepository
-	@Autowired
-	ObjectMapper objectMapper
+    @Autowired
+    ObjectMapper objectMapper
 	@PersistenceContext
 	EntityManager entityManager
 	
@@ -39,44 +39,53 @@ class ReceivingDao {
 	}
 	
 	ReceivingReport save(UUID id, Map<String, Object> fields) {
-		
-		if (id) {
+
+
+
+		if(id){
 			def receivingReport = receivingReportRepository.findById(id).get()
 			def receivingItems = objectMapper.convertValue(fields, ReceivingReport).receivingItems
-			
-			if (receivingItems.size() != 0) {
+
+			if(receivingItems.size()!=0){
 				receivingItems.each {
-					ReceivingReportItem it ->
-						if (!it.id) {
+					ReceivingReportItem it->
+						if(!it.id){
 							it.receivingReport = receivingReport
 							receivingReportItemRepository.save(it)
 						}
 				}
 			}
-			
+
 			return receivingReportRepository.save(receivingReport)
-		} else {
+		}else{
 			def receivingReport = objectMapper.convertValue(fields, ReceivingReport)
-			
+
 			ReceivingReport receivingReportAfterSave = receivingReportRepository.save(receivingReport)
-			
+
 			receivingReport.receivingItems.each {
-				ReceivingReportItem it ->
-					if (!it.id) {
-						it.receivingReport = receivingReportAfterSave
-						receivingReportItemRepository.save(it)
-					}
-				
+				ReceivingReportItem it->
+				if(!it.id){
+					it.receivingReport = receivingReportAfterSave
+					receivingReportItemRepository.save(it)
+				}
+
 			}
-			
+
 			return receivingReportAfterSave
 		}
-		
+
 	}
-	
-	ReceivingReport delete(UUID id) {
-		def recevingReport = receivingReportRepository.findById(id)
-		
-		return receivingReportRepository.delete(recevingReport as ReceivingReport)
+
+	ReceivingReport deleteItems(UUID id){
+		def recevingReportItem = receivingReportItemRepository.findById(id).get()
+		def receivingReport = recevingReportItem.receivingReport
+		receivingReportItemRepository.delete(recevingReportItem)
+		return receivingReport
+	}
+
+	ReceivingReport delete(UUID id){
+		def receivingReport = receivingReportRepository.findById(id).get()
+
+		receivingReportRepository.delete(receivingReport)
 	}
 }
