@@ -5,7 +5,7 @@ import com.hisd3.hismk2.domain.Authority
 import com.hisd3.hismk2.domain.PersistentToken
 import com.hisd3.hismk2.domain.User
 import com.hisd3.hismk2.domain.hrm.Employee
-import io.leangen.graphql.annotations.GraphQLArgument
+import com.hisd3.hismk2.security.SecurityUtils
 import io.leangen.graphql.annotations.GraphQLContext
 import io.leangen.graphql.annotations.GraphQLQuery
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
@@ -20,9 +20,9 @@ class UserService {
 	UserDao userDao
 	
 	@GraphQLQuery(name = "account", description = "Get User account by login")
-	Employee findOneByLogin(@GraphQLArgument(name = "login") String login) {
+	Employee findOneByLogin() {
 		
-		return userDao.findOneByLogin(login)
+		return userDao.findOneByLogin(SecurityUtils.currentLogin())
 	}
 	
 	@GraphQLQuery(name = "authorities", description = "Get all User authorities")
