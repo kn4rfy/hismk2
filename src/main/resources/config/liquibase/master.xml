@@ -54,4 +54,8 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/26_ace_case_column.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/27_ace_patient_drop_column.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/28_ace_patient_add_columns.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>

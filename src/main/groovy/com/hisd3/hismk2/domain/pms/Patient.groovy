@@ -105,20 +105,16 @@ class Patient extends AbstractAuditingEntity {
 	String emergencyContactNo
 	
 	@GraphQLQuery
-	@Column(name = "guarantor_name", columnDefinition = "varchar")
-	String guarantorName
+	@Column(name = "civil_status", columnDefinition = "varchar")
+	String civilStatus
 	
 	@GraphQLQuery
-	@Column(name = "guarantor_address", columnDefinition = "varchar")
-	String guarantorAddress
+	@Column(name = "citizenship", columnDefinition = "varchar")
+	String citizenship
 	
 	@GraphQLQuery
-	@Column(name = "guarantor_relationship", columnDefinition = "varchar")
-	String guarantorRelationship
-	
-	@GraphQLQuery
-	@Column(name = "guarantor_contact_no", columnDefinition = "varchar")
-	String guarantorContactNo
+	@Column(name = "name_of_spouse", columnDefinition = "varchar")
+	String nameOfSpouse
 	
 	@GraphQLQuery
 	@Formula("concat(last_name , coalesce(', ' || nullif(first_name,'') , ''), coalesce(' ' || nullif(middle_name,'') , ''), coalesce(' ' || nullif(name_suffix,'') , ''))")
