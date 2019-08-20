@@ -68,11 +68,11 @@ class Case extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "may_go_home_datetime", columnDefinition = "timestamp")
 	LocalDateTime mayGoHomeDateTime
-
+	
 	@GraphQLQuery
 	@Column(name = "chief_complaint", columnDefinition = "varchar")
 	String chiefComplaint
-
+	
 	@GraphQLQuery
 	@Column(name = "admitting_diagnosis", columnDefinition = "varchar")
 	String admittingDiagnosis
