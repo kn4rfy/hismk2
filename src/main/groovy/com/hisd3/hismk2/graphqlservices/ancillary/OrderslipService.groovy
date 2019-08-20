@@ -31,9 +31,17 @@ class OrderslipService {
 	//============== All Queries ====================
 	
 	@GraphQLQuery(name = "orderslips", description = "Get All Orderslips")
-	Set<Orderslip> findAll() {
+	List<Orderslip> findAll() {
 		orderslipDao.findAll()
 	}
+
+	@GraphQLQuery(name = "orderslipsByCase", description = "Get All Orderslips by case")
+
+	List<Orderslip> findByCase(@GraphQLArgument(name = "id") String id) {
+
+		return orderslipDao.findByCase(id)
+	}
+
 
 	//============== All Mutations ====================
 
@@ -41,8 +49,8 @@ class OrderslipService {
 	Orderslip addOrderslip(
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	){
-		println(fields);
-		//return orderslipDao.save(id, fields)
+		println(fields)
+		return orderslipDao.addOrderslip(fields)
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.hisd3.hismk2.domain.ancillary
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
+import com.hisd3.hismk2.domain.pms.Case
 import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
@@ -28,7 +29,12 @@ class Orderslip extends AbstractAuditingEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "service", referencedColumnName = "id")
 	Service service
-	
+
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "case_number", referencedColumnName = "id")
+	Case parentCase
+
 	@Column(name = "department", columnDefinition = "uuid")
 	UUID department
 	
@@ -70,5 +76,6 @@ class Orderslip extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "deleted", columnDefinition = "boolean")
 	Boolean deleted
-	
+
+
 }
