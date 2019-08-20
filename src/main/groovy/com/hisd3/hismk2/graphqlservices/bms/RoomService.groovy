@@ -32,6 +32,7 @@ class RoomService {
 	
 	@GraphQLQuery(name = "room", description = "Get Room By Id")
 	Room findById(@GraphQLArgument(name = "id") String id) {
+		
 		return roomDao.findById(id)
 	}
 	

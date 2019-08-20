@@ -1,13 +1,9 @@
 package com.hisd3.hismk2.graphqlservices.inventory
 
-import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.inventory.ReceivingDao
 import com.hisd3.hismk2.domain.inventory.ReceivingReport
 import com.hisd3.hismk2.domain.inventory.ReceivingReportItem
-import com.hisd3.hismk2.domain.pms.Patient
-import com.hisd3.hismk2.repository.inventory.ReceivingReportItemRepository
 import com.hisd3.hismk2.repository.inventory.ReceivingReportRepository
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLContext
@@ -26,7 +22,7 @@ class ReceivingReportService {
 	
 	@Autowired
 	ReceivingDao receivingDao
-
+	
 	@Autowired
 	ObjectMapper objectMapper
 	
@@ -44,22 +40,28 @@ class ReceivingReportService {
 	ReceivingReport getReceivingById(@GraphQLArgument(name = "id") UUID id) {
 		return receivingDao.getReceivingReport(id)
 	}
-
+	
 	@GraphQLMutation
 	ReceivingReport addReceivingReport(
 			@GraphQLArgument(name = "id") UUID id,
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
-	){
-
+	) {
+		
 		return receivingDao.save(id, fields)
 	}
-
-
-    @GraphQLMutation
-    ReceivingReport deleteReceivingReportItems(
-            @GraphQLArgument(name="id") UUID id
-    ){
-        return receivingDao.delete(id)
-    }
+	
+	@GraphQLMutation
+	ReceivingReport deleteReceivingReportItems(
+			@GraphQLArgument(name = "id") UUID id
+	) {
+		return receivingDao.deleteItems(id)
+	}
+	
+	@GraphQLMutation
+	ReceivingReport deleteReceivingReport(
+			@GraphQLArgument(name = "id") UUID id
+	) {
+		return receivingDao.delete(id)
+	}
 	
 }

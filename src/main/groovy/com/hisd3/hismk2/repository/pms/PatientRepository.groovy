@@ -14,4 +14,11 @@ interface PatientRepository extends JpaRepository<Patient, UUID> {
 			countQuery = "Select count(p) from Patient p where lower(p.fullName) like concat('%',:filter,'%')"
 	)
 	Page<Patient> getPatients(@Param("filter") String filter, Pageable pageable)
+	
+	@Query(value = '''Select p from Patient p where
+            lower(p.lastName) like concat('%',:filter,'%') or 
+            lower(p.firstName) like concat('%',:filter,'%') or 
+            lower(p.middleName) like concat('%',:filter,'%')
+            ''')
+	List<Patient> searchPatients(@Param("filter") String filter)
 }

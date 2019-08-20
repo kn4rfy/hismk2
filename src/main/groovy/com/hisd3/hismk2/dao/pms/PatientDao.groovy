@@ -46,6 +46,10 @@ class PatientDao {
 		return mergedPatient.patientCases as Set
 	}
 	
+	List<Patient> searchPatients(String filter) {
+		return patientRepository.searchPatients(filter)
+	}
+	
 	Patient save(Patient patient) {
 		patientRepository.save(patient)
 	}
