@@ -62,4 +62,6 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/30_ace_case_informant_contact.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/31_new_column.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>

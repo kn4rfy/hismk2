@@ -5,6 +5,9 @@ import com.hisd3.hismk2.domain.inventory.ReceivingReport
 import com.hisd3.hismk2.domain.inventory.ReceivingReportItem
 import com.hisd3.hismk2.repository.inventory.ReceivingReportItemRepository
 import com.hisd3.hismk2.repository.inventory.ReceivingReportRepository
+import com.hisd3.hismk2.services.GeneratorService
+import com.hisd3.hismk2.services.GeneratorType
+import org.apache.commons.lang3.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -21,8 +24,10 @@ class ReceivingDao {
 	ReceivingReportItemRepository receivingReportItemRepository
 	@Autowired
 	ObjectMapper objectMapper
+	@Autowired
+	GeneratorService generatorService
 	@PersistenceContext
-	EntityManager entityManageraddReceivingReport
+	EntityManager entityManager
 	
 	List<ReceivingReport> findAll() {
 		return receivingReportRepository.findAll()
@@ -57,7 +62,11 @@ class ReceivingDao {
 			return receivingReportRepository.save(receivingReport)
 		} else {
 			def receivingReport = objectMapper.convertValue(fields, ReceivingReport)
-			
+
+			receivingReport.rrNo = generatorService.getNextValue(GeneratorType.RR_NO) { Long no ->
+				StringUtils.leftPad(no.toString(), 5, "0")
+			}
+
 			ReceivingReport receivingReportAfterSave = receivingReportRepository.save(receivingReport)
 			
 			receivingReport.receivingItems.each {
