@@ -52,5 +52,7 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/25_jp_newcolumn.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/26_gregg_sql.sql"
+             relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
