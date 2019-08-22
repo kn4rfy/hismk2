@@ -186,8 +186,8 @@ class Case extends AbstractAuditingEntity {
 	String weight
 
 	@GraphQLQuery
-	@Column(name = "initial_BP", columnDefinition = "varchar")
-	String initialBP
+	@Column(name = "initial_bp", columnDefinition = "varchar")
+	String initialBp
 
 	@GraphQLQuery
 	@Column(name = "initial_temperature", columnDefinition = "varchar")
@@ -218,11 +218,11 @@ class Case extends AbstractAuditingEntity {
 	String reasonForTransferOut
 
 	@GraphQLQuery
-	@Column(name = "home_medications", columnDefinition = "varchar")
+	@Column(name = "home_medication", columnDefinition = "varchar")
 	String homeMedication
 
 	@GraphQLQuery
-	@Column(name = "special_instruction", columnDefinition = "varchar")
+	@Column(name = "special_instructions", columnDefinition = "varchar")
 	String specialInstructions
 
 	@GraphQLQuery
@@ -246,8 +246,8 @@ class Case extends AbstractAuditingEntity {
 	String reasonForTransferIn
 
 	@GraphQLQuery
-	@Column(name = "originating_HCI", columnDefinition = "varchar")
-	String originatingHCI
+	@Column(name = "originating_hci", columnDefinition = "varchar")
+	String originatingHci
 
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
