@@ -103,7 +103,7 @@ class Case extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "surgical_procedure", columnDefinition = "varchar")
-	String surgicalProcedure
+	String proceduresPerformed
 	
 	@GraphQLQuery
 	@Column(name = "informant", columnDefinition = "varchar")
