@@ -43,6 +43,13 @@ class PatientDao {
 		
 		def mergedPatient = entityManager.merge(patient)
 		mergedPatient.patientCases.size()
+
+		return mergedPatient.patientCases as Set
+	}
+	
+	Set<Case> filterPatientCase(String filter, Patient patient) {
+		def mergedPatient = entityManager.merge(patient)
+		mergedPatient.patientCases.size()
 		return mergedPatient.patientCases as Set
 	}
 	

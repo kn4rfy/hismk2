@@ -55,4 +55,18 @@
     <include file="classpath:config/liquibase/changelog/26_gregg_sql.sql"
              relativeToChangelogFile="false"/>
 
+    <include file="classpath:config/liquibase/changelog/26_ace_case_column.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/27_ace_patient_drop_column.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/28_ace_patient_add_columns.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/29_ace_case_patient_details.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/30_ace_case_informant_contact.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/31_new_column.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/31_ace_case_addcolumns.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>

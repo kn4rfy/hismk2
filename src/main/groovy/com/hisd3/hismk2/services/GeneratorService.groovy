@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service
 
 enum GeneratorType {
 	PATIENT_NO,
-	CASE_NO
+	CASE_NO,
+	OrderSlip_NO,
+	RR_NO
 }
 
 @Service

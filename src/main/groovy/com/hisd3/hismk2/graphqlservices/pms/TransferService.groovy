@@ -3,9 +3,11 @@ package com.hisd3.hismk2.graphqlservices.pms
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.DepartmentDao
 import com.hisd3.hismk2.dao.bms.RoomDao
+import com.hisd3.hismk2.dao.pms.CaseDao
 import com.hisd3.hismk2.dao.pms.TransferDao
 import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.bms.Room
+import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.Transfer
 import com.hisd3.hismk2.services.GeneratorService
 import io.leangen.graphql.annotations.GraphQLArgument
@@ -21,6 +23,9 @@ class TransferService {
 	
 	@Autowired
 	TransferDao transferDao
+	
+	@Autowired
+	CaseDao caseDao
 	
 	@Autowired
 	DepartmentDao departmentDao
@@ -83,14 +88,20 @@ class TransferService {
 			def departmentId = fields["departmentId"]
 			Department department = departmentDao.findById(departmentId as String)
 			transfer.department = department
-			
 			if (fields["roomId"] != null) {
 				def roomId = fields["roomId"]
 				Room room = roomDao.findById(roomId as String)
 				transfer.room = room
 			}
 			
-			return transferDao.save(transfer)
+			def returnVal = transferDao.save(transfer)
+			
+			Case pCase = caseDao.findByCaseNo(fields["caseNo"] as String)
+			pCase.registryType = fields["registryType"] as String
+			caseDao.save(pCase)
+			
+			return returnVal
+			
 		}
 	}
 }

@@ -78,6 +78,11 @@ class PatientService {
 		return patientDao.getPatientCases(patient)
 	}
 	
+	@GraphQLQuery(name = "patientActiveCase", description = "Get Patient active Case")
+	Case getPatientActiveCase(@GraphQLContext Patient patient) {
+		return caseDao.getPatientActiveCase(patient.id)
+	}
+	
 	//============== All Mutations ====================
 	
 	@GraphQLMutation
@@ -113,6 +118,7 @@ class PatientService {
 			def caseNo = generatorService?.getNextValue(GeneratorType.CASE_NO, { i ->
 				StringUtils.leftPad(i.toString(), 6, "0")
 			})
+			
 			pCase.patient = patient
 			pCase.caseNo = caseNo
 			pCase.serviceType = serviceType

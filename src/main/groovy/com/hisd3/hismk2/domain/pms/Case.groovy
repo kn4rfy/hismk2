@@ -62,12 +62,20 @@ class Case extends AbstractAuditingEntity {
 	LocalDateTime entryDatetime
 	
 	@GraphQLQuery
+	@Column(name = "admission_datetime", columnDefinition = "timestamp")
+	LocalDateTime admissionDatetime
+	
+	@GraphQLQuery
 	@Column(name = "discharged_datetime", columnDefinition = "timestamp")
 	LocalDateTime dischargedDateTime
 	
 	@GraphQLQuery
 	@Column(name = "may_go_home_datetime", columnDefinition = "timestamp")
 	LocalDateTime mayGoHomeDateTime
+	
+	@GraphQLQuery
+	@Column(name = "chief_complaint", columnDefinition = "varchar")
+	String chiefComplaint
 	
 	@GraphQLQuery
 	@Column(name = "admitting_diagnosis", columnDefinition = "varchar")
@@ -102,17 +110,145 @@ class Case extends AbstractAuditingEntity {
 	String informant
 	
 	@GraphQLQuery
-	@Column(name = "informant_relation", columnDefinition = "varchar")
-	String informantRelation
-	
-	@GraphQLQuery
 	@Column(name = "informant_address", columnDefinition = "varchar")
 	String informantAddress
 	
 	@GraphQLQuery
-	@Column(name = "admission_date", columnDefinition = "timestamp")
-	LocalDateTime admissionDate
+	@Column(name = "informant_relation", columnDefinition = "varchar")
+	String informantRelation
 	
+	@GraphQLQuery
+	@Column(name = "informant_contact", columnDefinition = "varchar")
+	String informantContact
+	
+	@GraphQLQuery
+	@Column(name = "occupation", columnDefinition = "varchar")
+	String occupation
+	
+	@GraphQLQuery
+	@Column(name = "company_name", columnDefinition = "varchar")
+	String companyName
+	
+	@GraphQLQuery
+	@Column(name = "company_address", columnDefinition = "varchar")
+	String companyAddress
+	
+	@GraphQLQuery
+	@Column(name = "company_contact", columnDefinition = "varchar")
+	String companyContact
+	
+	@GraphQLQuery
+	@Column(name = "emergency_contact_name", columnDefinition = "varchar")
+	String emergencyContactName
+	
+	@GraphQLQuery
+	@Column(name = "emergency_contact_address", columnDefinition = "varchar")
+	String emergencyContactAddress
+	
+	@GraphQLQuery
+	@Column(name = "emergency_contact_relation", columnDefinition = "varchar")
+	String emergencyContactRelation
+	
+	@GraphQLQuery
+	@Column(name = "emergency_contact", columnDefinition = "varchar")
+	String emergencyContact
+	
+	@GraphQLQuery
+	@Column(name = "guarantor_name", columnDefinition = "varchar")
+	String guarantorName
+	
+	@GraphQLQuery
+	@Column(name = "guarantor_address", columnDefinition = "varchar")
+	String guarantorAddress
+	
+	@GraphQLQuery
+	@Column(name = "guarantor_relation", columnDefinition = "varchar")
+	String guarantorRelation
+	
+	@GraphQLQuery
+	@Column(name = "guarantor_contact", columnDefinition = "varchar")
+	String guarantorContact
+
+	@GraphQLQuery
+	@Column(name = "history_input_datetime", columnDefinition = "timestamp")
+	LocalDateTime historyInputDatetime
+
+	@GraphQLQuery
+	@Column(name = "triage", columnDefinition = "varchar")
+	String triage
+
+	@GraphQLQuery
+	@Column(name = "height", columnDefinition = "varchar")
+	String height
+
+	@GraphQLQuery
+	@Column(name = "weight", columnDefinition = "varchar")
+	String weight
+
+	@GraphQLQuery
+	@Column(name = "initial_BP", columnDefinition = "varchar")
+	String initialBP
+
+	@GraphQLQuery
+	@Column(name = "initial_temperature", columnDefinition = "varchar")
+	String initialTemperature
+
+	@GraphQLQuery
+	@Column(name = "initial_pulse", columnDefinition = "varchar")
+	String initialPulse
+
+	@GraphQLQuery
+	@Column(name = "initial_resp", columnDefinition = "varchar")
+	String initialResp
+
+	@GraphQLQuery
+	@Column(name = "initial_o2sat", columnDefinition = "varchar")
+	String initialO2sat
+
+	@GraphQLQuery
+	@Column(name = "followup_datetime", columnDefinition = "timestamp")
+	LocalDateTime followupDatetime
+
+	@GraphQLQuery
+	@Column(name = "disposition", columnDefinition = "varchar")
+	String disposition
+
+	@GraphQLQuery
+	@Column(name = "reason_for_transfer_out", columnDefinition = "varchar")
+	String reasonForTransferOut
+
+	@GraphQLQuery
+	@Column(name = "home_medications", columnDefinition = "varchar")
+	String homeMedication
+
+	@GraphQLQuery
+	@Column(name = "special_instruction", columnDefinition = "varchar")
+	String specialInstructions
+
+	@GraphQLQuery
+	@Column(name = "lacerated_wound", columnDefinition = "varchar")
+	String laceratedWound
+
+	@GraphQLQuery
+	@Column(name = "head_injury", columnDefinition = "varchar")
+	String headInjury
+
+	@GraphQLQuery
+	@Column(name = "pertinent_past_medical_history", columnDefinition = "varchar")
+	String pertinentPastMedicalHistory
+
+	@GraphQLQuery
+	@Column(name = "transferred_in", columnDefinition = "boolean")
+	String transferredIn
+
+	@GraphQLQuery
+	@Column(name = "reason_for_transfer_in", columnDefinition = "varchar")
+	String reasonForTransferIn
+
+	@GraphQLQuery
+	@Column(name = "originating_HCI", columnDefinition = "varchar")
+	String originatingHCI
+
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "attending_physician", referencedColumnName = "id")

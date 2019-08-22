@@ -90,35 +90,16 @@ class Patient extends AbstractAuditingEntity {
 	String motherOccupation
 	
 	@GraphQLQuery
-	@Column(name = "emergency_contact_name", columnDefinition = "varchar")
-	String emergencyContactName
+	@Column(name = "civil_status", columnDefinition = "varchar")
+	String civilStatus
 	
 	@GraphQLQuery
-	@Column(name = "emergency_contact_address", columnDefinition = "varchar")
-	String emergencyContactAddress
-	
-	@Column(name = "emergency_contact_relationship", columnDefinition = "varchar")
-	String emergencyContactRelationship
+	@Column(name = "citizenship", columnDefinition = "varchar")
+	String citizenship
 	
 	@GraphQLQuery
-	@Column(name = "emergency_contact_no", columnDefinition = "varchar")
-	String emergencyContactNo
-	
-	@GraphQLQuery
-	@Column(name = "guarantor_name", columnDefinition = "varchar")
-	String guarantorName
-	
-	@GraphQLQuery
-	@Column(name = "guarantor_address", columnDefinition = "varchar")
-	String guarantorAddress
-	
-	@GraphQLQuery
-	@Column(name = "guarantor_relationship", columnDefinition = "varchar")
-	String guarantorRelationship
-	
-	@GraphQLQuery
-	@Column(name = "guarantor_contact_no", columnDefinition = "varchar")
-	String guarantorContactNo
+	@Column(name = "name_of_spouse", columnDefinition = "varchar")
+	String nameOfSpouse
 	
 	@GraphQLQuery
 	@Formula("concat(last_name , coalesce(', ' || nullif(first_name,'') , ''), coalesce(' ' || nullif(middle_name,'') , ''), coalesce(' ' || nullif(name_suffix,'') , ''))")
