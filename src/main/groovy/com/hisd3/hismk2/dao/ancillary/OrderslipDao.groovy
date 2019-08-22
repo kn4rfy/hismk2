@@ -1,6 +1,9 @@
 package com.hisd3.hismk2.dao
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.hisd3.hismk2.dao.ancillary.dto.DiagnosticsResults
+import com.hisd3.hismk2.dao.ancillary.dto.RequestedService
+import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.ancillary.Orderslip
 import com.hisd3.hismk2.repository.ancillary.OrderslipRepository
 import com.hisd3.hismk2.services.GeneratorService
@@ -35,13 +38,15 @@ class OrderslipDao {
 	}
 	
 	Orderslip findById(String id) {
-        return orderslipRepository.findById(Long.parseLong(id)).get()
+        return orderslipRepository.findById(UUID.fromString(id)).get()
     }
 
     List<Orderslip> findByCase(String id){
 
-         orderslipRepository.findByCase(UUID.fromString(id))
+		return results =  orderslipRepository.findByCase(UUID.fromString(id))
+
     }
+
 
     Orderslip addOrderslip(Map<String, Object> fields){
 

@@ -2,6 +2,8 @@ package com.hisd3.hismk2.graphqlservices.ancillary
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.OrderslipDao
+import com.hisd3.hismk2.dao.ancillary.dto.RequestedService
+import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.ancillary.Orderslip
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
@@ -37,7 +39,7 @@ class OrderslipService {
 
 	@GraphQLQuery(name = "orderslipsByCase", description = "Get All Orderslips by case")
 
-	List<Orderslip> findByCase(@GraphQLArgument(name = "id") String id) {
+    List<Orderslip> findByCase(@GraphQLArgument(name = "id") String id) {
 
 		return orderslipDao.findByCase(id)
 	}
