@@ -239,7 +239,7 @@ class Case extends AbstractAuditingEntity {
 
 	@GraphQLQuery
 	@Column(name = "transferred_in", columnDefinition = "boolean")
-	String transferredIn
+	Boolean transferredIn
 
 	@GraphQLQuery
 	@Column(name = "reason_for_transfer_in", columnDefinition = "varchar")
