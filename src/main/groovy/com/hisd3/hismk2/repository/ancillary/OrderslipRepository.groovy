@@ -6,10 +6,14 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 
 interface OrderslipRepository extends JpaRepository<Orderslip, UUID> {
-	
-	@Query(
-			value = "Select o from Orderslip o where o.parentCase.id =:id"
-	)
-	List<Orderslip> findByCase(@Param("id") UUID id)
-	
+
+    @Query(
+            value = "Select o from Orderslip o where o.parentCase.id =:id"
+    )
+    List<Orderslip> findByCase(@Param("id") UUID id)
+
+    @Query(
+            value = "Select o from Orderslip o where o.parentCase.id =:id and o.service.department.id =:departmentId"
+    )
+    List<Orderslip> findByCaseAndDepartment(@Param("id") UUID id,@Param("departmentId") UUID departmentId)
 }

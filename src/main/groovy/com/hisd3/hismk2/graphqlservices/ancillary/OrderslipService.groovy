@@ -2,6 +2,8 @@ package com.hisd3.hismk2.graphqlservices.ancillary
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.OrderslipDao
+import com.hisd3.hismk2.dao.ancillary.dto.DiagnosticsResults
+import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.ancillary.Orderslip
 import com.hisd3.hismk2.services.GeneratorService
 import io.leangen.graphql.annotations.GraphQLArgument
@@ -32,10 +34,20 @@ class OrderslipService {
 	}
 	
 	@GraphQLQuery(name = "orderslipsByCase", description = "Get All Orderslips by case")
-	
-	List<Orderslip> findByCase(@GraphQLArgument(name = "id") String id) {
-		
-		return orderslipDao.findByCase(id)
+    List<DiagnosticsResults> findByCase(
+			@GraphQLArgument(name = "id") String id
+	) {
+
+			return orderslipDao.findByCase(id)
+	}
+
+	@GraphQLQuery(name = "orderslipsByCaseAndDepartment", description = "Get All Orderslips filter by case and department")
+	List<DiagnosticsResults> findByCaseAndDeparment(
+			@GraphQLArgument(name = "id") String id,
+			@GraphQLArgument(name = "departmentId") String departmentId
+	) {
+			return orderslipDao.findByCaseAndDepartment(id,departmentId)
+
 	}
 	
 	//============== All Mutations ====================
