@@ -29,12 +29,12 @@ class Orderslip extends AbstractAuditingEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "service", referencedColumnName = "id")
 	Service service
-
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "case_number", referencedColumnName = "id")
 	Case parentCase
-
+	
 	@Column(name = "department", columnDefinition = "uuid")
 	UUID department
 	
@@ -76,6 +76,5 @@ class Orderslip extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "deleted", columnDefinition = "boolean")
 	Boolean deleted
-
-
+	
 }

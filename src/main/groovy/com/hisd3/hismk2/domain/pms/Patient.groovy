@@ -90,21 +90,6 @@ class Patient extends AbstractAuditingEntity {
 	String motherOccupation
 	
 	@GraphQLQuery
-	@Column(name = "emergency_contact_name", columnDefinition = "varchar")
-	String emergencyContactName
-	
-	@GraphQLQuery
-	@Column(name = "emergency_contact_address", columnDefinition = "varchar")
-	String emergencyContactAddress
-	
-	@Column(name = "emergency_contact_relationship", columnDefinition = "varchar")
-	String emergencyContactRelationship
-	
-	@GraphQLQuery
-	@Column(name = "emergency_contact_no", columnDefinition = "varchar")
-	String emergencyContactNo
-	
-	@GraphQLQuery
 	@Column(name = "civil_status", columnDefinition = "varchar")
 	String civilStatus
 	
