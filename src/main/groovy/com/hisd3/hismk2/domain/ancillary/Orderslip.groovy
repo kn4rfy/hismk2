@@ -77,9 +77,9 @@ class Orderslip extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "deleted", columnDefinition = "boolean")
 	Boolean deleted
-
+	
 	@Transient
-	Instant getCreated(){
+	Instant getCreated() {
 		return createdDate
 	}
 	

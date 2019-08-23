@@ -70,9 +70,9 @@ class TransferService {
 			@GraphQLArgument(name = "id") String id,
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
-
+		
 		println(fields)
-
+		
 		if (id) {
 			def transfer = transferDao.findById(id)
 			objectMapper.updateValue(transfer, fields)
@@ -85,7 +85,7 @@ class TransferService {
 			Room room = roomDao.findById(roomId as String)
 			transfer.room = room
 			transfer.entryDatetime = LocalDateTime.now()
-
+			
 			return transferDao.save(transfer)
 		} else {
 			def transfer = objectMapper.convertValue(fields, Transfer)
@@ -93,7 +93,7 @@ class TransferService {
 			def departmentId = fields["departmentId"]
 			Department department = departmentDao.findById(departmentId as String)
 			transfer.department = department
-
+			
 			if (fields["roomId"] != null) {
 				def roomId = fields["roomId"]
 				Room room = roomDao.findById(roomId as String)

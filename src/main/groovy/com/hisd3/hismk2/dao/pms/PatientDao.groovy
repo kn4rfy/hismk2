@@ -43,7 +43,7 @@ class PatientDao {
 		
 		def mergedPatient = entityManager.merge(patient)
 		mergedPatient.patientCases.size()
-
+		
 		return mergedPatient.patientCases as Set
 	}
 	

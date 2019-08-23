@@ -7,12 +7,11 @@ import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
-import java.time.LocalDateTime
 
 @Entity
 @Table(schema = "inventory", name = "inventory_ledger")
-class InventoryLedger extends AbstractAuditingEntity{
-
+class InventoryLedger extends AbstractAuditingEntity {
+	
 	@GraphQLQuery
 	@Id
 	@GeneratedValue(generator = "system-uuid")
@@ -38,7 +37,7 @@ class InventoryLedger extends AbstractAuditingEntity{
 	@GraphQLQuery
 	@Column(name = "type")
 	String type
-
+	
 	@GraphQLQuery
 	@Column(name = "source")
 	String source
@@ -46,5 +45,5 @@ class InventoryLedger extends AbstractAuditingEntity{
 	@GraphQLQuery
 	@Column(name = "receiving_reference")
 	UUID receivingReference
-
+	
 }

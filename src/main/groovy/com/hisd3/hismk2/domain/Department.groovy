@@ -69,7 +69,7 @@ class Department extends AbstractAuditingEntity {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
 	Set<Transfer> departmentTransfers = [] as Set
-
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
 	Set<Case> departmentCases = [] as Set
 	

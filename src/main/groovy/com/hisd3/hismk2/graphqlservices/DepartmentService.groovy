@@ -1,9 +1,10 @@
-package com.hisd3.hismk2.graphqlservices.hrm
+package com.hisd3.hismk2.graphqlservices
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.DepartmentDao
 import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.services.GeneratorService
+import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLMutation
 import io.leangen.graphql.annotations.GraphQLQuery
@@ -11,6 +12,7 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+@TypeChecked
 @Component
 @GraphQLApi
 class DepartmentService {
@@ -57,9 +59,10 @@ class DepartmentService {
 			
 			def deptId = fields["parentDepartmentId"]
 			
-			Department dept = departmentDao.findById(deptId as String)
-			
-			department.parentDepartment = dept
+			if (deptId) {
+				Department dept = departmentDao.findById(deptId as String)
+				department.parentDepartment = dept
+			}
 			
 			return departmentDao.save(department)
 		} else {
@@ -67,9 +70,10 @@ class DepartmentService {
 			
 			def deptId = fields["parentDepartmentId"]
 			
-			Department dept = departmentDao.findById(deptId as String)
-			
-			department.parentDepartment = dept
+			if (deptId) {
+				Department dept = departmentDao.findById(deptId as String)
+				department.parentDepartment = dept
+			}
 			
 			return departmentDao.save(department)
 		}
