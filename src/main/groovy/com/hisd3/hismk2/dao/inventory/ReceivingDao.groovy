@@ -1,12 +1,17 @@
 package com.hisd3.hismk2.dao.inventory
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.hisd3.hismk2.domain.inventory.InventoryLedger
+import com.hisd3.hismk2.domain.inventory.Item
 import com.hisd3.hismk2.domain.inventory.ReceivingReport
 import com.hisd3.hismk2.domain.inventory.ReceivingReportItem
+import com.hisd3.hismk2.repository.inventory.InventoryLedgerRepository
+import com.hisd3.hismk2.repository.inventory.ItemRepository
 import com.hisd3.hismk2.repository.inventory.ReceivingReportItemRepository
 import com.hisd3.hismk2.repository.inventory.ReceivingReportRepository
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
+import groovy.transform.TypeChecked
 import org.apache.commons.lang3.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -15,17 +20,28 @@ import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 import javax.transaction.Transactional
 
+@TypeChecked
 @Service
 @Transactional
 class ReceivingDao {
 	@Autowired
 	ReceivingReportRepository receivingReportRepository
+
+	@Autowired
+	ItemRepository itemRepository
+
 	@Autowired
 	ReceivingReportItemRepository receivingReportItemRepository
+
+	@Autowired
+	InventoryLedgerRepository inventoryLedgerRepository
+
 	@Autowired
 	ObjectMapper objectMapper
+
 	@Autowired
 	GeneratorService generatorService
+
 	@PersistenceContext
 	EntityManager entityManager
 	
@@ -68,14 +84,19 @@ class ReceivingDao {
 			}
 
 			ReceivingReport receivingReportAfterSave = receivingReportRepository.save(receivingReport)
-			
+
 			receivingReport.receivingItems.each {
 				ReceivingReportItem it ->
 					if (!it.id) {
 						it.receivingReport = receivingReportAfterSave
-						receivingReportItemRepository.save(it)
+						def receivingItemAfterSave = receivingReportItemRepository.save(it)
+						def inventoryLedger = new InventoryLedger()
+						Item item = itemRepository.findById(UUID.fromString(it.item)).get()
+						inventoryLedger.item = item
+						inventoryLedger.quantity = it.qtyDelivered
+						inventoryLedgerRepository.save(inventoryLedger)
 					}
-				
+
 			}
 			
 			return receivingReportAfterSave

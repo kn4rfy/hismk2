@@ -52,6 +52,9 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/25_jp_newcolumn.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/26_gregg_sql.sql"
+             relativeToChangelogFile="false"/>
+
     <include file="classpath:config/liquibase/changelog/26_ace_case_column.sql"
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/27_ace_patient_drop_column.sql"
@@ -69,5 +72,7 @@
     <include file="classpath:config/liquibase/changelog/32_ace_case_rename_bp.sql"
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/33_ace_case_rename_hci.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/34_ace_case_add_department_field.sql"
              relativeToChangelogFile="false"/>
 </databaseChangeLog>
