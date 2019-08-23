@@ -32,7 +32,16 @@ class OrderslipService {
 	List<Orderslip> findAll() {
 		orderslipDao.findAll()
 	}
-	
+
+	@GraphQLQuery(name = "orderslipsByDepartment", description = "Get All Orderslips by Department")
+	List<Orderslip> findByDepartment(
+			@GraphQLArgument(name = "id") String id = ""
+	) {
+
+		return orderslipDao.findByDepartment(id)
+	}
+
+
 	@GraphQLQuery(name = "orderslipsByCase", description = "Get All Orderslips by case")
     List<DiagnosticsResults> findByCase(
 			@GraphQLArgument(name = "id") String id

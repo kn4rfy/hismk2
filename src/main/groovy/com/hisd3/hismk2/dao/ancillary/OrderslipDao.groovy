@@ -38,7 +38,17 @@ class OrderslipDao {
 	List<Orderslip> findAll() {
 		return orderslipRepository.findAll()
 	}
-	
+
+    List<Orderslip> findByDepartment(String id) {
+
+        if(id){
+            return orderslipRepository.findByDepartment(UUID.fromString(id))
+        }else{
+            return orderslipRepository.findAll()
+        }
+
+    }
+
 	Orderslip findById(String id) {
         return orderslipRepository.findById(UUID.fromString(id)).get()
     }

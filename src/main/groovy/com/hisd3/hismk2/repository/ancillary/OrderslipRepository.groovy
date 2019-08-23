@@ -16,4 +16,12 @@ interface OrderslipRepository extends JpaRepository<Orderslip, UUID> {
             value = "Select o from Orderslip o where o.parentCase.id =:id and o.service.department.id =:departmentId"
     )
     List<Orderslip> findByCaseAndDepartment(@Param("id") UUID id,@Param("departmentId") UUID departmentId)
+
+
+    @Query(
+            value = "Select o from Orderslip o where  o.service.department.id =:id"
+    )
+    List<Orderslip> findByDepartment(@Param("id") UUID id)
+
+
 }

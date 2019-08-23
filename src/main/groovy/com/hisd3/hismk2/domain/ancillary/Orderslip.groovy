@@ -10,6 +10,7 @@ import org.hibernate.annotations.NotFoundAction
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
+import java.time.Instant
 import java.time.LocalDateTime
 
 @TypeChecked
@@ -76,5 +77,10 @@ class Orderslip extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "deleted", columnDefinition = "boolean")
 	Boolean deleted
+
+	@Transient
+	Instant getCreated(){
+		return createdDate
+	}
 	
 }
