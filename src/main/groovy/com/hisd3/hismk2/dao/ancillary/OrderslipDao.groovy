@@ -2,12 +2,12 @@ package com.hisd3.hismk2.dao
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.ancillary.dto.DiagnosticsResults
-import com.hisd3.hismk2.dao.ancillary.dto.RequestedService
 import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.ancillary.Orderslip
 import com.hisd3.hismk2.repository.ancillary.OrderslipRepository
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
+import groovy.transform.TypeChecked
 import org.apache.commons.lang3.StringUtils
 import org.hibernate.criterion.Order
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional
 
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
+import java.util.function.IntFunction
 
+//@TypeChecked
 @Service
 @Transactional
 class OrderslipDao {
@@ -41,11 +43,41 @@ class OrderslipDao {
         return orderslipRepository.findById(UUID.fromString(id)).get()
     }
 
-    List<Orderslip> findByCase(String id){
+    List<DiagnosticsResults> findByCase(String id){
 
-		return results =  orderslipRepository.findByCase(UUID.fromString(id))
+		def results =  orderslipRepository.findByCase(UUID.fromString(id))
+		Set<Department> serviceDepartment =[]
+			for(def item : results){
+				serviceDepartment.add(item.service.department)
+			}
 
+		List<DiagnosticsResults> res = []
+		serviceDepartment.each { def dep ->
+			DiagnosticsResults diagnostic = new DiagnosticsResults()
+			diagnostic.department = dep
+			for (def order : results) {
+				if (order.service.department == dep) {
+
+					diagnostic.diagnosticsList.add(order)
+				}
+			}
+			res.add(diagnostic)
+		}
+
+		return res
     }
+
+	List<DiagnosticsResults> findByCaseAndDepartment(String id,String departmentId){
+		def results =  orderslipRepository.findByCaseAndDepartment(UUID.fromString(id),UUID.fromString(departmentId))
+		List<DiagnosticsResults> res = []
+		DiagnosticsResults diagnostic = new DiagnosticsResults()
+		diagnostic.department = results[0].service.department
+		for (def order : results) {
+				diagnostic.diagnosticsList.add(order)
+		}
+		res.add(diagnostic)
+		return res
+	}
 
 
     Orderslip addOrderslip(Map<String, Object> fields){
