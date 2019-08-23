@@ -1,6 +1,7 @@
 package com.hisd3.hismk2.domain.pms
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
+import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.bms.Room
 import com.hisd3.hismk2.domain.hrm.Employee
 import groovy.transform.TypeChecked
@@ -263,6 +264,11 @@ class Case extends AbstractAuditingEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "room", referencedColumnName = "id")
 	Room room
+
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "department", referencedColumnName = "id")
+	Department department
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCase")
 	Set<NurseNote> caseNurseNotes = [] as Set

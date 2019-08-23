@@ -73,4 +73,6 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/33_ace_case_rename_hci.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/34_ace_case_add_department_field.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>

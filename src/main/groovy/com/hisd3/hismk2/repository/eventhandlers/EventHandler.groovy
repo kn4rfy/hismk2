@@ -49,4 +49,17 @@ class EventHandler {
 			
 		}
 	}
+
+	@HandleBeforeCreate
+	handleAfterCreateCase(Case patientCase) {
+		if (!patientCase.caseNo) {
+
+			patientCase.caseNo = generatorService?.getNextValue(GeneratorType.CASE_NO, { i ->
+				StringUtils.leftPad(i.toString(), 6, "0")
+			})
+
+		}
+	}
+
+
 }
