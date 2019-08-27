@@ -52,7 +52,7 @@ class TransferService {
 	List<Transfer> searchTransfers(@GraphQLArgument(name = "filter") String filter) {
 		transferDao.searchTransfers(filter)
 	}
-
+	
 	@GraphQLQuery(name = "getTransfersByCase", description = "Transfers by case ID")
 	List<Transfer> getTransfersByCase(@GraphQLArgument(name = "id") String id) {
 		transferDao.getTransfersByCase(id)

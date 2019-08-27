@@ -7,11 +7,10 @@ import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
-import java.time.LocalDateTime
 
 @Entity
 @Table(schema = "inventory", name = "inventory_ledger")
-class inventory_ledger extends AbstractAuditingEntity{
+class inventory_ledger extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Id
@@ -24,15 +23,14 @@ class inventory_ledger extends AbstractAuditingEntity{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "item", referencedColumnName = "id")
 	Item item
-
+	
 	@GraphQLQuery
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "department", referencedColumnName = "id")
 	Department department
-
-
+	
 	@GraphQLQuery
 	@Column(name = "sum")
 	BigDecimal quantity
-
+	
 }

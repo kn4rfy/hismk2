@@ -23,10 +23,10 @@ class PatientDao {
 	
 	@Autowired
 	private PatientRepository patientRepository
-
+	
 	@Autowired
 	private CaseRepository caseRepository
-
+	
 	@PersistenceContext
 	EntityManager entityManager
 	
