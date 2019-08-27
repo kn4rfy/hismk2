@@ -119,14 +119,14 @@ class PatientService {
 				StringUtils.leftPad(i.toString(), 6, "0")
 			})
 
-
-			co
 			pCase.patient = patient
 			pCase.caseNo = caseNo
 			pCase.serviceType = serviceType
 			pCase.registryType = registryType
 			pCase.accommodationType = accommodationType
 			pCase.entryDatetime = LocalDateTime.now()
+			pCase.department = department
+
 			caseDao.save(pCase)
 			//END.Initialize case data -------
 			
