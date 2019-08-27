@@ -34,6 +34,15 @@ class CaseDao {
 	Case findByCaseNo(String caseNo) {
 		return caseRepository.findByCaseNo(caseNo)
 	}
+
+	Boolean hasActiveCase(String patientId){
+		def currentCase = getPatientActiveCase(UUID.fromString(patientId))
+
+		if(currentCase)
+			return true
+		else
+			return false
+	}
 	
 	Case getPatientActiveCase(UUID patientId) {
 		return caseRepository.getPatientActiveCase(patientId)
