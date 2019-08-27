@@ -11,8 +11,8 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(schema = "inventory", name = "inventory_ledger")
-class InventoryLedger extends AbstractAuditingEntity{
-
+class inventory_ledger extends AbstractAuditingEntity{
+	
 	@GraphQLQuery
 	@Id
 	@GeneratedValue(generator = "system-uuid")
@@ -20,39 +20,19 @@ class InventoryLedger extends AbstractAuditingEntity{
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
-	
 	@GraphQLQuery
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "item", referencedColumnName = "id")
 	Item item
-	
+
 	@GraphQLQuery
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "department", referencedColumnName = "id")
 	Department department
-	
+
+
 	@GraphQLQuery
-	@Column(name = "quantity")
+	@Column(name = "sum")
 	BigDecimal quantity
-
-	@GraphQLQuery
-	@Column(name = "unit_cost")
-	BigDecimal unitCost
-
-	@GraphQLQuery
-	@Column(name = "total_cost")
-	BigDecimal totalCost
-	
-	@GraphQLQuery
-	@Column(name = "type")
-	String type
-
-	@GraphQLQuery
-	@Column(name = "source")
-	String source
-	
-	@GraphQLQuery
-	@Column(name = "receiving_reference")
-	UUID receivingReference
 
 }
