@@ -41,8 +41,12 @@ class OrderslipDao {
 		
 		if (id) {
 			return orderslipRepository.findByDepartment(UUID.fromString(id))
+
 		} else {
-			return orderslipRepository.findAll()
+			def list =  orderslipRepository.findAll().sort{it.createdDate}
+				list.reverse(true)
+			return list
+
 		}
 		
 	}
@@ -53,7 +57,9 @@ class OrderslipDao {
 	
 	List<DiagnosticsResults> findByCase(String id) {
 		
-		def results = orderslipRepository.findByCase(UUID.fromString(id))
+		def results = orderslipRepository.findByCase(UUID.fromString(id)).sort{it.created}
+			results.reverse(true)
+
 		Set<Department> serviceDepartment = []
 		for (def item : results) {
 			serviceDepartment.add(item.service.department)
