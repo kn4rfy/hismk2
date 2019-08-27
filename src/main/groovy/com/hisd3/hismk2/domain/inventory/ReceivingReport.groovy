@@ -1,14 +1,12 @@
 package com.hisd3.hismk2.domain.inventory
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
-import io.leangen.graphql.annotations.*
+import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
 import java.time.Instant
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Entity
@@ -30,7 +28,7 @@ class ReceivingReport extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "ref_no", columnDefinition = 'varchar')
 	String refNo
-
+	
 	@GraphQLQuery
 	@Column(name = "rr_no", columnDefinition = 'varchar')
 	String rrNo
@@ -49,15 +47,15 @@ class ReceivingReport extends AbstractAuditingEntity {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "receivingReport")
 	Set<ReceivingReportItem> receivingItems = [] as Set
-
+	
 	@Transient
-	Instant getDateCreated(){
+	Instant getDateCreated() {
 		return createdDate
 	}
-
+	
 	@Transient
-	String getCreatedByString(){
+	String getCreatedByString() {
 		return createdBy
 	}
-
+	
 }

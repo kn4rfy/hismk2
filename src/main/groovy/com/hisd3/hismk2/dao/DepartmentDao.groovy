@@ -19,7 +19,7 @@ class DepartmentDao {
 	@PersistenceContext
 	EntityManager entityManager
 	
-	List<Department> findAll() {
+	Set<Department> findAll() {
 		return departmentRepository.findAll()
 	}
 	

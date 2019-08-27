@@ -1,6 +1,7 @@
 package com.hisd3.hismk2.repository.pms
 
 import com.hisd3.hismk2.domain.pms.Case
+import com.hisd3.hismk2.domain.pms.Patient
 import groovy.transform.TypeChecked
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -18,4 +19,7 @@ interface CaseRepository extends JpaRepository<Case, UUID> {
 			value = "Select c from Case c where c.caseNo = :caseNo"
 	)
 	Case findByCaseNo(@Param("caseNo") String caseNo)
+
+	@Query(value = '''Select c from Case c where c.patient.id = :patientId order by c.entryDatetime''')
+	List<Case> getPatientCases(@Param("patientId") UUID patientId)
 }

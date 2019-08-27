@@ -77,4 +77,10 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/35_gregg_inventory.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/34_ace_case_add_department_field.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/35_ace_transfer_add_case_field.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/36_ace_drop_caseno.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>

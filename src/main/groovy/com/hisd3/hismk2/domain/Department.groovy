@@ -1,5 +1,6 @@
 package com.hisd3.hismk2.domain
 
+import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.Transfer
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
@@ -68,5 +69,8 @@ class Department extends AbstractAuditingEntity {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
 	Set<Transfer> departmentTransfers = [] as Set
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+	Set<Case> departmentCases = [] as Set
 	
 }

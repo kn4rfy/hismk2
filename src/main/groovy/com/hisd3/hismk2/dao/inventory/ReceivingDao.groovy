@@ -26,22 +26,22 @@ import javax.transaction.Transactional
 class ReceivingDao {
 	@Autowired
 	ReceivingReportRepository receivingReportRepository
-
+	
 	@Autowired
 	ItemRepository itemRepository
-
+	
 	@Autowired
 	ReceivingReportItemRepository receivingReportItemRepository
-
+	
 	@Autowired
 	InventoryLedgerRepository inventoryLedgerRepository
-
+	
 	@Autowired
 	ObjectMapper objectMapper
-
+	
 	@Autowired
 	GeneratorService generatorService
-
+	
 	@PersistenceContext
 	EntityManager entityManager
 	
@@ -63,41 +63,65 @@ class ReceivingDao {
 		
 		if (id) {
 			def receivingReport = receivingReportRepository.findById(id).get()
-			def receivingItems = objectMapper.convertValue(fields, ReceivingReport).receivingItems
+			def receivingItems = entityManager.merge(fields as ReceivingReport).receivingItems
 			
-			if (receivingItems.size() != 0) {
-				receivingItems.each {
-					ReceivingReportItem it ->
-						if (!it.id) {
-							it.receivingReport = receivingReport
-							receivingReportItemRepository.save(it)
-						}
-				}
-			}
+			receivingItems.forEach({
+				ReceivingReportItem it ->
+					if (!it.id) {
+						it.receivingReport = receivingReport
+						receivingReportItemRepository.save(it)
+					}
+			})
+
+//			def receivingItems = objectMapper.convertValue(fields, ReceivingReport).receivingItems
+//
+//			if (receivingItems.size() != 0) {
+//				receivingItems.each {
+//					ReceivingReportItem it ->
+//						if (!it.id) {
+//							it.receivingReport = receivingReport
+//							receivingReportItemRepository.save(it)
+//						}
+//				}
+//			}
 			
 			return receivingReportRepository.save(receivingReport)
 		} else {
-			def receivingReport = objectMapper.convertValue(fields, ReceivingReport)
-
+			def receivingReport = entityManager.merge(fields as ReceivingReport)
+			//def receivingReport = objectMapper.convertValue(fields, ReceivingReport)
+			
 			receivingReport.rrNo = generatorService.getNextValue(GeneratorType.RR_NO) { Long no ->
 				StringUtils.leftPad(no.toString(), 5, "0")
 			}
-
+			
 			ReceivingReport receivingReportAfterSave = receivingReportRepository.save(receivingReport)
-
-			receivingReport.receivingItems.each {
+			
+			receivingReport.receivingItems.forEach({
 				ReceivingReportItem it ->
 					if (!it.id) {
 						it.receivingReport = receivingReportAfterSave
-						def receivingItemAfterSave = receivingReportItemRepository.save(it)
+						receivingReportItemRepository.save(it)
 						def inventoryLedger = new InventoryLedger()
 						Item item = itemRepository.findById(UUID.fromString(it.item)).get()
 						inventoryLedger.item = item
 						inventoryLedger.quantity = it.qtyDelivered
 						inventoryLedgerRepository.save(inventoryLedger)
 					}
+			})
 
-			}
+//			receivingReport.receivingItems.each {
+//				ReceivingReportItem it ->
+//					if (!it.id) {
+//						it.receivingReport = receivingReportAfterSave
+//						def receivingItemAfterSave = receivingReportItemRepository.save(it)
+//						def inventoryLedger = new InventoryLedger()
+//						Item item = itemRepository.findById(UUID.fromString(it.item)).get()
+//						inventoryLedger.item = item
+//						inventoryLedger.quantity = it.qtyDelivered
+//						inventoryLedgerRepository.save(inventoryLedger)
+//					}
+//
+//			}
 			
 			return receivingReportAfterSave
 		}
@@ -114,6 +138,6 @@ class ReceivingDao {
 	ReceivingReport delete(UUID id) {
 		def receivingReport = receivingReportRepository.findById(id).get()
 		
-		receivingReportRepository.delete(receivingReport)
+		receivingReportRepository.delete(receivingReport) as ReceivingReport
 	}
 }

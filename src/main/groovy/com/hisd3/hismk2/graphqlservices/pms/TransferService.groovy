@@ -17,6 +17,8 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+import java.time.LocalDateTime
+
 @Component
 @GraphQLApi
 class TransferService {
@@ -50,10 +52,10 @@ class TransferService {
 	List<Transfer> searchTransfers(@GraphQLArgument(name = "filter") String filter) {
 		transferDao.searchTransfers(filter)
 	}
-	
-	@GraphQLQuery(name = "getTransfersByCase", description = "Transfers by case")
-	List<Transfer> getTransfersByCase(@GraphQLArgument(name = "caseNo") String caseNo) {
-		transferDao.getTransfersByCase(caseNo)
+
+	@GraphQLQuery(name = "getTransfersByCase", description = "Transfers by case ID")
+	List<Transfer> getTransfersByCase(@GraphQLArgument(name = "id") String id) {
+		transferDao.getTransfersByCase(id)
 	}
 	
 	@GraphQLQuery(name = "transfer", description = "Get Transfer By Id")
@@ -69,6 +71,8 @@ class TransferService {
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
 		
+		println(fields)
+		
 		if (id) {
 			def transfer = transferDao.findById(id)
 			objectMapper.updateValue(transfer, fields)
@@ -80,6 +84,7 @@ class TransferService {
 			def roomId = fields["roomId"]
 			Room room = roomDao.findById(roomId as String)
 			transfer.room = room
+			transfer.entryDatetime = LocalDateTime.now()
 			
 			return transferDao.save(transfer)
 		} else {
@@ -88,6 +93,7 @@ class TransferService {
 			def departmentId = fields["departmentId"]
 			Department department = departmentDao.findById(departmentId as String)
 			transfer.department = department
+			
 			if (fields["roomId"] != null) {
 				def roomId = fields["roomId"]
 				Room room = roomDao.findById(roomId as String)
