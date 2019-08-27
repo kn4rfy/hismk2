@@ -36,10 +36,11 @@ class Transfer extends AbstractAuditingEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "department", referencedColumnName = "id")
 	Department department
-	
-	@GraphQLQuery
-	@Column(name = "case_no", columnDefinition = "varchar")
-	String caseNo
+
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "`case`", referencedColumnName = "id")
+	Case parentCase
 	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)

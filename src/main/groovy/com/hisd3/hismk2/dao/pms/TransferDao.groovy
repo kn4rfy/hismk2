@@ -27,10 +27,10 @@ class TransferDao {
 		return transferRepository.searchTransfers(filter)
 	}
 	
-	List<Transfer> getTransfersByCase(String caseNo) {
-		return transferRepository.getTransfersByCase(caseNo)
+	List<Transfer> getTransfersByCase(String id) {
+		return transferRepository.getTransfersByCase(UUID.fromString(id))
 	}
-	
+
 	Transfer findById(String id) {
 		return transferRepository.findById(UUID.fromString(id)).get()
 	}
