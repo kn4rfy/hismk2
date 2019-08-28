@@ -85,4 +85,6 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/32_newtable.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/37_jp_newschema.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>
