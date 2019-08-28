@@ -83,4 +83,6 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/36_ace_drop_caseno.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/32_newtable.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>
