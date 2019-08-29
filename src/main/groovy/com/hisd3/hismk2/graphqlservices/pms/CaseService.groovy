@@ -101,14 +101,15 @@ class CaseService {
 			//Initialize patient data
 			def caseObj = objectMapper.convertValue(fields, Case)
 			
-			Department department = departmentDao.findById(departmentId as String)
-			
+			Department department = departmentDao.findById(departmentId)
+
 			def caseNo = generatorService?.getNextValue(GeneratorType.CASE_NO, { i ->
 				StringUtils.leftPad(i.toString(), 6, "0")
 			})
 			
 			caseObj.patient = patientDao.findById(patientId)
-			
+
+			caseObj.department = department
 			caseObj.caseNo = caseNo
 			caseObj.serviceType = serviceType
 			caseObj.registryType = registryType
