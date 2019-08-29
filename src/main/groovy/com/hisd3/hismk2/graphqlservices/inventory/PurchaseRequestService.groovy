@@ -10,25 +10,24 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
-
 @Component
 @GraphQLApi
 class PurchaseRequestService {
-
-    @Autowired
-    PurchaseRequestRepository purchaseRequestRepository
-
-    @Autowired
-    PurchaseRequestItemRepository purchaseRequestItemRepository
-
-    @GraphQLQuery
-    List<PurchaseRequest> getAllPurchaseRequest(){
-        purchaseRequestRepository.findAll()
-    }
-
-    @GraphQLQuery
-    List<PurchaseRequestItem>  getAllPurchaseRequestItems(@GraphQLArgument(name = "prId") UUID prId){
-            purchaseRequestItemRepository.getByPrId(prId)
-    }
-
+	
+	@Autowired
+	PurchaseRequestRepository purchaseRequestRepository
+	
+	@Autowired
+	PurchaseRequestItemRepository purchaseRequestItemRepository
+	
+	@GraphQLQuery
+	List<PurchaseRequest> getAllPurchaseRequest() {
+		purchaseRequestRepository.findAll()
+	}
+	
+	@GraphQLQuery
+	List<PurchaseRequestItem> getAllPurchaseRequestItems(@GraphQLArgument(name = "prId") UUID prId) {
+		purchaseRequestItemRepository.getByPrId(prId)
+	}
+	
 }

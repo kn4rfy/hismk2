@@ -62,11 +62,11 @@ class Department extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "deleted", columnDefinition = "boolean default false")
 	Boolean deleted
-
+	
 	@GraphQLQuery
 	@Column(name = "has_rooms", columnDefinition = "boolean")
 	Boolean hasRooms
-
+	
 	@GraphQLQuery
 	@Column(name = "deprecated", columnDefinition = "boolean")
 	Boolean deprecated
