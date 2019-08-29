@@ -79,7 +79,7 @@ class CaseService {
 		
 		return caseDao.getVitalSigns(parentCase)
 	}
-
+	
 	@GraphQLMutation
 	Case upsertCase(
 			@GraphQLArgument(name = "id") String id,
@@ -102,13 +102,13 @@ class CaseService {
 			def caseObj = objectMapper.convertValue(fields, Case)
 			
 			Department department = departmentDao.findById(departmentId)
-
+			
 			def caseNo = generatorService?.getNextValue(GeneratorType.CASE_NO, { i ->
 				StringUtils.leftPad(i.toString(), 6, "0")
 			})
 			
 			caseObj.patient = patientDao.findById(patientId)
-
+			
 			caseObj.department = department
 			caseObj.caseNo = caseNo
 			caseObj.serviceType = serviceType
@@ -138,17 +138,17 @@ class CaseService {
 			return caseObj
 		}
 	}
-
+	
 	@GraphQLMutation
 	Case changeCaseStatus(
 			@GraphQLArgument(name = "id") String id,
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
-
+		
 		def caseObj = caseDao.findById(fields["caseId"] as String)
 		caseObj.status = fields["status"] as String
 		caseDao.save(caseObj)
-
+		
 		return caseObj
 	}
 }

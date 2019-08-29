@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component
 @Component
 @GraphQLApi
 class BillingService {
-
-    @Autowired
-    BillingRepository billingRepository;
-
-    @GraphQLQuery
-    List<Billing> getAllBilling(){
-        billingRepository.findAll()
-    }
+	
+	@Autowired
+	BillingRepository billingRepository
+	
+	@GraphQLQuery
+	List<Billing> getAllBilling() {
+		billingRepository.findAll()
+	}
 }
