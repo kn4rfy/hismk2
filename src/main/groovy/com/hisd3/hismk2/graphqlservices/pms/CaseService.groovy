@@ -79,7 +79,7 @@ class CaseService {
 		
 		return caseDao.getVitalSigns(parentCase)
 	}
-	
+
 	@GraphQLMutation
 	Case upsertCase(
 			@GraphQLArgument(name = "id") String id,
@@ -136,5 +136,18 @@ class CaseService {
 			
 			return caseObj
 		}
+	}
+
+	@GraphQLMutation
+	Case changeCaseStatus(
+			@GraphQLArgument(name = "id") String id,
+			@GraphQLArgument(name = "fields") Map<String, Object> fields
+	) {
+
+		def caseObj = caseDao.findById(fields["caseId"] as String)
+		caseObj.status = fields["status"] as String
+		caseDao.save(caseObj)
+
+		return caseObj
 	}
 }
