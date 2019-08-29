@@ -17,12 +17,12 @@ class Inventory {
 	UUID id
 	
 	@GraphQLQuery
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "item", referencedColumnName = "id")
 	Item item
 	
 	@GraphQLQuery
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "department", referencedColumnName = "id")
 	Department department
 	
