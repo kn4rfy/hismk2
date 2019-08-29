@@ -8,20 +8,17 @@ import org.hibernate.annotations.Type
 import org.hibernate.annotations.Where
 
 import javax.persistence.*
-import java.time.LocalDateTime
 
 @Entity
-@Table(schema = "inventory", name = "inventory_ledger")
-@Where(clause = "deleted <> true or deleted is  null ")
-class Inventory extends AbstractAuditingEntity{
-	
+@Table(schema = "inventory", name = "inventory")
+class Inventory{
+
 	@GraphQLQuery
 	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
+
 	@GraphQLQuery
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "item", referencedColumnName = "id")
@@ -32,9 +29,7 @@ class Inventory extends AbstractAuditingEntity{
 	@JoinColumn(name = "department", referencedColumnName = "id")
 	Department department
 
-
 	@GraphQLQuery
-	@Column(name = "sum")
+	@Column(name = "quantity")
 	BigDecimal quantity
-
 }
