@@ -275,7 +275,7 @@ class Case extends AbstractAuditingEntity {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCase")
 	Set<VitalSign> caseVitalSigns = [] as Set
-
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCase")
 	Set<Transfer> caseTransfers = [] as Set
 }

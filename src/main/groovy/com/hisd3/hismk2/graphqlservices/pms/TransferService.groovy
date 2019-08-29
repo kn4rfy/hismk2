@@ -52,7 +52,7 @@ class TransferService {
 	List<Transfer> searchTransfers(@GraphQLArgument(name = "filter") String filter) {
 		transferDao.searchTransfers(filter)
 	}
-
+	
 	@GraphQLQuery(name = "getTransfersByCase", description = "Transfers by case ID")
 	List<Transfer> getTransfersByCase(@GraphQLArgument(name = "id") String id) {
 		transferDao.getTransfersByCase(id)
@@ -71,8 +71,6 @@ class TransferService {
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
 		
-		println(fields)
-		
 		if (id) {
 			def transfer = transferDao.findById(id)
 			objectMapper.updateValue(transfer, fields)
@@ -89,21 +87,26 @@ class TransferService {
 			return transferDao.save(transfer)
 		} else {
 			def transfer = objectMapper.convertValue(fields, Transfer)
-			
 			def departmentId = fields["departmentId"]
+			
 			Department department = departmentDao.findById(departmentId as String)
+			Case pCase = caseDao.findById(fields["caseId"] as String)
+			
 			transfer.department = department
+			transfer.parentCase = pCase
 			
 			if (fields["roomId"] != null) {
 				def roomId = fields["roomId"]
 				Room room = roomDao.findById(roomId as String)
 				transfer.room = room
+				pCase.room = room
 			}
 			
 			def returnVal = transferDao.save(transfer)
 			
-			Case pCase = caseDao.findByCaseNo(fields["caseNo"] as String)
 			pCase.registryType = fields["registryType"] as String
+			pCase.department = department
+			
 			caseDao.save(pCase)
 			
 			return returnVal

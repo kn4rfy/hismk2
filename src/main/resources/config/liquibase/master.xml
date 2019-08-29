@@ -83,4 +83,16 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/36_ace_drop_caseno.sql"
              relativeToChangelogFile="false"/>
+<!--    <include file="classpath:config/liquibase/changelog/37_ace_rooms_roombased.sql"-->
+<!--             relativeToChangelogFile="false"/>-->
+    <include file="classpath:config/liquibase/changelog/38_ace_departments_roombased.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/32_newtable.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/37_jp_newschema.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/40_gregg_inv.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/41_gregg_inv.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>

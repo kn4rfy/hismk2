@@ -5,11 +5,9 @@ import com.hisd3.hismk2.dao.UserDao
 import com.hisd3.hismk2.dao.hrm.EmployeeDao
 import com.hisd3.hismk2.domain.User
 import com.hisd3.hismk2.domain.hrm.Employee
-import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
 import io.leangen.graphql.annotations.GraphQLArgument
-import io.leangen.graphql.annotations.GraphQLContext
 import io.leangen.graphql.annotations.GraphQLMutation
 import io.leangen.graphql.annotations.GraphQLQuery
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
@@ -49,12 +47,6 @@ class EmployeeService {
 	Employee findById(@GraphQLArgument(name = "id") String id) {
 		
 		return employeeDao.findById(id)
-	}
-	
-	@GraphQLQuery(name = "employeeCases", description = "Get All Employee Cases")
-	Set<Case> getCases(@GraphQLContext Employee employee) {
-		
-		return employeeDao.getEmployeeCases(employee)
 	}
 	
 	//============== All Mutations ====================
