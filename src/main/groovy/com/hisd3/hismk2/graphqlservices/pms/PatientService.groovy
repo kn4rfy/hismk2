@@ -118,7 +118,7 @@ class PatientService {
 			def caseNo = generatorService?.getNextValue(GeneratorType.CASE_NO, { i ->
 				StringUtils.leftPad(i.toString(), 6, "0")
 			})
-
+			
 			pCase.patient = patient
 			pCase.caseNo = caseNo
 			pCase.serviceType = serviceType
@@ -126,7 +126,7 @@ class PatientService {
 			pCase.accommodationType = accommodationType
 			pCase.entryDatetime = LocalDateTime.now()
 			pCase.department = department
-
+			
 			caseDao.save(pCase)
 			//END.Initialize case data -------
 			
@@ -137,7 +137,7 @@ class PatientService {
 			pTransfer.department = department
 			pTransfer.entryDatetime = LocalDateTime.now()
 			pTransfer.parentCase = pCase
-
+			
 			transferDao.save(pTransfer)
 			//END.Initialize transfer data -------
 			

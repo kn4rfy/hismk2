@@ -7,9 +7,9 @@ import org.springframework.data.repository.query.Param
 
 interface TransferRepository extends JpaRepository<Transfer, UUID> {
 	
-	@Query(value = "Select t from Transfer t")
+	@Query(value = "Select t from Transfer t order by t.entryDatetime")
 	List<Transfer> searchTransfers(@Param("filter") String filter)
-
-	@Query(value = "Select t from Transfer t where t.parentCase.id = :id")
+	
+	@Query(value = "Select t from Transfer t where t.parentCase.id = :id order by t.entryDatetime")
 	List<Transfer> getTransfersByCase(@Param("id") UUID id)
 }

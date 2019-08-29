@@ -34,11 +34,11 @@ class CaseDao {
 	Case findByCaseNo(String caseNo) {
 		return caseRepository.findByCaseNo(caseNo)
 	}
-
-	Boolean hasActiveCase(String patientId){
+	
+	Boolean hasActiveCase(String patientId) {
 		def currentCase = getPatientActiveCase(UUID.fromString(patientId))
-
-		if(currentCase)
+		
+		if (currentCase)
 			return true
 		else
 			return false

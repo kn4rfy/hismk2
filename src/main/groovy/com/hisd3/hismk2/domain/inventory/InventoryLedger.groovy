@@ -33,11 +33,11 @@ class InventoryLedger extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "quantity")
 	BigDecimal quantity
-
+	
 	@GraphQLQuery
 	@Column(name = "unit_cost")
 	BigDecimal unitCost
-
+	
 	@GraphQLQuery
 	@Column(name = "total_cost")
 	BigDecimal totalCost
