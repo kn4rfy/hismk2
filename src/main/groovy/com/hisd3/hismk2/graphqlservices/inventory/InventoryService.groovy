@@ -11,6 +11,9 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+import javax.persistence.EntityManager
+import javax.persistence.PersistenceContext
+
 @Component
 @GraphQLApi
 @TypeChecked
