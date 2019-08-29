@@ -5,13 +5,15 @@ import com.hisd3.hismk2.domain.Department
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
+import org.hibernate.annotations.Where
 
 import javax.persistence.*
 import java.time.LocalDateTime
 
 @Entity
 @Table(schema = "inventory", name = "inventory_ledger")
-class inventory_ledger extends AbstractAuditingEntity{
+@Where(clause = "deleted <> true or deleted is  null ")
+class Inventory extends AbstractAuditingEntity{
 	
 	@GraphQLQuery
 	@Id
