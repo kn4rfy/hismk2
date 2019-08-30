@@ -103,7 +103,6 @@ class OrderslipDao {
 		return res
 	}
 
-
 	List<Orderslip> addOrderslip1(Map<String, Object> fields) {
 
 		def items
