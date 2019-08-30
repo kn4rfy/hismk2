@@ -6,7 +6,6 @@ import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
-import java.time.LocalDateTime
 
 @Entity
 @Table(schema = "inventory", name = "item")

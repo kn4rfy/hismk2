@@ -93,25 +93,25 @@ class OrderslipDao {
 		return res
 	}
 	
-	List<Orderslip>addOrderslip(List<Orderslip> orderslips) {
-
-		List<Orderslip> res =[]
+	List<Orderslip> addOrderslip(List<Orderslip> orderslips) {
+		
+		List<Orderslip> res = []
 		orderslips.each {
-			it->
+			it ->
 				res.add(orderslipRepository.save(it))
 		}
 		return res
 	}
-
+	
 	List<Orderslip> addOrderslip1(Map<String, Object> fields) {
-
+		
 		def items
 		items = fields.get("requested") as ArrayList<Orderslip>
-
+		
 		items.each {
 			it ->
 				def item = objectMapper.convertValue(it, Orderslip)
-
+				
 				item.orderslipNo = generatorService?.getNextValue(GeneratorType.OrderSlip_NO, { i ->
 					StringUtils.leftPad(i.toString(), 6, "0")
 				})
@@ -121,7 +121,7 @@ class OrderslipDao {
 				item.deleted = false
 				orderslipRepository.save(item)
 		}
-
+		
 	}
 	
 	Orderslip save(Orderslip oSlip) {
