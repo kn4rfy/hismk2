@@ -13,6 +13,7 @@ import io.leangen.graphql.annotations.GraphQLQuery
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
 import org.apache.commons.lang3.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 
 @Component
@@ -30,6 +31,9 @@ class EmployeeService {
 	
 	@Autowired
 	ObjectMapper objectMapper
+	
+	@Autowired
+	PasswordEncoder passwordEncoder
 	
 	//============== All Queries ====================
 	
@@ -60,24 +64,24 @@ class EmployeeService {
 			def employee = employeeDao.findById(id)
 			objectMapper.updateValue(employee, fields)
 			
-			def userId = fields["userId"]
-			
-			User user = userDao.findById(userId as String)
-			
-			employee.user = user
-			
 			return employeeDao.save(employee)
 		} else {
 			def employee = objectMapper.convertValue(fields, Employee)
 			
-			def userId = fields["userId"]
-			
-			User user = userDao.findById(userId as String)
+			User user = new User()
+			user.login = fields["login"]
+			user.password = passwordEncoder?.encode(fields["password"] as String)
+			user.firstName = fields["firstName"]
+			user.lastName = fields["lastName"]
+			user.email = fields["login"] + "@hismkii.com"
+			user.activated = true
+			user.langKey = "en"
+			userDao.save(user)
 			
 			employee.user = user
 			
 			employee.employeeNo = generatorService.getNextValue(GeneratorType.PATIENT_NO) { Long no ->
-				StringUtils.leftPad(no.toString(), 5, "0")
+				StringUtils.leftPad(no.toString(), 6, "0")
 			}
 			
 			return employeeDao.save(employee)

@@ -34,6 +34,10 @@ class UserDao {
 		return userRepository.findById(Long.parseLong(id)).get()
 	}
 	
+	User save(User user) {
+		userRepository.save(user)
+	}
+	
 	Employee findOneByLogin(String login) {
 		User user = userRepository.findOneByLogin(login)
 		
