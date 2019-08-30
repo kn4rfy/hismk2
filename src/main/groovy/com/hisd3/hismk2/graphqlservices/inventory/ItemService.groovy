@@ -19,7 +19,7 @@ class ItemService {
 	
 	@GraphQLQuery(name = "items", description = "List of Items")
 	List<Item> allItems() {
-		return itemRepository.findAll()
+		return itemRepository.findAll().sort { it.descLong }
 	}
 	
 	@GraphQLQuery(name = "item", description = "Get Item By Id")
