@@ -23,12 +23,12 @@ class Room extends AbstractAuditingEntity {
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
-
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "department", referencedColumnName = "id")
 	Department department
-
+	
 	@GraphQLQuery
 	@Column(name = "room_no", columnDefinition = "varchar")
 	String roomNo
