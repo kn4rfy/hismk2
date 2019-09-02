@@ -101,7 +101,7 @@ class CaseService {
 			//Initialize patient data
 			def caseObj = objectMapper.convertValue(fields, Case)
 			
-			Department department = departmentDao.findById(departmentId as String)
+			Department department = departmentDao.findById(departmentId)
 			
 			def caseNo = generatorService?.getNextValue(GeneratorType.CASE_NO, { i ->
 				StringUtils.leftPad(i.toString(), 6, "0")
@@ -109,6 +109,7 @@ class CaseService {
 			
 			caseObj.patient = patientDao.findById(patientId)
 			
+			caseObj.department = department
 			caseObj.caseNo = caseNo
 			caseObj.serviceType = serviceType
 			caseObj.registryType = registryType
@@ -136,5 +137,18 @@ class CaseService {
 			
 			return caseObj
 		}
+	}
+	
+	@GraphQLMutation
+	Case changeCaseStatus(
+			@GraphQLArgument(name = "id") String id,
+			@GraphQLArgument(name = "fields") Map<String, Object> fields
+	) {
+		
+		def caseObj = caseDao.findById(fields["caseId"] as String)
+		caseObj.status = fields["status"] as String
+		caseDao.save(caseObj)
+		
+		return caseObj
 	}
 }

@@ -1,15 +1,15 @@
 package com.hisd3.hismk2.domain.inventory
 
+import com.hisd3.hismk2.domain.AbstractAuditingEntity
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
-import java.time.LocalDateTime
 
 @Entity
 @Table(schema = "inventory", name = "item")
-class Item {
+class Item extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Id
@@ -37,7 +37,7 @@ class Item {
 	
 	@GraphQLQuery
 	@Column(name = "minimum_level")
-	String minimumLevel
+	BigDecimal minimumLevel
 	
 	@GraphQLQuery
 	@Column(name = "economic_order_qty")
@@ -170,20 +170,4 @@ class Item {
 	@GraphQLQuery
 	@Column(name = "comlogic_medicine_generic_code")
 	String comlogicMedicineGenericCode
-	
-	@GraphQLQuery
-	@Column(name = "created_by")
-	String created_by
-	
-	@GraphQLQuery
-	@Column(name = "created_date", nullable = true)
-	LocalDateTime created_date
-	
-	@GraphQLQuery
-	@Column(name = "last_modified_by")
-	String last_modified_by
-	
-	@GraphQLQuery
-	@Column(name = "last_modified_date", nullable = true)
-	LocalDateTime last_modified_date
 }

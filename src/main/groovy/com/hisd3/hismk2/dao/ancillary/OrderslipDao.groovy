@@ -93,7 +93,17 @@ class OrderslipDao {
 		return res
 	}
 	
-	List<Orderslip> addOrderslip(Map<String, Object> fields) {
+	List<Orderslip> addOrderslip(List<Orderslip> orderslips) {
+		
+		List<Orderslip> res = []
+		orderslips.each {
+			it ->
+				res.add(orderslipRepository.save(it))
+		}
+		return res
+	}
+	
+	List<Orderslip> addOrderslip1(Map<String, Object> fields) {
 		
 		def items
 		items = fields.get("requested") as ArrayList<Orderslip>
@@ -110,8 +120,8 @@ class OrderslipDao {
 				item.status = "NEW"
 				item.deleted = false
 				orderslipRepository.save(item)
-				System.out.println(item.id)
 		}
+		
 	}
 	
 	Orderslip save(Orderslip oSlip) {

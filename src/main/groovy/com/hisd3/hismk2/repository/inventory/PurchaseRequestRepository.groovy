@@ -5,5 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface PurchaseRequestRepository extends JpaRepository<PurchaseRequest, UUID> {
 
-
 }
