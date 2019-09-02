@@ -87,8 +87,8 @@ class ReceivingDao {
 			
 			return receivingReportRepository.save(receivingReport)
 		} else {
-			def receivingReport = entityManager.merge(fields as ReceivingReport)
-			//def receivingReport = objectMapper.convertValue(fields, ReceivingReport)
+			//def receivingReport = entityManager.merge(fields as ReceivingReport)
+			def receivingReport = objectMapper.convertValue(fields, ReceivingReport)
 			
 			receivingReport.rrNo = generatorService.getNextValue(GeneratorType.RR_NO) { Long no ->
 				StringUtils.leftPad(no.toString(), 5, "0")

@@ -1,5 +1,6 @@
 package com.hisd3.hismk2.domain.inventory
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
@@ -47,12 +48,16 @@ class ReceivingReport extends AbstractAuditingEntity {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "receivingReport")
 	Set<ReceivingReportItem> receivingItems = [] as Set
-	
+
+
+	@JsonIgnore
 	@Transient
 	Instant getDateCreated() {
 		return createdDate
 	}
-	
+
+
+	@JsonIgnore
 	@Transient
 	String getCreatedByString() {
 		return createdBy
