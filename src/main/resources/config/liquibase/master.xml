@@ -99,4 +99,6 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/38_jp_newcolumn.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/43_jp_changecolumn.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>
