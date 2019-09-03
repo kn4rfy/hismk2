@@ -1,6 +1,5 @@
 package com.hisd3.hismk2.dao.bms
 
-import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.bms.Room
 import com.hisd3.hismk2.repository.bms.RoomRepository
 import groovy.transform.TypeChecked
@@ -33,7 +32,7 @@ class RoomDao {
 	List<Room> getAvailableRooms() {
 		return roomRepository.getAvailableRooms()
 	}
-
+	
 	Room save(Room room) {
 		roomRepository.save(room)
 	}

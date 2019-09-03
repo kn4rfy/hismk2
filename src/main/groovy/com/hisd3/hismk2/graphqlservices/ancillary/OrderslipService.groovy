@@ -2,7 +2,7 @@ package com.hisd3.hismk2.graphqlservices.ancillary
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.ancillary.OrderslipDao
-import com.hisd3.hismk2.dao.ancillary.dto.DiagnosticsResults
+import com.hisd3.hismk2.dao.ancillary.dto.DiagnosticsResultsDto
 import com.hisd3.hismk2.domain.ancillary.Orderslip
 import com.hisd3.hismk2.services.GeneratorService
 import groovy.transform.TypeChecked
@@ -43,7 +43,7 @@ class OrderslipService {
 	}
 	
 	@GraphQLQuery(name = "orderslipsByCase", description = "Get All Orderslips by case")
-	List<DiagnosticsResults> findByCase(
+	List<DiagnosticsResultsDto> findByCase(
 			@GraphQLArgument(name = "id") String id
 	) {
 		
@@ -51,7 +51,7 @@ class OrderslipService {
 	}
 	
 	@GraphQLQuery(name = "orderslipsByCaseAndDepartment", description = "Get All Orderslips filter by case and department")
-	List<DiagnosticsResults> findByCaseAndDeparment(
+	List<DiagnosticsResultsDto> findByCaseAndDeparment(
 			@GraphQLArgument(name = "id") String id,
 			@GraphQLArgument(name = "departmentId") String departmentId
 	) {

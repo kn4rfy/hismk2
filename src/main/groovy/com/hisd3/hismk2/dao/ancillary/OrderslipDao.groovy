@@ -1,7 +1,7 @@
 package com.hisd3.hismk2.dao.ancillary
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.hisd3.hismk2.dao.ancillary.dto.DiagnosticsResults
+import com.hisd3.hismk2.dao.ancillary.dto.DiagnosticsResultsDto
 import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.ancillary.Orderslip
 import com.hisd3.hismk2.repository.ancillary.OrderslipRepository
@@ -55,7 +55,7 @@ class OrderslipDao {
 		return orderslipRepository.findById(UUID.fromString(id)).get()
 	}
 	
-	List<DiagnosticsResults> findByCase(String id) {
+	List<DiagnosticsResultsDto> findByCase(String id) {
 		
 		def results = orderslipRepository.findByCase(UUID.fromString(id)).sort { it.created }
 		results.reverse(true)
@@ -65,9 +65,9 @@ class OrderslipDao {
 			serviceDepartment.add(item.service.department)
 		}
 		
-		List<DiagnosticsResults> res = []
+		List<DiagnosticsResultsDto> res = []
 		serviceDepartment.each { def dep ->
-			DiagnosticsResults diagnostic = new DiagnosticsResults()
+			DiagnosticsResultsDto diagnostic = new DiagnosticsResultsDto()
 			diagnostic.department = dep
 			for (def order : results) {
 				if (order.service.department == dep) {
@@ -81,10 +81,10 @@ class OrderslipDao {
 		return res
 	}
 	
-	List<DiagnosticsResults> findByCaseAndDepartment(String id, String departmentId) {
+	List<DiagnosticsResultsDto> findByCaseAndDepartment(String id, String departmentId) {
 		def results = orderslipRepository.findByCaseAndDepartment(UUID.fromString(id), UUID.fromString(departmentId))
-		List<DiagnosticsResults> res = []
-		DiagnosticsResults diagnostic = new DiagnosticsResults()
+		List<DiagnosticsResultsDto> res = []
+		DiagnosticsResultsDto diagnostic = new DiagnosticsResultsDto()
 		diagnostic.department = results[0].service.department
 		for (def order : results) {
 			diagnostic.diagnosticsList.add(order)
