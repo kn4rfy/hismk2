@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.rest.core.annotation.HandleAfterCreate
 import org.springframework.data.rest.core.annotation.HandleAfterSave
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate
+import org.springframework.data.rest.core.annotation.HandleBeforeSave
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler
 
 import javax.transaction.Transactional
+import java.time.LocalDateTime
 
 @TypeChecked
 @RepositoryEventHandler
@@ -50,15 +52,16 @@ class EventHandler {
 			
 		}
 	}
-	
-	@HandleBeforeCreate
-	handleAfterCreateCase(Case patientCase) {
-		if (!patientCase.caseNo) {
-			
-			patientCase.caseNo = generatorService?.getNextValue(GeneratorType.CASE_NO, { i ->
-				StringUtils.leftPad(i.toString(), 6, "0")
-			})
-			
+
+	@HandleBeforeSave
+	handleBeforeSaveCase(Case patientCase) {
+
+		println(patientCase.mayGoHomeDatetime)
+
+		if(patientCase.mayGoHomeDatetime != null || patientCase.mayGoHomeDatetime == '') {
+			patientCase.mayGoHomeDatetime = LocalDateTime.now()
+		} else {
+			patientCase.mayGoHomeDatetime = null
 		}
 	}
 
