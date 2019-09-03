@@ -49,13 +49,13 @@ class EventHandler {
 			
 		}
 	}
-
+	
 	@HandleBeforeSave
 	handleBeforeSaveCase(Case patientCase) {
-
+		
 		println(patientCase.mayGoHomeDatetime)
-
-		if(patientCase.mayGoHomeDatetime != null || patientCase.mayGoHomeDatetime == '') {
+		
+		if (patientCase.mayGoHomeDatetime != null || patientCase.mayGoHomeDatetime == '') {
 			patientCase.mayGoHomeDatetime = LocalDateTime.now()
 		} else {
 			patientCase.mayGoHomeDatetime = null
