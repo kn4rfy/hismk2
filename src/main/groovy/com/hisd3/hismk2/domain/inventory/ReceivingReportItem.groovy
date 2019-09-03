@@ -57,7 +57,7 @@ class ReceivingReportItem extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "amt", columnDefinition = 'numeric')
 	BigDecimal amt
-
+	
 	@GraphQLQuery
 	@Column(name = "added_on_inventory")
 	Boolean addedOnInventory

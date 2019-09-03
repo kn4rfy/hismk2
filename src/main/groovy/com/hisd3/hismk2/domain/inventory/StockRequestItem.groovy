@@ -38,15 +38,15 @@ class StockRequestItem extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "prepared_qty")
 	BigDecimal preparedQty
-
+	
 	@GraphQLQuery
 	@Column(name = "deducted_to_inventory")
 	BigDecimal deductedToInventory
-
+	
 	@GraphQLQuery
 	@Column(name = "billed_to_patient")
 	BigDecimal billedToPatient
-
+	
 	@GraphQLQuery
 	@Column(name = "ordered_by")
 	String orderedBy

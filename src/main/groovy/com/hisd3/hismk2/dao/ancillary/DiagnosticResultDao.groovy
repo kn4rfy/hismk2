@@ -3,7 +3,6 @@ package com.hisd3.hismk2.dao.ancillary
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.domain.ancillary.DiagnosticResult
 import com.hisd3.hismk2.repository.ancillary.DiagnosticsResultRepository
-import com.hisd3.hismk2.repository.ancillary.OrderslipRepository
 import com.hisd3.hismk2.services.GeneratorService
 import groovy.transform.TypeChecked
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,20 +16,20 @@ import javax.persistence.PersistenceContext
 @Service
 @Transactional
 class DiagnosticResultDao {
-
-    @Autowired
-    private DiagnosticsResultRepository diagnosticsResultRepository
-
-    @Autowired
-    private ObjectMapper objectMapper
-
-    @Autowired
-    GeneratorService generatorService
-
-    @PersistenceContext
-    EntityManager entityManager
-
-    List<DiagnosticResult> findAll() {
-        return diagnosticsResultRepository.findAll()
-    }
+	
+	@Autowired
+	private DiagnosticsResultRepository diagnosticsResultRepository
+	
+	@Autowired
+	private ObjectMapper objectMapper
+	
+	@Autowired
+	GeneratorService generatorService
+	
+	@PersistenceContext
+	EntityManager entityManager
+	
+	List<DiagnosticResult> findAll() {
+		return diagnosticsResultRepository.findAll()
+	}
 }

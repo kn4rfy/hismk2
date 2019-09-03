@@ -11,7 +11,7 @@ interface DepartmentRepository extends JpaRepository<Department, UUID> {
             lower(d.departmentName) like concat('%',:filter,'%') or 
             lower(d.departmentCode) like concat('%',:filter,'%')''')
 	List<Department> searchDepartments(@Param("filter") String filter)
-
+	
 	@Query(value = '''Select d from Department d where
             upper(d.departmentName) like upper(concat('%',:name,'%'))''')
 	Department findByName(@Param("name") String name)

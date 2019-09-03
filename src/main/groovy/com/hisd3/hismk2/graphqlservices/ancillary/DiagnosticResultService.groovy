@@ -14,21 +14,21 @@ import org.springframework.stereotype.Component
 @Component
 @GraphQLApi
 class DiagnosticResultService {
-
-    @Autowired
-    DiagnosticResultDao diagnosticResultDao
-
-    @Autowired
-    GeneratorService generatorService
-
-    @Autowired
-    ObjectMapper objectMapper
-
-    //============== All Queries ====================
-
-    @GraphQLQuery(name = "DiagnosticResults", description = "Get All Diagnostics Results")
-    List<DiagnosticResult> findAll() {
-        diagnosticResultDao.findAll()
-    }
-
+	
+	@Autowired
+	DiagnosticResultDao diagnosticResultDao
+	
+	@Autowired
+	GeneratorService generatorService
+	
+	@Autowired
+	ObjectMapper objectMapper
+	
+	//============== All Queries ====================
+	
+	@GraphQLQuery(name = "DiagnosticResults", description = "Get All Diagnostics Results")
+	List<DiagnosticResult> findAll() {
+		diagnosticResultDao.findAll()
+	}
+	
 }

@@ -30,7 +30,7 @@ class ReceivingDao {
 	
 	@Autowired
 	ItemRepository itemRepository
-
+	
 	@Autowired
 	DepartmentRepository departmentRepository
 	
@@ -77,7 +77,6 @@ class ReceivingDao {
 					}
 			})
 
-
 //			def receivingItems = objectMapper.convertValue(fields, ReceivingReport).receivingItems
 //
 //			if (receivingItems.size() != 0) {
@@ -101,8 +100,7 @@ class ReceivingDao {
 			
 			ReceivingReport receivingReportAfterSave = receivingReportRepository.save(receivingReport)
 			def department = departmentRepository.findByName(receivingReport.receivingDepartment)
-
-
+			
 			receivingReport.receivingItems.forEach({
 				ReceivingReportItem it ->
 					if (!it.id) {
@@ -113,9 +111,9 @@ class ReceivingDao {
 						inventoryLedger.department = department
 						inventoryLedger.quantity = it.qtyDelivered
 						inventoryLedgerRepository.save(inventoryLedger)
-						if(department!=null)
-                        	it.addedOnInventory = true;
-                        receivingReportItemRepository.save(it)
+						if (department != null)
+							it.addedOnInventory = true
+						receivingReportItemRepository.save(it)
 					}
 			})
 
