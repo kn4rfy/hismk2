@@ -95,6 +95,10 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/41_gregg_inv.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/42_crisnil_orderslip_result.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/43_crisnil_result.sql"
+             relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/42_gregg_imba.sql"
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/43_ace_add_room_department.sql"
@@ -102,5 +106,11 @@
     <include file="classpath:config/liquibase/changelog/38_jp_newcolumn.sql"
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/43_jp_changecolumn.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/44_gregg_update_stock_request_gay_ace.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/45_gregg_update_request.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/46_gregg_a.sql"
              relativeToChangelogFile="false"/>
 </databaseChangeLog>
