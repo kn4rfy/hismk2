@@ -48,15 +48,13 @@ class ReceivingReport extends AbstractAuditingEntity {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "receivingReport")
 	Set<ReceivingReportItem> receivingItems = [] as Set
-
-
+	
 	@JsonIgnore
 	@Transient
 	Instant getDateCreated() {
 		return createdDate
 	}
-
-
+	
 	@JsonIgnore
 	@Transient
 	String getCreatedByString() {
