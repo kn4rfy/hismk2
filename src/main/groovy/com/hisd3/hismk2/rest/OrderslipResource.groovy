@@ -4,6 +4,7 @@ import com.hisd3.hismk2.domain.ancillary.DiagnosticResult
 import com.hisd3.hismk2.domain.ancillary.Orderslip
 import com.hisd3.hismk2.repository.ancillary.DiagnosticsResultRepository
 import com.hisd3.hismk2.repository.ancillary.OrderslipRepository
+import groovy.transform.TypeChecked
 import javassist.bytecode.ByteArray
 import org.apache.commons.io.FilenameUtils
 import jcifs.smb.NtlmPasswordAuthentication
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.MultipartRequest
 
+@TypeChecked
 @RestController
 class OrderslipResource {
 
@@ -29,7 +32,7 @@ class OrderslipResource {
     DiagnosticsResultRepository diagnosticsResultRepository
 
     @RequestMapping(method = RequestMethod.POST, value = "/api/orderSlips/addresultsimages")
-    ResponseEntity<HttpStatus> addresultsimages(@RequestParam String id, MultipartRequest request ){
+    ResponseEntity<String> addresultsimages(@RequestParam String id, MultipartRequest request ){
 
         Orderslip orderSlip = orderslipRepository.findById(UUID.fromString(id)).get()
 
@@ -37,23 +40,23 @@ class OrderslipResource {
 
         try {
             attachement.forEach { file ->
+                MultipartFile f = file
                 DiagnosticResult uploadedResult = new DiagnosticResult()
 //                resutSlipResource.data = file.bytes.toTypedArray()
-
-                uploadedResult.service = orderSlip.service
-                uploadedResult.file_name = file.originalFilename
-                uploadedResult.mimetype = file.contentType
+                uploadedResult.file_name = f.originalFilename
+                uploadedResult.mimetype = f.contentType
+                uploadedResult.service = orderSlip.service.id
                 uploadedResult.orderslip = orderSlip
                 diagnosticsResultRepository.save(uploadedResult)
 
                 try {
                     /*** ready for NAS***/
-
-                        String extension = FilenameUtils.getExtension(file.originalFilename)
+                        String origin  = f.resource.filename
+                        String extension = FilenameUtils.getExtension(origin)
                         String idfname = uploadedResult.id.toString() + "." + extension
-                        ByteArray byteData = file.bytes
+                    byte [] byteData = f.getBytes()
 
-                        uploadedResult.url_path = resultWitteronSmb(orderSlip, byteData, idfname)
+                        uploadedResult.url_path = resultWitteronSmb(orderSlip, byteData , idfname)
                         diagnosticsResultRepository.save(uploadedResult)
 
                 }catch (Exception e){
@@ -61,15 +64,20 @@ class OrderslipResource {
                 }
             }
 
-            return (HttpStatus.CREATED)
+            return new  ResponseEntity<>(
+                    "Success Uploading Files",
+                        HttpStatus.OK)
 
         } catch ( Exception e ) {
 
-            return (HttpStatus.INTERNAL_SERVER_ERROR)
+            e.printStackTrace()
+            return new  ResponseEntity<>(
+                    "Error uploading Files",
+                    HttpStatus.BAD_REQUEST)
         }
     }
 
-    String resultWitteronSmb(Orderslip orderSlip, ByteArray file, String fname){
+    String resultWitteronSmb(Orderslip orderSlip, byte [] byteData, String fname){
 
        // var hospInfo = hospitalInfoRepository.findAll().firstOrNull()
         String tofile = null
@@ -77,13 +85,13 @@ class OrderslipResource {
             NtlmPasswordAuthentication ntlmPasswordAuthentication = new NtlmPasswordAuthentication(null, "hisd3", "xsXY4;")
             def shared = "smb://172.16.12.30/Diagnostics/HISMKII/"
             SmbFile directory = new SmbFile(shared, ntlmPasswordAuthentication)
-            directory.isDirectory.let {
-                directory.listFiles().forEach {
-                    if (it.isFile) {
-                        println("file: " + it.name.toString())
-                    }
-                }
-            }
+//            directory.isDirectory.let {
+//                directory.listFiles().forEach {
+//                    if (it.isFile) {
+//                        println("file: " + it.name.toString())
+//                    }
+//                }
+//            }
 
 //          val path = shared + orderSlip.patientID +"/"+orderSlip?.serviceFee?.department + "/" + orderSlip.serviceFee?.category + "/"
 
@@ -111,7 +119,7 @@ class OrderslipResource {
             SmbFile sFileFinal = new SmbFile(tofile, ntlmPasswordAuthentication)
 
             SmbFileOutputStream sfos = new SmbFileOutputStream(sFileFinal)
-            sfos.write(file)
+            sfos.write(byteData)
             sfos.flush()
             sfos.close()
         } catch (Exception e ) {

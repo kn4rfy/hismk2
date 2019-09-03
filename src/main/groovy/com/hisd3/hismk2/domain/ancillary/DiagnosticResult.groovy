@@ -69,7 +69,7 @@ class DiagnosticResult extends AbstractAuditingEntity {
 
     @GraphQLQuery
     @Column(name = "deleted", columnDefinition = "bool")
-    String deleted
+    Boolean deleted
 
     @Transient
     Instant getCreated() {
