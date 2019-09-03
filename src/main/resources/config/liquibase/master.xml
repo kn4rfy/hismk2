@@ -103,4 +103,6 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/43_jp_changecolumn.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/44_ace_philhealth_schema.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>
