@@ -16,7 +16,7 @@ interface RVSCodesRepository extends JpaRepository<RVSCode, UUID> {
 	List<RVSCode> getRVSCodes()
 
 	@Query(value = '''Select r from RVSCode r where 
-            lower(i.rvsCode) like concat('%',:filter,'%') or 
-            lower(i.longName) like concat('%',:filter,'%')''')
+            lower(r.rvsCode) like concat('%',:filter,'%') or 
+            lower(r.longName) like concat('%',:filter,'%')''')
 	List<RVSCode> searchRVSCodes(@Param("filter") String filter)
 }

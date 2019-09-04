@@ -31,12 +31,12 @@ class RVSCodesService {
 
 	//============== All Queries ====================
 
-	@GraphQLQuery(name = "icd_codes", description = "Get All RVS Codes")
+	@GraphQLQuery(name = "rvs_codes", description = "Get All RVS Codes")
 	List<RVSCode> getRVSCodes() {
 		return rvsDao.getRVSCodes()
 	}
 
-	@GraphQLQuery(name = "searchICDCodes", description = "search RVS Codes")
+	@GraphQLQuery(name = "searchRVSCodes", description = "search RVS Codes")
 	List<RVSCode> searchRVSCodes(@GraphQLArgument(name = "filter") String filter) {
 		return rvsDao.searchRVSCodes(filter)
 	}
