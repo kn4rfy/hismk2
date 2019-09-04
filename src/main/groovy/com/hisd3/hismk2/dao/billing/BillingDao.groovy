@@ -21,73 +21,73 @@ import java.time.Instant
 @Service
 @Transactional
 class BillingDao {
-    @Autowired
-    BillingRepository billingRepository
-
-    @Autowired
-    BillingItemRepository billingItemRepository
-
-    @Autowired
-    GeneratorService generatorService
-
-    @Autowired
-    CaseRepository caseRepository
-
-    @Autowired
-    PatientRepository patientRepository
-
-    @Autowired
-    ObjectMapper objectMapper
-
-    List<Billing> getBillingByPatient(UUID patientid){
-        billingRepository.getByPatientId(patientid)
-    }
-
-    List<BillingItem> getBillingItemsByBillingId(UUID billingId){
-        billingItemRepository.getBillingItemsByBillingId(billingId)
-    }
-
-    Billing saveBillingItems(UUID patientId, List<Map<String, Object>> billingItems){
-        def billing = billingRepository.getBillingByPatient(patientId)
-
-        if(billing){
-            def billingDto = billing.get(0)
-            if(billingItems){
-                billingItems.each {
-                    Map<String, Object> billingItem->
-                        def billingItemDto = new BillingItem()
-                        billingItemDto.billing = billingDto
-                        billingItemDto.description = billingItem.get("description")
-                        billingItemDto.qty = billingItem.get("qty",0) as Integer
-                        billingItemDto.price = billingItem.get("price",0) as Integer
-                        billingItemRepository.save(billingItemDto)
-                }
-            }
-
-            return billingDto
-        }else{
-            def newbilling = new Billing()
-            def patientDto = patientRepository.findById(patientId).get()
-            newbilling.patient = patientDto
-            newbilling.entryDatetime = Instant.now()
-            newbilling.status = "ACTIVE"
-            newbilling.billingNo = generatorService.getNextValue(GeneratorType.RR_NO) { Long no ->
-                StringUtils.leftPad(no.toString(), 5, "0")
-            }
-
-            def newbilling2 = billingRepository.save(newbilling)
-
-            if(billingItems){
-                billingItems.each {
-                    Map<String, Object> billingItem->
-                        def billingItemDto = objectMapper.convertValue(billingItem, BillingItem)
-                        billingItemDto.billing = newbilling2
-                        billingItemRepository.save(billingItemDto)
-                }
-            }
-
-            return newbilling2
-        }
-
-    }
+	@Autowired
+	BillingRepository billingRepository
+	
+	@Autowired
+	BillingItemRepository billingItemRepository
+	
+	@Autowired
+	GeneratorService generatorService
+	
+	@Autowired
+	CaseRepository caseRepository
+	
+	@Autowired
+	PatientRepository patientRepository
+	
+	@Autowired
+	ObjectMapper objectMapper
+	
+	List<Billing> getBillingByPatient(UUID patientid) {
+		billingRepository.getByPatientId(patientid)
+	}
+	
+	List<BillingItem> getBillingItemsByBillingId(UUID billingId) {
+		billingItemRepository.getBillingItemsByBillingId(billingId)
+	}
+	
+	Billing saveBillingItems(UUID patientId, List<Map<String, Object>> billingItems) {
+		def billing = billingRepository.getBillingByPatient(patientId)
+		
+		if (billing) {
+			def billingDto = billing.get(0)
+			if (billingItems) {
+				billingItems.each {
+					Map<String, Object> billingItem ->
+						def billingItemDto = new BillingItem()
+						billingItemDto.billing = billingDto
+						billingItemDto.description = billingItem.get("description")
+						billingItemDto.qty = billingItem.get("qty", 0) as Integer
+						billingItemDto.price = billingItem.get("price", 0) as Integer
+						billingItemRepository.save(billingItemDto)
+				}
+			}
+			
+			return billingDto
+		} else {
+			def newbilling = new Billing()
+			def patientDto = patientRepository.findById(patientId).get()
+			newbilling.patient = patientDto
+			newbilling.entryDatetime = Instant.now()
+			newbilling.status = "ACTIVE"
+			newbilling.billingNo = generatorService.getNextValue(GeneratorType.RR_NO) { Long no ->
+				StringUtils.leftPad(no.toString(), 5, "0")
+			}
+			
+			def newbilling2 = billingRepository.save(newbilling)
+			
+			if (billingItems) {
+				billingItems.each {
+					Map<String, Object> billingItem ->
+						def billingItemDto = objectMapper.convertValue(billingItem, BillingItem)
+						billingItemDto.billing = newbilling2
+						billingItemRepository.save(billingItemDto)
+				}
+			}
+			
+			return newbilling2
+		}
+		
+	}
 }

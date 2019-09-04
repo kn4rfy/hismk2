@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 
 interface BillingItemRepository extends JpaRepository<BillingItem, UUID> {
-    @Query("select b from BillingItem b where b.billing.id = :billingid")
-    List<BillingItem> getBillingItemsByBillingId(@Param("billingid") UUID billingid)
+	@Query("select b from BillingItem b where b.billing.id = :billingid")
+	List<BillingItem> getBillingItemsByBillingId(@Param("billingid") UUID billingid)
 }

@@ -17,28 +17,27 @@ class BillingService {
 	
 	@Autowired
 	BillingRepository billingRepository
-
+	
 	@Autowired
 	BillingDao billingDao
-
+	
 	@GraphQLQuery
 	List<Billing> getAllBilling() {
 		billingRepository.findAll()
 	}
-
+	
 	@GraphQLQuery
-	List<Billing> getBillingByPatient(@GraphQLArgument(name="patientid") UUID patientid){
+	List<Billing> getBillingByPatient(@GraphQLArgument(name = "patientid") UUID patientid) {
 		billingDao.getBillingByPatient(patientid)
 	}
-
+	
 	@GraphQLQuery
-	List<BillingItem> getBillingItemsByBillingId(@GraphQLArgument(name="billingid") UUID billingid){
+	List<BillingItem> getBillingItemsByBillingId(@GraphQLArgument(name = "billingid") UUID billingid) {
 		billingDao.getBillingItemsByBillingId(billingid)
 	}
-
-
+	
 	@GraphQLMutation
-	Billing saveBillingItems(@GraphQLArgument(name = "patientId") UUID patientId, @GraphQLArgument(name = "billingItems") List<Map<String, Object>> billingItemList){
-			billingDao.saveBillingItems(patientId, billingItemList)
+	Billing saveBillingItems(@GraphQLArgument(name = "patientId") UUID patientId, @GraphQLArgument(name = "billingItems") List<Map<String, Object>> billingItemList) {
+		billingDao.saveBillingItems(patientId, billingItemList)
 	}
 }
