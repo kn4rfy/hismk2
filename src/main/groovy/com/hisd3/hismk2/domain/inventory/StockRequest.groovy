@@ -39,6 +39,18 @@ class StockRequest extends AbstractAuditingEntity {
 	@Column(name = "requesting_department")
 	String requestingDepartment
 	
+	@GraphQLQuery
+	@Column(name = "requested_department")
+	String requestedDepartment
+	
+	@GraphQLQuery
+	@Column(name = "requesting_department_reference_id")
+	UUID requestingDepartmentReferenceId
+	
+	@GraphQLQuery
+	@Column(name = "requested_department_reference_id")
+	UUID requestedDepartmentReferenceId
+	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "stockRequest")
 	List<StockRequestItem> stockRequestItems
 	

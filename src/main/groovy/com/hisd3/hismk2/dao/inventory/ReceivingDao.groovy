@@ -5,6 +5,7 @@ import com.hisd3.hismk2.domain.inventory.InventoryLedger
 import com.hisd3.hismk2.domain.inventory.Item
 import com.hisd3.hismk2.domain.inventory.ReceivingReport
 import com.hisd3.hismk2.domain.inventory.ReceivingReportItem
+import com.hisd3.hismk2.repository.DepartmentRepository
 import com.hisd3.hismk2.repository.inventory.InventoryLedgerRepository
 import com.hisd3.hismk2.repository.inventory.ItemRepository
 import com.hisd3.hismk2.repository.inventory.ReceivingReportItemRepository
@@ -29,6 +30,9 @@ class ReceivingDao {
 	
 	@Autowired
 	ItemRepository itemRepository
+	
+	@Autowired
+	DepartmentRepository departmentRepository
 	
 	@Autowired
 	ReceivingReportItemRepository receivingReportItemRepository
@@ -95,17 +99,21 @@ class ReceivingDao {
 			}
 			
 			ReceivingReport receivingReportAfterSave = receivingReportRepository.save(receivingReport)
+			def department = departmentRepository.findByName(receivingReport.receivingDepartment)
 			
 			receivingReport.receivingItems.forEach({
 				ReceivingReportItem it ->
 					if (!it.id) {
 						it.receivingReport = receivingReportAfterSave
-						receivingReportItemRepository.save(it)
 						def inventoryLedger = new InventoryLedger()
 						Item item = itemRepository.findById(UUID.fromString(it.item)).get()
 						inventoryLedger.item = item
+						inventoryLedger.department = department
 						inventoryLedger.quantity = it.qtyDelivered
 						inventoryLedgerRepository.save(inventoryLedger)
+						if (department != null)
+							it.addedOnInventory = true
+						receivingReportItemRepository.save(it)
 					}
 			})
 

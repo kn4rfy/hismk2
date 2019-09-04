@@ -50,7 +50,7 @@ class DepartmentService {
 			@GraphQLArgument(name = "id") String id,
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
-
+		
 		if (id) {
 			def department = departmentDao.findById(id)
 			objectMapper.updateValue(department, fields)

@@ -23,16 +23,16 @@ class RoomService {
 	
 	@Autowired
 	RoomDao roomDao
-
+	
 	@Autowired
 	DepartmentDao departmentDao
-
+	
 	@PersistenceContext
 	EntityManager entityManager
-
+	
 	@Autowired
 	ObjectMapper objectMapper
-
+	
 	//============== All Queries ====================
 	
 	@GraphQLQuery(name = "rooms", description = "Get all rooms")
@@ -50,22 +50,22 @@ class RoomService {
 	List<Room> getAvailableRooms() {
 		return roomDao.getAvailableRooms()
 	}
-
+	
 	@GraphQLMutation
 	Room upsertRoom(
 			@GraphQLArgument(name = "id") String id,
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
-
+		
 		def room = objectMapper.convertValue(fields, Room)
-
+		
 		def deptId = fields["departmentId"]
-
+		
 		if (deptId) {
 			Department dept = departmentDao.findById(deptId as String)
 			room.department = dept
 		}
-
+		
 		return roomDao.save(room)
 	}
 }
