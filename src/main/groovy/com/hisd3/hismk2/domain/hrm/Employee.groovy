@@ -3,17 +3,13 @@ package com.hisd3.hismk2.domain.hrm
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
 import com.hisd3.hismk2.domain.User
 import io.leangen.graphql.annotations.GraphQLQuery
-import org.hibernate.annotations.Formula
-import org.hibernate.annotations.GenericGenerator
-import org.hibernate.annotations.NotFound
-import org.hibernate.annotations.NotFoundAction
-import org.hibernate.annotations.Type
+import org.hibernate.annotations.*
 
 import javax.persistence.*
 import java.time.LocalDateTime
 
-@Entity
-@Table(schema = "hrm", name = "employees")
+@javax.persistence.Entity
+@javax.persistence.Table(schema = "hrm", name = "employees")
 class Employee extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
