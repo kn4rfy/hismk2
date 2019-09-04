@@ -8,15 +8,15 @@ import org.springframework.data.repository.query.Param
 
 @TypeChecked
 interface DiagnosticsResultRepository extends JpaRepository<DiagnosticResult, UUID> {
-
-    @Query(
-            value = "Select d from DiagnosticResult d where d.orderSlip.service.id =:id"
-    )
-    List<DiagnosticResult> findByService(@Param("id") UUID id)
-
-    @Query(
-            value = "Select d from DiagnosticResult d where d.orderSlip.id =:id"
-    )
-    List<DiagnosticResult> findByOrderSlip(@Param("id") UUID id)
-
+	
+	@Query(
+			value = "Select d from DiagnosticResult d where d.orderSlip.service.id =:id"
+	)
+	List<DiagnosticResult> findByService(@Param("id") UUID id)
+	
+	@Query(
+			value = "Select d from DiagnosticResult d where d.orderSlip.id =:id"
+	)
+	List<DiagnosticResult> findByOrderSlip(@Param("id") UUID id)
+	
 }

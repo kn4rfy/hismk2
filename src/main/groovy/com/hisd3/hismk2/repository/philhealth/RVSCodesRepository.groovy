@@ -1,6 +1,5 @@
 package com.hisd3.hismk2.repository.philhealth
 
-import com.hisd3.hismk2.domain.bms.ICDCode
 import com.hisd3.hismk2.domain.philhealth.RVSCode
 import groovy.transform.TypeChecked
 import org.springframework.data.jpa.repository.JpaRepository
@@ -14,7 +13,7 @@ interface RVSCodesRepository extends JpaRepository<RVSCode, UUID> {
 			countQuery = "Select count(r) from RVSCode r order by rvsCode"
 	)
 	List<RVSCode> getRVSCodes()
-
+	
 	@Query(value = '''Select r from RVSCode r where 
             lower(r.rvsCode) like concat('%',:filter,'%') or 
             lower(r.longName) like concat('%',:filter,'%')''')
