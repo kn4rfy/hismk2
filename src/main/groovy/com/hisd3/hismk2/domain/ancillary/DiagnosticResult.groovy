@@ -30,7 +30,7 @@ class DiagnosticResult extends AbstractAuditingEntity {
     @NotFound(action = NotFoundAction.IGNORE)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderslip", referencedColumnName = "id")
-    Orderslip orderslip
+    Orderslip orderSlip
 
     @Column(name = "service", columnDefinition = "uuid")
     UUID service

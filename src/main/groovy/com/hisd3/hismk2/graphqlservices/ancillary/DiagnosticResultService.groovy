@@ -5,6 +5,7 @@ import com.hisd3.hismk2.dao.ancillary.DiagnosticResultDao
 import com.hisd3.hismk2.domain.ancillary.DiagnosticResult
 import com.hisd3.hismk2.services.GeneratorService
 import groovy.transform.TypeChecked
+import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLQuery
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
 import org.springframework.beans.factory.annotation.Autowired
@@ -29,6 +30,11 @@ class DiagnosticResultService {
     @GraphQLQuery(name = "DiagnosticResults", description = "Get All Diagnostics Results")
     List<DiagnosticResult> findAll() {
         diagnosticResultDao.findAll()
+    }
+
+    @GraphQLQuery(name = "ResultsByOrderSlip", description = "Get Results by OrderSilp")
+    List<DiagnosticResult> findByOrderSlip(@GraphQLArgument(name = "id") String id = "") {
+        diagnosticResultDao.findByOrderSlip(UUID.fromString(id))
     }
 
 }

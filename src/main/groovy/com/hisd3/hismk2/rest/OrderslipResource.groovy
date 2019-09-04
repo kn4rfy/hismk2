@@ -4,16 +4,21 @@ import com.hisd3.hismk2.domain.ancillary.DiagnosticResult
 import com.hisd3.hismk2.domain.ancillary.Orderslip
 import com.hisd3.hismk2.repository.ancillary.DiagnosticsResultRepository
 import com.hisd3.hismk2.repository.ancillary.OrderslipRepository
+import com.hisd3.hismk2.rest.dto.ImageResultsDto
 import groovy.transform.TypeChecked
 import javassist.bytecode.ByteArray
+import jcifs.smb.SmbFileInputStream
 import org.apache.commons.io.FilenameUtils
 import jcifs.smb.NtlmPasswordAuthentication
 import org.apache.commons.lang3.StringUtils
 import jcifs.smb.SmbFile
 import jcifs.smb.SmbFileOutputStream
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.util.LinkedMultiValueMap
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
@@ -31,6 +36,37 @@ class OrderslipResource {
     @Autowired
     DiagnosticsResultRepository diagnosticsResultRepository
 
+    @RequestMapping(method = [RequestMethod.GET], value = "/api/orderSlips/getImageResults/{id}")
+    ResponseEntity<ByteArray> getImageResults(@PathVariable (value = "id")String id){
+
+        HttpHeaders responseHeaders = new HttpHeaders()
+
+        DiagnosticResult resultImage = diagnosticsResultRepository.findById(UUID.fromString(id)).get()
+         if(resultImage != null){
+             if(resultImage.url_path != null ){
+                 NtlmPasswordAuthentication ntlmPasswordAuthentication = new NtlmPasswordAuthentication(null, "hisd3", "xsXY4;")
+                 SmbFile attachementfile = new SmbFile(resultImage.url_path, ntlmPasswordAuthentication)
+
+                 SmbFileInputStream inFile =  new SmbFileInputStream(attachementfile)
+                 BufferedInputStream bMess = new BufferedInputStream(inFile)
+                 byte [] data = bMess.bytes
+                 //bMess.close()
+                 //val filename = inFile.toString()
+                 LinkedMultiValueMap params =  new LinkedMultiValueMap<String, String>()
+                 params.add("Content-Disposition", "inline;filename=" + resultImage.file_name)
+                 params.add("Content-Header", resultImage.file_name)
+                 //val mimeType = URLConnection.guessContentTypeFromName(filename)
+                 //var mime = Tika().detect(data)
+                 params.add("Content-Type", resultImage.mimetype)
+                 return new ResponseEntity(data, params, HttpStatus.OK)
+             }
+         }else{
+
+             return new ResponseEntity(responseHeaders, HttpStatus.NOT_FOUND)
+         }
+
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "/api/orderSlips/addresultsimages")
     ResponseEntity<String> addresultsimages(@RequestParam String id, MultipartRequest request ){
 
@@ -46,7 +82,7 @@ class OrderslipResource {
                 uploadedResult.file_name = f.originalFilename
                 uploadedResult.mimetype = f.contentType
                 uploadedResult.service = orderSlip.service.id
-                uploadedResult.orderslip = orderSlip
+                uploadedResult.orderSlip = orderSlip
                 diagnosticsResultRepository.save(uploadedResult)
 
                 try {
@@ -85,13 +121,6 @@ class OrderslipResource {
             NtlmPasswordAuthentication ntlmPasswordAuthentication = new NtlmPasswordAuthentication(null, "hisd3", "xsXY4;")
             def shared = "smb://172.16.12.30/Diagnostics/HISMKII/"
             SmbFile directory = new SmbFile(shared, ntlmPasswordAuthentication)
-//            directory.isDirectory.let {
-//                directory.listFiles().forEach {
-//                    if (it.isFile) {
-//                        println("file: " + it.name.toString())
-//                    }
-//                }
-//            }
 
 //          val path = shared + orderSlip.patientID +"/"+orderSlip?.serviceFee?.department + "/" + orderSlip.serviceFee?.category + "/"
 
