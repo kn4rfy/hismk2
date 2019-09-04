@@ -57,6 +57,15 @@ class TransferService {
 	List<Transfer> getTransfersByCase(@GraphQLArgument(name = "id") String id) {
 		transferDao.getTransfersByCase(id)
 	}
+
+	@GraphQLQuery(name = "census", description = "Get transfers by date range")
+	List<Transfer> getTransfersByDateRange(@GraphQLArgument(name = "fields") Map<String, Object> fields) {
+		def fromDate = fields["fromDate"] as LocalDateTime
+		def toDate = fields["toDate"] as LocalDateTime
+		def registryType = fields["registryType"] as String
+
+		return transferDao.getTransfersByDateRange(fromDate, toDate, registryType)
+	}
 	
 	@GraphQLQuery(name = "transfer", description = "Get Transfer By Id")
 	Transfer findById(@GraphQLArgument(name = "id") String id) {

@@ -273,6 +273,14 @@ class Case extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "rvs_diagnosis", columnDefinition = "varchar")
 	String rvsDiagnosis
+
+	@GraphQLQuery
+	@Column(name = "physical_exam_list", columnDefinition = "varchar")
+	String physicalExamList
+
+	@GraphQLQuery
+	@Column(name = "pertinent_symptoms_list", columnDefinition = "varchar")
+	String pertinentSymptomsList
 	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)

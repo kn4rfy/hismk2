@@ -125,4 +125,6 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/51_ace_add_field_previous_admission.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/52_ace_physical_exam.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>

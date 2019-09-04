@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional
 
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
+import java.time.LocalDateTime
 
 @Service
 @Transactional
@@ -29,6 +30,10 @@ class TransferDao {
 	
 	List<Transfer> getTransfersByCase(String id) {
 		return transferRepository.getTransfersByCase(UUID.fromString(id))
+	}
+
+	List<Transfer> getTransfersByDateRange(LocalDateTime fromDate, LocalDateTime toDate, String registryType) {
+		return transferRepository.getTransfersByDateRange(fromDate, toDate, registryType)
 	}
 	
 	Transfer findById(String id) {
