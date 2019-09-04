@@ -6,6 +6,7 @@ import com.hisd3.hismk2.domain.PersistentToken
 import com.hisd3.hismk2.domain.User
 import com.hisd3.hismk2.domain.hrm.Employee
 import com.hisd3.hismk2.security.SecurityUtils
+import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLContext
 import io.leangen.graphql.annotations.GraphQLQuery
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
@@ -41,5 +42,11 @@ class UserService {
 	Set<String> getRoles(@GraphQLContext User user) {
 		
 		return userDao.getRoles(user)
+	}
+	
+	@GraphQLQuery(name = "isLoginUnique", description = "Check if username exists")
+	Boolean isLoginUnique(@GraphQLArgument(name = "login") String login) {
+		
+		return !userDao.findOneByLogin(login.toLowerCase())
 	}
 }

@@ -69,7 +69,7 @@ class EmployeeService {
 			def employee = objectMapper.convertValue(fields, Employee)
 			
 			User user = new User()
-			user.login = fields["login"]
+			user.login = fields["login"].toString().toLowerCase()
 			user.password = passwordEncoder?.encode(fields["password"] as String)
 			user.firstName = fields["firstName"]
 			user.lastName = fields["lastName"]
