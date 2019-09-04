@@ -73,7 +73,7 @@ class EmployeeService {
 			user.password = passwordEncoder?.encode(fields["password"] as String)
 			user.firstName = fields["firstName"]
 			user.lastName = fields["lastName"]
-			user.email = fields["login"] + "@hismkii.com"
+			user.email = fields["login"].toString().toLowerCase() + "@hismkii.com"
 			user.activated = true
 			user.langKey = "en"
 			userDao.save(user)
