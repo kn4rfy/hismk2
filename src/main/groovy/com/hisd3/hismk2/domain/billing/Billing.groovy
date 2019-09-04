@@ -1,6 +1,7 @@
 package com.hisd3.hismk2.domain.billing
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
+import com.hisd3.hismk2.domain.inventory.StockRequestItem
 import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.Patient
 import io.leangen.graphql.annotations.GraphQLQuery
@@ -38,12 +39,15 @@ class Billing extends AbstractAuditingEntity {
 	String status
 	
 	@NotFound(action = NotFoundAction.IGNORE)
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "patient", referencedColumnName = "id")
 	Patient patient
 	
 	@NotFound(action = NotFoundAction.IGNORE)
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "patient_case", referencedColumnName = "id")
 	Case patientCase
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "billing")
+	List<BillingItem> billingItemList
 }
