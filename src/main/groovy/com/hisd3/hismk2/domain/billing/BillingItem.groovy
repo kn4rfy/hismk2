@@ -10,7 +10,7 @@ import org.hibernate.annotations.Type
 import javax.persistence.*
 
 @Entity
-@Table(name = "billing", schema = "billing_item")
+@Table(name = "billing_item", schema = "billing")
 class BillingItem extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
@@ -36,7 +36,7 @@ class BillingItem extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "qty", columnDefinition = "decimal")
-	String qty
+	Integer qty
 	
 	@GraphQLQuery
 	@Column(name = "status", columnDefinition = "varchar")
@@ -44,5 +44,5 @@ class BillingItem extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "price", columnDefinition = "decimal")
-	String price
+	Integer price
 }

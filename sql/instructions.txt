@@ -1,2 +1,0 @@
-1. git pull > Run code to generate "philhealth" schema
-2. Copy contents of the "phic_icd_rvs_init.sql" then manually execute in your pG manager

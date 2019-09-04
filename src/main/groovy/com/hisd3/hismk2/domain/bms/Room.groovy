@@ -4,16 +4,12 @@ import com.hisd3.hismk2.domain.AbstractAuditingEntity
 import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.pms.Transfer
 import io.leangen.graphql.annotations.GraphQLQuery
-import org.hibernate.annotations.Formula
-import org.hibernate.annotations.GenericGenerator
-import org.hibernate.annotations.NotFound
-import org.hibernate.annotations.NotFoundAction
-import org.hibernate.annotations.Type
+import org.hibernate.annotations.*
 
 import javax.persistence.*
 
-@Entity
-@Table(schema = "bms", name = "rooms")
+@javax.persistence.Entity
+@javax.persistence.Table(schema = "bms", name = "rooms")
 class Room extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
