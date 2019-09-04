@@ -215,10 +215,6 @@ class Case extends AbstractAuditingEntity {
 	String disposition
 	
 	@GraphQLQuery
-	@Column(name = "reason_for_transfer_out", columnDefinition = "varchar")
-	String reasonForTransferOut
-	
-	@GraphQLQuery
 	@Column(name = "home_medication", columnDefinition = "varchar")
 	String homeMedication
 	
@@ -237,7 +233,15 @@ class Case extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "pertinent_past_medical_history", columnDefinition = "varchar")
 	String pertinentPastMedicalHistory
-	
+
+	@GraphQLQuery
+	@Column(name = "previous_admission", columnDefinition = "varchar")
+	String previousAdmission
+
+	@GraphQLQuery
+	@Column(name = "how_taken_to_room", columnDefinition = "varchar")
+	String howTakenToRoom
+
 	@GraphQLQuery
 	@Column(name = "transferred_in", columnDefinition = "boolean")
 	Boolean transferredIn
@@ -249,6 +253,26 @@ class Case extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "originating_hci", columnDefinition = "varchar")
 	String originatingHci
+
+	@GraphQLQuery
+	@Column(name = "transferred_out", columnDefinition = "boolean")
+	Boolean transferredOut
+
+	@GraphQLQuery
+	@Column(name = "reason_for_transfer_out", columnDefinition = "varchar")
+	String reasonForTransferOut
+
+	@GraphQLQuery
+	@Column(name = "transfer_hci", columnDefinition = "varchar")
+	String transferHci
+
+	@GraphQLQuery
+	@Column(name = "icd_diagnosis", columnDefinition = "varchar")
+	String icdDiagnosis
+
+	@GraphQLQuery
+	@Column(name = "rvs_diagnosis", columnDefinition = "varchar")
+	String rvsDiagnosis
 	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)

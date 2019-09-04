@@ -115,4 +115,14 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/44_ace_philhealth_schema.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/47_ace_add_case_rvs_icd.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/48_ace_add_case_transfer_out.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/49_ace_add_case_drop_wrong_field.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/50_ace_add_field_how_taken.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/51_ace_add_field_previous_admission.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>
