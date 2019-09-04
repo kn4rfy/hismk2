@@ -32,4 +32,8 @@ class DiagnosticResultDao {
 	List<DiagnosticResult> findAll() {
 		return diagnosticsResultRepository.findAll()
 	}
+	
+	List<DiagnosticResult> findByOrderSlip(UUID id) {
+		return diagnosticsResultRepository.findByOrderSlip(id)
+	}
 }
