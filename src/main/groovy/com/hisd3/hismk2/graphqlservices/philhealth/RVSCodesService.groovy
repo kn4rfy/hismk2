@@ -1,8 +1,8 @@
 package com.hisd3.hismk2.graphqlservices.philhealth
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.hisd3.hismk2.dao.philhealth.ICDDao
-import com.hisd3.hismk2.domain.bms.ICDCode
+import com.hisd3.hismk2.dao.philhealth.RVSDao
+import com.hisd3.hismk2.domain.philhealth.RVSCode
 import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLQuery
@@ -16,10 +16,10 @@ import javax.persistence.PersistenceContext
 @TypeChecked
 @Component
 @GraphQLApi
-class ICDCodesService {
+class RVSCodesService {
 	
 	@Autowired
-	ICDDao icdDao
+	RVSDao rvsDao
 	
 	@PersistenceContext
 	EntityManager entityManager
@@ -29,13 +29,13 @@ class ICDCodesService {
 	
 	//============== All Queries ====================
 	
-	@GraphQLQuery(name = "icd_codes", description = "Get All ICD Codes")
-	List<ICDCode> getICDCodes() {
-		return icdDao.getICDCodes()
+	@GraphQLQuery(name = "rvs_codes", description = "Get All RVS Codes")
+	List<RVSCode> getRVSCodes() {
+		return rvsDao.getRVSCodes()
 	}
 	
-	@GraphQLQuery(name = "searchICDCodes", description = "search ICD Codes")
-	List<ICDCode> searchICDCodes(@GraphQLArgument(name = "filter") String filter) {
-		return icdDao.searchICDCodes(filter)
+	@GraphQLQuery(name = "searchRVSCodes", description = "search RVS Codes")
+	List<RVSCode> searchRVSCodes(@GraphQLArgument(name = "filter") String filter) {
+		return rvsDao.searchRVSCodes(filter)
 	}
 }

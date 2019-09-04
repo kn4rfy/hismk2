@@ -1,4 +1,4 @@
-package com.hisd3.hismk2.domain.bms
+package com.hisd3.hismk2.domain.philhealth
 
 import io.leangen.graphql.annotations.GraphQLQuery
 
@@ -8,13 +8,13 @@ import javax.persistence.Id
 import javax.persistence.Table
 
 @Entity
-@Table(schema = "philhealth", name = "icd_codes")
-class ICDCode implements Serializable {
+@Table(schema = "philhealth", name = "rvs_codes")
+class RVSCode implements Serializable {
 	
 	@Id
 	@GraphQLQuery
-	@Column(name = "diagnosis_code", columnDefinition = "varchar")
-	String diagnosisCode
+	@Column(name = "rvscode", columnDefinition = "varchar")
+	String rvsCode
 	
 	@GraphQLQuery
 	@Column(name = "long_name", columnDefinition = "varchar")
