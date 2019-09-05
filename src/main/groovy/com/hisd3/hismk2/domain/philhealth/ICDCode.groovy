@@ -15,11 +15,11 @@ class ICDCode implements Serializable {
 	@GraphQLQuery
 	@Column(name = "diagnosis_code", columnDefinition = "varchar")
 	String diagnosisCode
-
+	
 	@GraphQLQuery
 	@Column(name = "short_name", columnDefinition = "varchar")
 	String shortName
-
+	
 	@GraphQLQuery
 	@Column(name = "long_name", columnDefinition = "varchar")
 	String longName
@@ -35,19 +35,19 @@ class ICDCode implements Serializable {
 	@GraphQLQuery
 	@Column(name = "primary_prof_share1", columnDefinition = "numeric")
 	BigDecimal primaryProfShare1
-
+	
 	@GraphQLQuery
 	@Column(name = "ACR_GROUPID", columnDefinition = "varchar")
 	String acrGroupId
-
+	
 	@GraphQLQuery
 	@Column(name = "\"EFF_DATE\"", columnDefinition = "varchar")
 	String effDate
-
+	
 	@GraphQLQuery
 	@Column(name = "\"EFF_END_DATE\"", columnDefinition = "varchar")
 	String effEndDate
-
+	
 	@GraphQLQuery
 	@Column(name = "check_facility_h1", columnDefinition = "varchar")
 	String checkFacilityH1
