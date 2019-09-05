@@ -50,7 +50,7 @@ class EmployeeService {
 	@GraphQLQuery(name = "employee", description = "Get Employee By Id")
 	Employee findById(@GraphQLArgument(name = "id") String id) {
 		
-		return !id ? employeeDao.findById(id) : null
+		return id ? employeeDao.findById(id) : null
 	}
 	
 	//============== All Mutations ====================

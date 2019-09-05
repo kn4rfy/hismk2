@@ -55,7 +55,7 @@ class PatientService {
 	@GraphQLQuery(name = "patient", description = "Get Patient By Id")
 	Patient findById(@GraphQLArgument(name = "id") String id) {
 		
-		return patientDao.findById(id)
+		return id ? patientDao.findById(id) : null
 	}
 	
 	@GraphQLQuery(name = "patientsByPage", description = "Get All Patients By Page")
