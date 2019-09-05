@@ -14,8 +14,11 @@ interface ICDCodesRepository extends JpaRepository<ICDCode, UUID> {
 	)
 	List<ICDCode> getICDCodes()
 	
-	@Query(value = '''Select i from ICDCode i where 
-            lower(i.diagnosisCode) like concat('%',:filter,'%') or 
-            lower(i.longName) like concat('%',:filter,'%')''')
+//	@Query(value = '''Select i from ICDCode i where
+//            lower(i.diagnosisCode) like concat('%',:filter,'%') or
+//            lower(i.longName) like concat('%',:filter,'%')''')
+
+
+	@Query(value = "Select d from ICDCode d where d.checkFacilityH1 = 'T' and (upper(d.shortName) like upper(concat('%',:filter,'%')) or upper(d.diagnosisCode) like upper(concat('%',:filter,'%'))) and CURRENT_DATE BETWEEN TO_DATE(d.effDate, 'MM/DD/YYYY') and TO_DATE(d.effEndDate, 'MM/DD/YYYY') order by d.primaryAmount1 desc")
 	List<ICDCode> searchICDCodes(@Param("filter") String filter)
 }
