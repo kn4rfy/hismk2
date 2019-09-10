@@ -32,8 +32,8 @@ class BillingService {
 	}
 	
 	@GraphQLQuery
-	List<BillingItem> getBillingItemsByBillingId(@GraphQLArgument(name = "billingid") UUID billingid) {
-		billingDao.getBillingItemsByBillingId(billingid)
+	List<BillingItem> getBillingItemsByBill(@GraphQLArgument(name = "billingId") UUID billingId) {
+		billingDao.getBillingItemsByBill(billingId)
 	}
 	
 	@GraphQLMutation
