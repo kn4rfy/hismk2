@@ -52,9 +52,13 @@ class Service extends AbstractAuditingEntity {
 	Boolean packageType
 	
 	@GraphQLQuery
+	@Column(name = "diagnostic_service", columnDefinition = "boolean")
+	Boolean diagnostic
+
+	@GraphQLQuery
 	@Column(name = "available", columnDefinition = "boolean")
 	Boolean available
-	
+
 	@GraphQLQuery
 	@Column(name = "notes", columnDefinition = "varchar")
 	String notes
