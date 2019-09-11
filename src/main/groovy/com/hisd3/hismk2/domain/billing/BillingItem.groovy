@@ -1,6 +1,7 @@
 package com.hisd3.hismk2.domain.billing
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
+import com.hisd3.hismk2.domain.Department
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.NotFound
@@ -45,4 +46,9 @@ class BillingItem extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "price", columnDefinition = "decimal")
 	Integer price
+
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "department", referencedColumnName = "id")
+	Department department
 }
