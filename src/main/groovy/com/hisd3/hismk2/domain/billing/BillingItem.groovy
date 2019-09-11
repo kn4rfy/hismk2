@@ -46,7 +46,7 @@ class BillingItem extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "price", columnDefinition = "decimal")
 	Integer price
-
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "department", referencedColumnName = "id")

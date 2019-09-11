@@ -6,7 +6,6 @@ import com.hisd3.hismk2.domain.billing.BillingItem
 import com.hisd3.hismk2.repository.DepartmentRepository
 import com.hisd3.hismk2.repository.billing.BillingItemRepository
 import com.hisd3.hismk2.repository.billing.BillingRepository
-import com.hisd3.hismk2.repository.pms.CaseRepository
 import com.hisd3.hismk2.repository.pms.PatientRepository
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
@@ -52,26 +51,26 @@ class BillingDao {
 		def billing = billingRepository.getBillingByPatient(patientId)
 		
 		if (billing) {
-
+			
 			//.get(0) means that we get the first active billing result
 			def billingDto = billing.get(0)
-
+			
 			if (billingItems) {
 				billingItems.each {
 					Map<String, Object> billingItem ->
-
-					def billingItemDto = new BillingItem()
-					billingItemDto.billing = billingDto
-
-					billingItemDto.description = billingItem.get("description")
-					billingItemDto.qty = billingItem.get("qty", 0) as Integer
-					billingItemDto.price = billingItem.get("price", 0) as Integer
-
-					billingItemDto.department = departmentRepository.findById(
-						UUID.fromString(billingItem.get("department", 0) as String)
-					).get()
-
-					billingItemRepository.save(billingItemDto)
+						
+						def billingItemDto = new BillingItem()
+						billingItemDto.billing = billingDto
+						
+						billingItemDto.description = billingItem.get("description")
+						billingItemDto.qty = billingItem.get("qty", 0) as Integer
+						billingItemDto.price = billingItem.get("price", 0) as Integer
+						
+						billingItemDto.department = departmentRepository.findById(
+								UUID.fromString(billingItem.get("department", 0) as String)
+						).get()
+						
+						billingItemRepository.save(billingItemDto)
 				}
 			}
 			
