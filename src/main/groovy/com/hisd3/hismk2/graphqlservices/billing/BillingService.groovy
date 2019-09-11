@@ -27,8 +27,13 @@ class BillingService {
 	}
 	
 	@GraphQLQuery
-	List<Billing> getBillingByPatient(@GraphQLArgument(name = "patientid") UUID patientid) {
-		billingDao.getBillingByPatient(patientid)
+	List<Billing> getBillingByPatient(@GraphQLArgument(name = "patientId") UUID patientId) {
+		billingDao.getBillingByPatient(patientId)
+	}
+
+	@GraphQLQuery
+	List<Billing> getBillingById(@GraphQLArgument(name = "billingId") UUID billingId) {
+		billingRepository.findById(billingId)
 	}
 	
 	@GraphQLQuery
