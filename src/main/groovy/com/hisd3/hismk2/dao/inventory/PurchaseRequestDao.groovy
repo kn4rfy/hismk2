@@ -7,15 +7,14 @@ import org.springframework.stereotype.Service
 
 import javax.transaction.Transactional
 
-
 @Service
 @Transactional
 class PurchaseRequestDao {
-
-    @Autowired
-    PurchaseRequestItemRepository purchaseRequestItemRepository
-
-    List<PurchaseRequestItem> getpRItems(UUID refPr){
-        purchaseRequestItemRepository.getByPrId(refPr)
-    }
- }
+	
+	@Autowired
+	PurchaseRequestItemRepository purchaseRequestItemRepository
+	
+	List<PurchaseRequestItem> getpRItems(UUID refPr) {
+		purchaseRequestItemRepository.getByPrId(refPr)
+	}
+}
