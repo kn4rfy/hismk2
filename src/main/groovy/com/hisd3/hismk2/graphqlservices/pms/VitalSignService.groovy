@@ -21,7 +21,7 @@ class VitalSignService {
 	List<VitalSign> findAll() {
 		return vitalSignDao.findAll()
 	}
-
+	
 	@GraphQLQuery(name = "vitalSignsByCase", description = "Get all vital signs by case ID")
 	List<VitalSign> getVitalSignsByCase(@GraphQLArgument(name = "caseId") UUID caseId) {
 		return vitalSignDao.getVitalSignsByCase(caseId)

@@ -20,7 +20,7 @@ class VitalSignDao {
 	VitalSign findById(String id) {
 		return vitalSignRepository.findById(UUID.fromString(id)).get()
 	}
-
+	
 	List<VitalSign> getVitalSignsByCase(UUID id) {
 		return vitalSignRepository.getVitalSignByCase(id)
 	}

@@ -32,7 +32,7 @@ class Medication extends AbstractAuditingEntity {
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "medicine", referencedColumnName = "id")
-	Item item
+	Item medicine
 	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)

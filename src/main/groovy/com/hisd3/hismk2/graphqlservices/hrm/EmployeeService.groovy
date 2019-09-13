@@ -39,7 +39,7 @@ class EmployeeService {
 	
 	@GraphQLQuery(name = "employees", description = "Get All Employees")
 	Set<Employee> findAll() {
-		employeeDao.findAll()
+		employeeDao.findAll().sort { it.lastName }
 	}
 	
 	@GraphQLQuery(name = "searchEmployees", description = "Search employees")

@@ -21,7 +21,7 @@ class NurseNoteService {
 	List<NurseNote> findAll() {
 		return nurseNoteDao.findAll()
 	}
-
+	
 	@GraphQLQuery(name = "nurseNotesByCase", description = "Get all nurse notes by case ID")
 	List<NurseNote> getNurseNotesByCase(@GraphQLArgument(name = "caseId") UUID caseId) {
 		return nurseNoteDao.getNurseNotesByCase(caseId)
