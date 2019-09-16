@@ -11,7 +11,7 @@ import javax.persistence.*
 import java.time.LocalDateTime
 
 @Entity
-@Table(schema = "pms", name = "intakes")
+@Table(schema = "pms", name = "outputs")
 class Output extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
