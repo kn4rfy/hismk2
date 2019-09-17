@@ -41,19 +41,25 @@ class PurchaseRequestService {
 	
 	@GraphQLMutation
 	List<PurchaseRequestItem> addPurchaseRequestItems(
-			@GraphQLArgument(name = "id") UUID id,
+			@GraphQLArgument(name = "items") ArrayList<Map<String, Object>> items,
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
-		if (id != null) {
-			def pr = purchaseRequestRepository.findById(id).get()
-			def prItems = new PurchaseRequestItem()
-			def item = itemRepository.findById(UUID.fromString(fields.get("id") as String)).get()
-			
-			prItems.refItem = item.id
-			prItems.refPr = pr.id
-			prItems.itemName = item.descLong
-			
-			purchaseRequestItemRepository.save(prItems)
+		if (fields.get("id")) {
+			def pr = purchaseRequestRepository.findById(UUID.fromString(fields.get("id"))).get()
+
+			items.each {
+				it->
+					if(it.get("id")){
+						def item = itemRepository.findById(UUID.fromString(it.get("id") as String)).get()
+						def prItems = new PurchaseRequestItem()
+
+						prItems.refItem = item.id
+						prItems.refPr = pr.id
+						prItems.itemName = item.descLong
+
+						purchaseRequestItemRepository.save(prItems)
+					}
+			}
 			
 			return getAllPurchaseRequestItems(pr.id)
 		}
