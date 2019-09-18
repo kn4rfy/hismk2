@@ -20,67 +20,67 @@ import javax.persistence.PersistenceContext
 @Service
 @Transactional
 class OrderslipDao {
-	
+
 	@Autowired
 	private OrderslipRepository orderslipRepository
-	
+
 	@Autowired
 	private ObjectMapper objectMapper
-	
+
 	@Autowired
 	GeneratorService generatorService
-	
+
 	@PersistenceContext
 	EntityManager entityManager
-	
+
 	List<Orderslip> findAll() {
 		return orderslipRepository.findAll()
 	}
-	
+
 	List<Orderslip> findByDepartment(String id) {
-		
+
 		if (id) {
 			return orderslipRepository.findByDepartment(UUID.fromString(id))
-			
+
 		} else {
 			def list = orderslipRepository.findAll().sort { it.createdDate }
 			list.reverse(true)
 			return list
-			
+
 		}
-		
+
 	}
-	
+
 	Orderslip findById(String id) {
 		return orderslipRepository.findById(UUID.fromString(id)).get()
 	}
-	
+
 	List<DiagnosticsResultsDto> findByCase(String id) {
-		
+
 		def results = orderslipRepository.findByCase(UUID.fromString(id)).sort { it.created }
 		results.reverse(true)
-		
+
 		Set<Department> serviceDepartment = []
 		for (def item : results) {
 			serviceDepartment.add(item.service.department)
 		}
-		
+
 		List<DiagnosticsResultsDto> res = []
 		serviceDepartment.each { def dep ->
 			DiagnosticsResultsDto diagnostic = new DiagnosticsResultsDto()
 			diagnostic.department = dep
 			for (def order : results) {
 				if (order.service.department == dep) {
-					
+
 					diagnostic.diagnosticsList.add(order)
 				}
 			}
 			res.add(diagnostic)
 		}
-		
+
 		return res
 	}
-	
+
 	List<DiagnosticsResultsDto> findByCaseAndDepartment(String id, String departmentId) {
 		def results = orderslipRepository.findByCaseAndDepartment(UUID.fromString(id), UUID.fromString(departmentId))
 		List<DiagnosticsResultsDto> res = []
@@ -92,38 +92,45 @@ class OrderslipDao {
 		res.add(diagnostic)
 		return res
 	}
-	
+
 	List<Orderslip> addOrderslip(List<Orderslip> orderslips) {
-		
+
 		List<Orderslip> res = []
 		orderslips.each {
 			it ->
+				it.orderslipNo = generatorService?.getNextValue(GeneratorType.OrderSlip_NO, { i ->
+					StringUtils.leftPad(i.toString(), 6, "0")
+				})
+				it.submittedViaHl7 = false
+				it.posted = false
+				it.status = "NEW"
+				it.deleted = false
 				res.add(orderslipRepository.save(it))
 		}
 		return res
 	}
-	
-	List<Orderslip> addOrderslip1(Map<String, Object> fields) {
-		
-		def items
-		items = fields.get("requested") as ArrayList<Orderslip>
-		
-		items.each {
-			it ->
-				def item = objectMapper.convertValue(it, Orderslip)
-				
-				item.orderslipNo = generatorService?.getNextValue(GeneratorType.OrderSlip_NO, { i ->
-					StringUtils.leftPad(i.toString(), 6, "0")
-				})
-				item.submittedViaHl7 = false
-				item.posted = false
-				item.status = "NEW"
-				item.deleted = false
-				orderslipRepository.save(item)
-		}
-		
-	}
-	
+
+//	List<Orderslip> addOrderslip1(Map<String, Object> fields) {
+//
+//		def items
+//		items = fields.get("requested") as ArrayList<Orderslip>
+//
+//		items.each {
+//			it ->
+//				def item = objectMapper.convertValue(it, Orderslip)
+//
+//				item.orderslipNo = generatorService?.getNextValue(GeneratorType.OrderSlip_NO, { i ->
+//					StringUtils.leftPad(i.toString(), 6, "0")
+//				})
+//				item.submittedViaHl7 = false
+//				item.posted = false
+//				item.status = "NEW"
+//				item.deleted = false
+//				orderslipRepository.save(item)
+//		}
+//
+//	}
+
 	Orderslip save(Orderslip oSlip) {
 		orderslipRepository.save(oSlip)
 	}
