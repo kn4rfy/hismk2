@@ -11,8 +11,8 @@ import javax.persistence.*
 import java.time.LocalDateTime
 
 @Entity
-@Table(schema = "pms", name = "nurse_notes")
-class NurseNote extends AbstractAuditingEntity {
+@Table(schema = "pms", name = "intakes")
+class Intake extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Id
@@ -28,20 +28,32 @@ class NurseNote extends AbstractAuditingEntity {
 	Case parentCase
 	
 	@GraphQLQuery
-	@Column(name = "focus", columnDefinition = "varchar")
-	String focus
+	@Column(name = "po_intake", columnDefinition = "varchar")
+	String poIntake
 	
 	@GraphQLQuery
-	@Column(name = "data", columnDefinition = "varchar")
-	String data
+	@Column(name = "tube_intake", columnDefinition = "varchar")
+	String tubeIntake
 	
 	@GraphQLQuery
-	@Column(name = "action", columnDefinition = "varchar")
-	String action
+	@Column(name = "ivf_intake", columnDefinition = "varchar")
+	String ivfIntake
 	
 	@GraphQLQuery
-	@Column(name = "response", columnDefinition = "varchar")
-	String response
+	@Column(name = "blood_intake", columnDefinition = "varchar")
+	String bloodIntake
+
+	@GraphQLQuery
+	@Column(name = "tpn_intake", columnDefinition = "varchar")
+	String tpnIntake
+
+	@GraphQLQuery
+	@Column(name = "pb_intake", columnDefinition = "varchar")
+	String pbIntake
+
+	@GraphQLQuery
+	@Column(name = "medication_intake", columnDefinition = "varchar")
+	String medicationIntake
 	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")

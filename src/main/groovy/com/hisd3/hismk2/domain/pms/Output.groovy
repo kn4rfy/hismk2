@@ -11,8 +11,8 @@ import javax.persistence.*
 import java.time.LocalDateTime
 
 @Entity
-@Table(schema = "pms", name = "nurse_notes")
-class NurseNote extends AbstractAuditingEntity {
+@Table(schema = "pms", name = "outputs")
+class Output extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Id
@@ -26,23 +26,31 @@ class NurseNote extends AbstractAuditingEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "`case`", referencedColumnName = "id")
 	Case parentCase
+
+	@GraphQLQuery
+	@Column(name = "voided_output", columnDefinition = "varchar")
+	String voidedOutput
 	
 	@GraphQLQuery
-	@Column(name = "focus", columnDefinition = "varchar")
-	String focus
+	@Column(name = "catheter_output", columnDefinition = "varchar")
+	String catheterOutput
 	
 	@GraphQLQuery
-	@Column(name = "data", columnDefinition = "varchar")
-	String data
+	@Column(name = "ng_output", columnDefinition = "varchar")
+	String ngOutput
 	
 	@GraphQLQuery
-	@Column(name = "action", columnDefinition = "varchar")
-	String action
-	
+	@Column(name = "insensible_loss_output", columnDefinition = "varchar")
+	String insensibleLossOutput
+
 	@GraphQLQuery
-	@Column(name = "response", columnDefinition = "varchar")
-	String response
-	
+	@Column(name = "stool_output", columnDefinition = "varchar")
+	String stoolOutput
+
+	@GraphQLQuery
+	@Column(name = "emesis_output", columnDefinition = "varchar")
+	String emesisOutput
+
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
 	LocalDateTime entryDatetime

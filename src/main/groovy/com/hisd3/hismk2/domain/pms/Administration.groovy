@@ -11,8 +11,8 @@ import javax.persistence.*
 import java.time.LocalDateTime
 
 @Entity
-@Table(schema = "pms", name = "nurse_notes")
-class NurseNote extends AbstractAuditingEntity {
+@Table(schema = "pms", name = "administrations")
+class Administration extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Id
@@ -24,26 +24,22 @@ class NurseNote extends AbstractAuditingEntity {
 	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "`case`", referencedColumnName = "id")
-	Case parentCase
-	
-	@GraphQLQuery
-	@Column(name = "focus", columnDefinition = "varchar")
-	String focus
-	
-	@GraphQLQuery
-	@Column(name = "data", columnDefinition = "varchar")
-	String data
+	@JoinColumn(name = "medication", referencedColumnName = "id")
+	Medication medication
 	
 	@GraphQLQuery
 	@Column(name = "action", columnDefinition = "varchar")
 	String action
 	
 	@GraphQLQuery
-	@Column(name = "response", columnDefinition = "varchar")
-	String response
+	@Column(name = "dose", columnDefinition = "varchar")
+	String dose
+	
+	@GraphQLQuery
+	@Column(name = "remarks", columnDefinition = "varchar")
+	String remarks
 	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
-	LocalDateTime entryDatetime
+	LocalDateTime entryDateTime
 }

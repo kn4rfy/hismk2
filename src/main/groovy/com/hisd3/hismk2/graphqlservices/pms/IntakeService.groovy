@@ -1,6 +1,8 @@
 package com.hisd3.hismk2.graphqlservices.pms
 
+import com.hisd3.hismk2.dao.pms.IntakeDao
 import com.hisd3.hismk2.dao.pms.NurseNoteDao
+import com.hisd3.hismk2.domain.pms.Intake
 import com.hisd3.hismk2.domain.pms.NurseNote
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLQuery
@@ -10,20 +12,20 @@ import org.springframework.stereotype.Component
 
 @Component
 @GraphQLApi
-class NurseNoteService {
+class IntakeService {
 	
 	@Autowired
-	NurseNoteDao nurseNoteDao
+	IntakeDao intakeDao
 	
 	//============== All Queries ====================
 	
-	@GraphQLQuery(name = "nurseNotes", description = "Get all nurse notes")
-	List<NurseNote> findAll() {
-		return nurseNoteDao.findAll()
+	@GraphQLQuery(name = "intakes", description = "Get all intakes")
+	List<Intake> findAll() {
+		return intakeDao.findAll()
 	}
-	
-	@GraphQLQuery(name = "nurseNotesByCase", description = "Get all nurse notes by case ID")
-	List<NurseNote> getNurseNotesByCase(@GraphQLArgument(name = "caseId") UUID caseId) {
-		return nurseNoteDao.getNurseNotesByCase(caseId)
+
+	@GraphQLQuery(name = "intakesByCase", description = "Get all patient intakes by case ID")
+	List<Intake> getIntakesByCase(@GraphQLArgument(name = "caseId") UUID caseId) {
+		return intakeDao.getIntakesByCase(caseId)
 	}
 }

@@ -1,6 +1,8 @@
 package com.hisd3.hismk2.dao.pms
 
+import com.hisd3.hismk2.domain.pms.Intake
 import com.hisd3.hismk2.domain.pms.NurseNote
+import com.hisd3.hismk2.repository.pms.IntakeRepository
 import com.hisd3.hismk2.repository.pms.NurseNoteRepository
 import groovy.transform.TypeChecked
 import org.springframework.beans.factory.annotation.Autowired
@@ -10,20 +12,20 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @TypeChecked
 @Transactional
-class NurseNoteDao {
+class IntakeDao {
 	
 	@Autowired
-	private NurseNoteRepository nurseNoteRepository
+	private IntakeRepository intakeRepository
 	
-	List<NurseNote> findAll() {
-		return nurseNoteRepository.findAll()
+	List<Intake> findAll() {
+		return intakeRepository.findAll()
 	}
-	
-	NurseNote findById(String id) {
-		return nurseNoteRepository.findById(UUID.fromString(id)).get()
+
+	Intake findById(String id) {
+		return intakeRepository.findById(UUID.fromString(id)).get()
 	}
-	
-	List<NurseNote> getNurseNotesByCase(UUID id) {
-		return nurseNoteRepository.getNurseNotesByCase(id)
+
+	List<Intake> getIntakesByCase(UUID id) {
+		return intakeRepository.getIntakesByCase(id)
 	}
 }

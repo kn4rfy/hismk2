@@ -28,11 +28,11 @@ class PurchaseRequestItem extends AbstractAuditingEntity {
 	UUID refPr
 	
 	@GraphQLQuery
-	@Column(name = "item_ name", columnDefinition = "varchar")
+	@Column(name = "item_name", columnDefinition = "varchar")
 	String itemName
 	
 	@GraphQLQuery
 	@Column(name = "qty", columnDefinition = "numeric")
-	String qty
+	Integer qty
 	
 }
