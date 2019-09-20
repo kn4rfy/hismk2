@@ -26,7 +26,7 @@ class Output extends AbstractAuditingEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "`case`", referencedColumnName = "id")
 	Case parentCase
-
+	
 	@GraphQLQuery
 	@Column(name = "voided_output", columnDefinition = "varchar")
 	String voidedOutput
@@ -42,15 +42,15 @@ class Output extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "insensible_loss_output", columnDefinition = "varchar")
 	String insensibleLossOutput
-
+	
 	@GraphQLQuery
 	@Column(name = "stool_output", columnDefinition = "varchar")
 	String stoolOutput
-
+	
 	@GraphQLQuery
 	@Column(name = "emesis_output", columnDefinition = "varchar")
 	String emesisOutput
-
+	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
 	LocalDateTime entryDatetime

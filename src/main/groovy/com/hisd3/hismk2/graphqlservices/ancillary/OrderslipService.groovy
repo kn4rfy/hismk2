@@ -17,56 +17,56 @@ import org.springframework.stereotype.Component
 @Component
 @GraphQLApi
 class OrderslipService {
-
+	
 	@Autowired
 	OrderslipDao orderslipDao
-
+	
 	@Autowired
 	GeneratorService generatorService
-
+	
 	@Autowired
 	ObjectMapper objectMapper
-
+	
 	//============== All Queries ====================
-
+	
 	@GraphQLQuery(name = "orderslips", description = "Get All Orderslips")
 	List<Orderslip> findAll() {
 		orderslipDao.findAll()
 	}
-
+	
 	@GraphQLQuery(name = "orderslipsByDepartment", description = "Get All Orderslips by Department")
 	List<Orderslip> findByDepartment(
 			@GraphQLArgument(name = "id") String id = ""
 	) {
-
+		
 		return orderslipDao.findByDepartment(id)
 	}
-
+	
 	@GraphQLQuery(name = "orderslipsByCase", description = "Get All Orderslips by case")
 	List<DiagnosticsResultsDto> findByCase(
 			@GraphQLArgument(name = "id") String id
 	) {
-
+		
 		return orderslipDao.findByCase(id)
 	}
-
+	
 	@GraphQLQuery(name = "orderslipsByCaseAndDepartment", description = "Get All Orderslips filter by case and department")
 	List<DiagnosticsResultsDto> findByCaseAndDeparment(
 			@GraphQLArgument(name = "id") String id,
 			@GraphQLArgument(name = "departmentId") String departmentId
 	) {
 		return orderslipDao.findByCaseAndDepartment(id, departmentId)
-
+		
 	}
-
+	
 	//============== All Mutations ====================
-
+	
 	@GraphQLMutation
 	List<Orderslip> addOrderslip(
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
 		println(fields)
-
+		
 		List<Orderslip> orderslips = []
 		def orders
 		orders = fields.get("requested") as ArrayList<Orderslip>
@@ -79,7 +79,7 @@ class OrderslipService {
 				order.deleted = false
 				orderslips.add(order)
 		}
-
+		
 		return orderslipDao.addOrderslip(orderslips)
 	}
 }

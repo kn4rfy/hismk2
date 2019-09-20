@@ -5,12 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 
-interface AncillaryConfigRepository extends JpaRepository<AncillaryConfig,UUID> {
-
-
-    @Query(value = '''Select a from AncillaryConfig a where
+interface AncillaryConfigRepository extends JpaRepository<AncillaryConfig, UUID> {
+	
+	@Query(value = '''Select a from AncillaryConfig a where
             lower(a.entityName) like concat('%',:name,'%') ''')
-    List<AncillaryConfig> getConfigByEntityName(@Param("name") String filter)
+	List<AncillaryConfig> getConfigByEntityName(@Param("name") String filter)
 }
 
 

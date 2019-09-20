@@ -42,15 +42,15 @@ class Intake extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "blood_intake", columnDefinition = "varchar")
 	String bloodIntake
-
+	
 	@GraphQLQuery
 	@Column(name = "tpn_intake", columnDefinition = "varchar")
 	String tpnIntake
-
+	
 	@GraphQLQuery
 	@Column(name = "pb_intake", columnDefinition = "varchar")
 	String pbIntake
-
+	
 	@GraphQLQuery
 	@Column(name = "medication_intake", columnDefinition = "varchar")
 	String medicationIntake

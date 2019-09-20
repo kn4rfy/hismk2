@@ -15,52 +15,51 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
-
 @TypeChecked
 @Component
 @GraphQLApi
 class ServiceService {
-
+	
 	@Autowired
 	PanelContentDao panelContentDao
-
+	
 	@Autowired
 	ServiceDao servicesDao
-
+	
 	@Autowired
 	GeneratorService generatorService
-
+	
 	@Autowired
 	private ServiceRepository servicesRepository
-
+	
 	@Autowired
 	ObjectMapper objectMapper
-
+	
 	//============== All Queries ====================
-
+	
 	@GraphQLQuery(name = "services", description = "Get All Service")
 	Set<HisService> findAll() {
 		servicesDao.findAll()
 	}
-
+	
 	@GraphQLQuery(name = "searchServices", description = "Search Services")
 	List<HisService> searchServices(@GraphQLArgument(name = "filter") String filter) {
 		servicesDao.searchHisServices(filter)
 	}
-
+	
 	@GraphQLQuery(name = "getPanelComponent", description = "Search Child Services")
 	List<PanelContent> getPanelComponent(@GraphQLArgument(name = "id") String id) {
 		panelContentDao.searchHisServices(id)
 	}
-
+	
 	@GraphQLQuery(name = "Service", description = "Get Service By Id")
 	HisService findById(@GraphQLArgument(name = "id") String id) {
-
+		
 		return servicesDao.findById(UUID.fromString(id))
 	}
-
+	
 	//============== All Mutations ====================
-
+	
 	@GraphQLMutation
 	HisService upsertServices(
 			@GraphQLArgument(name = "id") String id,
@@ -69,37 +68,37 @@ class ServiceService {
 		if (id) {
 			def serviceitem = servicesDao.findById(UUID.fromString(id))
 			objectMapper.updateValue(serviceitem, fields)
-
+			
 			serviceitem.available = true
-
+			
 			return servicesDao.save(serviceitem)
 		} else {
 			def serviceitem = objectMapper.convertValue(fields, HisService)
-
+			
 			serviceitem.available = true
-
+			
 			return servicesDao.save(serviceitem)
 		}
 	}
-
+	
 	@GraphQLMutation
 	List<PanelContent> addPanelComponents(
 			@GraphQLArgument(name = "id") String id,
 			@GraphQLArgument(name = "fields") ArrayList<Map<String, Object>> fields
 	) {
-
+		
 		HisService parentService = servicesDao.findById(UUID.fromString(id))
-
+		
 		List<PanelContent> serviceComponents = []
 		def child
-		child = fields as  ArrayList<PanelContent>
+		child = fields as ArrayList<PanelContent>
 		child.each {
 			it ->
 				def order = objectMapper.convertValue(it, PanelContent)
-
+				
 				order.parent = parentService
-				order.processCode=it.processCode
-				order.serviceName=it.serviceName
+				order.processCode = it.processCode
+				order.serviceName = it.serviceName
 				order.id = null
 				serviceComponents.add(order)
 		}

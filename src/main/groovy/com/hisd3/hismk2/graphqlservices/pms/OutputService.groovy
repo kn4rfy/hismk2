@@ -1,8 +1,6 @@
 package com.hisd3.hismk2.graphqlservices.pms
 
-import com.hisd3.hismk2.dao.pms.IntakeDao
 import com.hisd3.hismk2.dao.pms.OutputDao
-import com.hisd3.hismk2.domain.pms.Intake
 import com.hisd3.hismk2.domain.pms.Output
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLQuery
@@ -23,7 +21,7 @@ class OutputService {
 	List<Output> findAll() {
 		return outputDao.findAll()
 	}
-
+	
 	@GraphQLQuery(name = "outputsByCase", description = "Get all patient outputs by case ID")
 	List<Output> getOutputsByCase(@GraphQLArgument(name = "caseId") UUID caseId) {
 		return outputDao.getOutputsByCase(caseId)

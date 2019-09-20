@@ -46,17 +46,17 @@ class PurchaseRequestService {
 	) {
 		if (fields.get("id")) {
 			def pr = purchaseRequestRepository.findById(UUID.fromString(fields.get("id"))).get()
-
+			
 			items.each {
-				it->
-					if(it.get("id")){
+				it ->
+					if (it.get("id")) {
 						def item = itemRepository.findById(UUID.fromString(it.get("id") as String)).get()
 						def prItems = new PurchaseRequestItem()
-
+						
 						prItems.refItem = item.id
 						prItems.refPr = pr.id
 						prItems.itemName = item.descLong
-
+						
 						purchaseRequestItemRepository.save(prItems)
 					}
 			}
