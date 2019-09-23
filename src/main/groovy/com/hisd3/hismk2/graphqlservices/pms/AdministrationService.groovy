@@ -21,4 +21,9 @@ class AdministrationService {
 	List<Administration> getMedicationAdministrations(@GraphQLArgument(name = "medication") UUID medication) {
 		return administrationRepository.getMedicationAdministrations(medication)
 	}
+	
+	@GraphQLQuery(name = "medicationAdministrationsByCase", description = "Get all Administrations by case ID")
+	List<Administration> getMedicationAdministrationsByCase(@GraphQLArgument(name = "caseId") UUID caseId) {
+		return administrationRepository.getMedicationAdministrationsByCase(caseId)
+	}
 }
