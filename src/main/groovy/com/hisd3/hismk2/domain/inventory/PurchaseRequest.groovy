@@ -43,29 +43,29 @@ class PurchaseRequest extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "requested_date", columnDefinition = "timestamp")
 	Instant requestedDate
-
+	
 	@GraphQLQuery
 	@Column(name = "approved_by", columnDefinition = "uuid")
 	UUID approvedBy
-
+	
 	@GraphQLQuery
 	@Column(name = "approved_name", columnDefinition = "varchar")
 	String approvedName
-
+	
 	@GraphQLQuery
 	@Column(name = "approved_date", columnDefinition = "timestamp")
 	Instant approvedDate
-
+	
 	@GraphQLQuery
 	@Column(name = "suggested_supplier_name", columnDefinition = "varchar")
 	String suggestedSupplierName
-
+	
 	@GraphQLQuery
 	@Column(name = "request_type", columnDefinition = "varchar")
 	String requestType
-
+	
 	@GraphQLQuery
 	@Column(name = "date_needed", columnDefinition = "timestamp")
 	Instant dateNeeded
-
+	
 }
