@@ -139,10 +139,14 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/55_ace_output.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/56_jp_newcolumns.sql"
+             relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/56_crisnil_ancillaryconfig.sql"
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/57_crisnil_alter_ancillary_config.sql"
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/58_crisnil_integration_config.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/59_jp_pr_items_fk.sql"
              relativeToChangelogFile="false"/>
 </databaseChangeLog>

@@ -34,5 +34,9 @@ class PurchaseRequestItem extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "qty", columnDefinition = "numeric")
 	Integer qty
+
+    @GraphQLQuery
+    @Column(name = "price", columnDefinition = "numeric")
+    Double price
 	
 }

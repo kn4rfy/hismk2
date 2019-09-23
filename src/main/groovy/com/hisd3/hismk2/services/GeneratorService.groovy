@@ -9,7 +9,8 @@ enum GeneratorType {
 	CASE_NO,
 	OrderSlip_NO,
 	RR_NO,
-	BILLING_NO
+	BILLING_NO,
+	PR_NO
 }
 
 @Service
