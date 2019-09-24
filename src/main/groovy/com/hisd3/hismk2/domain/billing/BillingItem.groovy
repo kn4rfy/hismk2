@@ -26,11 +26,19 @@ class BillingItem extends AbstractAuditingEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "billing", referencedColumnName = "id")
 	Billing billing
-	
+
 	@GraphQLQuery
 	@Column(name = "record_no", columnDefinition = "varchar")
 	String recordNo
-	
+
+	@GraphQLQuery
+	@Column(name = "item_type", columnDefinition = "varchar")
+	String itemType
+
+	@GraphQLQuery
+	@Column(name = "item", columnDefinition = "varchar")
+	String item
+
 	@GraphQLQuery
 	@Column(name = "description", columnDefinition = "varchar")
 	String description
@@ -40,12 +48,12 @@ class BillingItem extends AbstractAuditingEntity {
 	Integer qty
 	
 	@GraphQLQuery
+	@Column(name = "price", columnDefinition = "decimal")
+	BigDecimal price
+
+	@GraphQLQuery
 	@Column(name = "status", columnDefinition = "varchar")
 	String status
-	
-	@GraphQLQuery
-	@Column(name = "price", columnDefinition = "decimal")
-	Integer price
 	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)

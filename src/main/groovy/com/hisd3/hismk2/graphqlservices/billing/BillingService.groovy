@@ -42,7 +42,20 @@ class BillingService {
 	}
 	
 	@GraphQLMutation
-	Billing saveBillingItems(@GraphQLArgument(name = "patientId") UUID patientId, @GraphQLArgument(name = "billingItems") List<Map<String, Object>> billingItemList) {
-		billingDao.saveBillingItems(patientId, billingItemList)
+	Billing saveBillingItems(
+			@GraphQLArgument(name = "patientId") UUID patientId,
+			@GraphQLArgument(name = "caseId") UUID caseId,
+			@GraphQLArgument(name = "billingItems") List<Map<String, Object>> billingItemList) {
+		billingDao.saveBillingItems(patientId, caseId, billingItemList)
+	}
+
+	@GraphQLMutation
+	Billing upsertBilling(
+			@GraphQLArgument(name = "patientId") String patientId,
+			@GraphQLArgument(name = "caseId") String caseId,
+			@GraphQLArgument(name = "billingId") String billingId,
+			@GraphQLArgument(name = "billingItems") List<Map<String, Object>> billingItemList) {
+
+		billingDao.saveBillingItems(patientId, caseId, billingId, billingItemList)
 	}
 }
