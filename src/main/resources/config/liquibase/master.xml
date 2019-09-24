@@ -149,4 +149,6 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/59_jp_pr_items_fk.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/60_kn4rfy_administrations_update.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>
