@@ -48,14 +48,14 @@ class BillingService {
 			@GraphQLArgument(name = "billingItems") List<Map<String, Object>> billingItemList) {
 		billingDao.saveBillingItems(patientId, caseId, billingItemList)
 	}
-
+	
 	@GraphQLMutation
 	Billing upsertBilling(
 			@GraphQLArgument(name = "patientId") String patientId,
 			@GraphQLArgument(name = "caseId") String caseId,
 			@GraphQLArgument(name = "billingId") String billingId,
 			@GraphQLArgument(name = "billingItems") List<Map<String, Object>> billingItemList) {
-
+		
 		billingDao.saveBillingItems(patientId, caseId, billingId, billingItemList)
 	}
 }

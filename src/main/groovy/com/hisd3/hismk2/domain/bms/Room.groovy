@@ -46,6 +46,10 @@ class Room extends AbstractAuditingEntity {
 	String status
 	
 	@GraphQLQuery
+	@Column(name = "type", columnDefinition = "varchar")
+	String type
+	
+	@GraphQLQuery
 	@Formula("concat(room_no, coalesce('-' || nullif(bed_no,''), ''), coalesce('-' || nullif(status,'') , ''))")
 	String roomName
 	
