@@ -73,7 +73,9 @@ class BillingDao {
 
 						def item = serviceRepository.findById(UUID.fromString(billingItem.get("item") as String)).get()
 
-						billingItemDto.recordNo = Math.random()
+						Random rnd = new Random()
+
+						billingItemDto.recordNo = rnd.nextInt(999999)
 						billingItemDto.description = item.serviceName
 						billingItemDto.price = item.basePrice
 						billingItemDto.qty = billingItem.get("qty", 0) as Integer
