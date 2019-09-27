@@ -54,7 +54,18 @@ class BillingDao {
 	List<BillingItem> getBillingItemsByBill(UUID billingId) {
 		billingItemRepository.getBillingItemsByBill(billingId)
 	}
-	
+
+	def toggleBillingItem(String billingItemId) {
+		def billingItem = billingItemRepository.findById(UUID.fromString(billingItemId)).get()
+
+		if(billingItem.status == 'INACTIVE')
+			billingItem.status = 'ACTIVE'
+		else
+			billingItem.status = 'INACTIVE'
+
+		billingItemRepository.save(billingItem)
+	}
+
 	Billing saveBillingItems(String patientId, String caseId, String billingId, List<Map<String, Object>> billingItems) {
 		
 		if (billingId) {
@@ -78,6 +89,7 @@ class BillingDao {
 					if(billingItem.itemType == 'SERVICE') {
 						billingItemDto.description = item.serviceName
 						billingItemDto.price = item.basePrice
+						billingItemDto.status = 'ACTIVE'
 
 						def department = billingItem.get("department", "") as String
 
@@ -118,21 +130,32 @@ class BillingDao {
 						def billingItemDto = new BillingItem()
 						billingItemDto.billing = newBilling;
 
-						if (billingItem.itemType == 'SERVICE') {
+						def item = serviceRepository.findById(UUID.fromString(billingItem.get("item") as String)).get()
+						Random rnd = new Random()
 
-							def item = serviceRepository.findById(UUID.fromString(billingItem.get("item") as String)).get()
+						billingItemDto.recordNo = rnd.nextInt(999999)
+						billingItemDto.qty = billingItem.get("qty", 0) as Integer
 
-							billingItemDto.recordNo = Math.random()
+						if(billingItem.itemType == 'SERVICE') {
 							billingItemDto.description = item.serviceName
 							billingItemDto.price = item.basePrice
-							billingItemDto.qty = billingItem.get("qty", 0) as Integer
+							billingItemDto.status = 'ACTIVE'
 
-							billingItemDto.department = departmentRepository.findById(
-									UUID.fromString(billingItem.get("department", 0) as String)
-							).get()
+							def department = billingItem.get("department", "") as String
 
-							billingItemRepository.save(billingItemDto)
+							if(department != null && department != "") {
+								billingItemDto.department = departmentRepository.findById(
+										UUID.fromString(department)
+								).get()
+							}
+							else {
+								billingItemDto.department = departmentRepository.findById(
+										item.department.id
+								).get()
+							}
 						}
+
+						billingItemRepository.save(billingItemDto)
 				}
 
 				return newBilling2

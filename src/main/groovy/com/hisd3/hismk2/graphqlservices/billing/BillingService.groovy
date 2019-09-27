@@ -60,9 +60,7 @@ class BillingService {
 	}
 
 	@GraphQLMutation
-	Billing toggleBillingItem(
-			@GraphQLArgument(name = "billingItemId") String billingItemId) {
-
+	BillingItem toggleBillingItem(@GraphQLArgument(name = "billingItemId") String billingItemId) {
 		billingDao.toggleBillingItem(billingItemId)
 	}
 }
