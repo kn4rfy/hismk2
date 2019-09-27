@@ -151,4 +151,6 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/60_kn4rfy_administrations_update.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/61_ace_add_billingitem_columns.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>
