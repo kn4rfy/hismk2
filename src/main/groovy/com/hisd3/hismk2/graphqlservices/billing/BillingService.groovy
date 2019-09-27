@@ -58,4 +58,11 @@ class BillingService {
 		
 		billingDao.saveBillingItems(patientId, caseId, billingId, billingItemList)
 	}
+
+	@GraphQLMutation
+	Billing toggleBillingItem(
+			@GraphQLArgument(name = "billingItemId") String billingItemId) {
+
+		billingDao.toggleBillingItem(billingItemId)
+	}
 }

@@ -34,16 +34,16 @@ class BillingDao {
 	
 	@Autowired
 	DepartmentRepository departmentRepository
-	
+
 	@Autowired
 	ServiceRepository serviceRepository
-	
+
 	@Autowired
 	PatientRepository patientRepository
-	
+
 	@Autowired
 	CaseRepository caseRepository
-	
+
 	@Autowired
 	ObjectMapper objectMapper
 	
@@ -61,31 +61,39 @@ class BillingDao {
 			
 			//.get(0) means that we get the first active billing result
 			def billingDto = billingRepository.findById(UUID.fromString(billingId)).get()
-			
+
 			if (billingItems) {
 				billingItems.each {
 					Map<String, Object> billingItem ->
 						
-						def billingItemDto = new BillingItem()
-						billingItemDto.billing = billingDto
-						
-						if (billingItem.itemType == 'SERVICE') {
-							
-							def item = serviceRepository.findById(UUID.fromString(billingItem.get("item") as String)).get()
-							
-							Random rnd = new Random()
-							
-							billingItemDto.recordNo = rnd.nextInt(999999)
-							billingItemDto.description = item.serviceName
-							billingItemDto.price = item.basePrice
-							billingItemDto.qty = billingItem.get("qty", 0) as Integer
-							
+					def billingItemDto = new BillingItem()
+					billingItemDto.billing = billingDto;
+
+					def item = serviceRepository.findById(UUID.fromString(billingItem.get("item") as String)).get()
+					Random rnd = new Random()
+
+					billingItemDto.recordNo = rnd.nextInt(999999)
+					billingItemDto.qty = billingItem.get("qty", 0) as Integer
+
+					if(billingItem.itemType == 'SERVICE') {
+						billingItemDto.description = item.serviceName
+						billingItemDto.price = item.basePrice
+
+						def department = billingItem.get("department", "") as String
+
+						if(department != null && department != "") {
 							billingItemDto.department = departmentRepository.findById(
-									UUID.fromString(billingItem.get("department", 0) as String)
+									UUID.fromString(department)
 							).get()
-							
-							billingItemRepository.save(billingItemDto)
 						}
+						else {
+							billingItemDto.department = departmentRepository.findById(
+									item.department.id
+							).get()
+						}
+					}
+
+					billingItemRepository.save(billingItemDto)
 				}
 			}
 			
@@ -100,33 +108,33 @@ class BillingDao {
 			newBilling.billingNo = generatorService.getNextValue(GeneratorType.RR_NO) { Long no ->
 				StringUtils.leftPad(no.toString(), 5, "0")
 			}
-			
+
 			def newBilling2 = billingRepository.save(newBilling)
-			
+
 			if (billingItems) {
 				billingItems.each {
 					Map<String, Object> billingItem ->
-						
+
 						def billingItemDto = new BillingItem()
-						billingItemDto.billing = newBilling
-						
+						billingItemDto.billing = newBilling;
+
 						if (billingItem.itemType == 'SERVICE') {
-							
+
 							def item = serviceRepository.findById(UUID.fromString(billingItem.get("item") as String)).get()
-							
+
 							billingItemDto.recordNo = Math.random()
 							billingItemDto.description = item.serviceName
 							billingItemDto.price = item.basePrice
 							billingItemDto.qty = billingItem.get("qty", 0) as Integer
-							
+
 							billingItemDto.department = departmentRepository.findById(
 									UUID.fromString(billingItem.get("department", 0) as String)
 							).get()
-							
+
 							billingItemRepository.save(billingItemDto)
 						}
 				}
-				
+
 				return newBilling2
 			}
 		}
