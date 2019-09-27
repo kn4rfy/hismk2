@@ -1,5 +1,5 @@
 -- auto-generated definition
-create table ancillary.orderslips
+create table IF NOT EXISTS ancillary.orderslips
 (
   id                 uuid not null
     constraint orderslips_pkey

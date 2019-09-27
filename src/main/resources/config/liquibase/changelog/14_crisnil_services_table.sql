@@ -1,4 +1,4 @@
-create table ancillary.services
+create table IF NOT EXISTS ancillary.services
 (
   id                 uuid not null
     constraint service_pkey

@@ -1,4 +1,4 @@
-CREATE TABLE "ancillary"."integration_config" (
+CREATE TABLE IF NOT EXISTS "ancillary"."integration_config" (
   "id" uuid NOT NULL,
   "demo_mode" bool,
   "nas_location" varchar,

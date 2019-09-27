@@ -1,4 +1,4 @@
-create table ancillary.orderslips_details
+create table IF NOT EXISTS ancillary.orderslips_details
 (
   id          uuid,
   field_name  varchar,

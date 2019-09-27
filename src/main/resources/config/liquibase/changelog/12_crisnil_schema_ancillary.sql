@@ -1,6 +1,6 @@
-CREATE SCHEMA ancillary;
+CREATE SCHEMA IF NOT EXISTS ancillary;
 
-create table public.department
+create table IF NOT EXISTS public.department
 (
   id                 uuid not null
     constraint department_pkey

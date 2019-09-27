@@ -1,4 +1,4 @@
-CREATE TABLE "ancillary"."diagnostic_results" (
+CREATE TABLE IF NOT EXISTS "ancillary"."diagnostic_results" (
 "id" uuid NOT NULL,
 "orderslip" uuid,
 "name" varchar(255),

@@ -1,4 +1,4 @@
-CREATE TABLE "ancillary"."panel_content" (
+CREATE TABLE IF NOT EXISTS "ancillary"."panel_content" (
   "id" uuid NOT NULL,
   "parent" uuid,
   "process_code" varchar,

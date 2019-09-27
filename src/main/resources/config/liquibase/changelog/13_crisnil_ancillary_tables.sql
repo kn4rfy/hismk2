@@ -1,4 +1,4 @@
-create table ancillary.revenue_centers
+create table IF NOT EXISTS ancillary.revenue_centers
 (
   id                 uuid not null
     constraint revenue_centers_pkey
