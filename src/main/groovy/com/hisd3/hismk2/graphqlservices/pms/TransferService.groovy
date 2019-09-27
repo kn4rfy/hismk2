@@ -2,13 +2,13 @@ package com.hisd3.hismk2.graphqlservices.pms
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.DepartmentDao
-import com.hisd3.hismk2.dao.bms.RoomDao
 import com.hisd3.hismk2.dao.pms.CaseDao
 import com.hisd3.hismk2.dao.pms.TransferDao
 import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.bms.Room
 import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.Transfer
+import com.hisd3.hismk2.repository.bms.RoomRepository
 import com.hisd3.hismk2.services.GeneratorService
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLMutation
@@ -33,7 +33,7 @@ class TransferService {
 	DepartmentDao departmentDao
 	
 	@Autowired
-	RoomDao roomDao
+	private RoomRepository roomRepository
 	
 	@Autowired
 	GeneratorService generatorService
@@ -89,7 +89,7 @@ class TransferService {
 			transfer.department = department
 			
 			def roomId = fields["roomId"]
-			Room room = roomDao.findById(roomId as String)
+			Room room = roomRepository.findById(roomId as UUID) as Room
 			transfer.room = room
 			transfer.entryDatetime = LocalDateTime.now()
 			
@@ -106,7 +106,7 @@ class TransferService {
 			
 			if (fields["roomId"] != null) {
 				def roomId = fields["roomId"]
-				Room room = roomDao.findById(roomId as String)
+				Room room = roomRepository.findById(roomId as UUID) as Room
 				transfer.room = room
 				pCase.room = room
 			}
