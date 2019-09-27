@@ -155,4 +155,8 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/62_kn4rfy_update_rooms.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/63_ace_add_item_base_price.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/64_ace_add_item_temporary_unit_cost.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>

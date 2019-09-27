@@ -34,7 +34,15 @@ class Item extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "unit_measure")
 	String unitMeasure
-	
+
+	@GraphQLQuery
+	@Column(name = "base_price")
+	BigDecimal basePrice
+
+	@GraphQLQuery
+	@Column(name = "unit_cost")
+	BigDecimal unitCost
+
 	@GraphQLQuery
 	@Column(name = "minimum_level")
 	BigDecimal minimumLevel
