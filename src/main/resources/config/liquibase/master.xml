@@ -155,4 +155,8 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/62_kn4rfy_update_rooms.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/63_crisnil_supplier.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/64_crisnil_supplier_item.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>
