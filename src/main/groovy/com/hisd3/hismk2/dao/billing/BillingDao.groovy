@@ -7,6 +7,7 @@ import com.hisd3.hismk2.repository.DepartmentRepository
 import com.hisd3.hismk2.repository.ancillary.ServiceRepository
 import com.hisd3.hismk2.repository.billing.BillingItemRepository
 import com.hisd3.hismk2.repository.billing.BillingRepository
+import com.hisd3.hismk2.repository.inventory.ItemRepository
 import com.hisd3.hismk2.repository.pms.CaseRepository
 import com.hisd3.hismk2.repository.pms.PatientRepository
 import com.hisd3.hismk2.services.GeneratorService
@@ -37,7 +38,10 @@ class BillingDao {
 	
 	@Autowired
 	ServiceRepository serviceRepository
-	
+
+	@Autowired
+	ItemRepository itemRepository
+
 	@Autowired
 	PatientRepository patientRepository
 	
@@ -79,14 +83,15 @@ class BillingDao {
 						
 						def billingItemDto = new BillingItem()
 						billingItemDto.billing = billingDto
-						
-						def item = serviceRepository.findById(UUID.fromString(billingItem.get("item") as String)).get()
-						Random rnd = new Random()
-						
-						billingItemDto.recordNo = rnd.nextInt(999999)
-						billingItemDto.qty = billingItem.get("qty", 0) as Integer
-						
+
 						if (billingItem.itemType == 'SERVICE') {
+
+							def item = serviceRepository.findById(UUID.fromString(billingItem.get("item") as String)).get()
+							Random rnd = new Random()
+
+							billingItemDto.recordNo = rnd.nextInt(999999)
+							billingItemDto.qty = billingItem.get("qty", 0) as Integer
+
 							billingItemDto.description = item.serviceName
 							billingItemDto.price = item.basePrice
 							billingItemDto.status = 'ACTIVE'
@@ -102,6 +107,25 @@ class BillingDao {
 										item.department.id
 								).get()
 							}
+						}
+
+						else if (billingItem.itemType == 'INVENTORY') {
+
+							def item = itemRepository.findById(UUID.fromString(billingItem.get("item") as String)).get()
+							Random rnd = new Random()
+
+							billingItemDto.recordNo = rnd.nextInt(999999)
+							billingItemDto.qty = billingItem.get("qty", 0) as Integer
+
+							billingItemDto.description = item.descLong
+							billingItemDto.price = item.basePrice
+							billingItemDto.status = 'ACTIVE'
+
+							def department = billingItem.get("department", "") as String
+
+							billingItemDto.department = departmentRepository.findById(
+									UUID.fromString(department)
+							).get()
 						}
 						
 						billingItemRepository.save(billingItemDto)
