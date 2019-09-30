@@ -3,6 +3,7 @@ package com.hisd3.hismk2.domain.pms
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
 import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.bms.Room
+import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.NotFound
@@ -12,6 +13,7 @@ import org.hibernate.annotations.Type
 import javax.persistence.*
 import java.time.LocalDateTime
 
+@TypeChecked
 @Entity
 @Table(schema = "pms", name = "transfers")
 class Transfer extends AbstractAuditingEntity {
@@ -26,7 +28,7 @@ class Transfer extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
-	LocalDateTime entryDatetime
+	LocalDateTime entryDateTime
 	
 	@GraphQLQuery
 	@Column(name = "registry_type", columnDefinition = "varchar")

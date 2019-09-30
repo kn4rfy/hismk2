@@ -94,7 +94,7 @@ class PurchaseRequestService {
 			pr.suggestedSupplierName = fields.get("requestType", "")
 			pr.requestType = fields.get("requestType", "")
 			pr.status = fields.get("status", "")
-
+			
 			items.each {
 				it ->
 					if (it.get("id") == null) {
@@ -155,7 +155,7 @@ class PurchaseRequestService {
 			pr.suggestedSupplierName = fields.get("requestType", "")
 			pr.requestType = fields.get("requestType", "")
 			pr.status = fields.get("status", "")
-
+			
 			def afterSave = purchaseRequestRepository.save(pr)
 			
 			items.each {
