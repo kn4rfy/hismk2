@@ -159,4 +159,6 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/64_ace_add_item_temporary_unit_cost.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/65_jp_newcolumn.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>
