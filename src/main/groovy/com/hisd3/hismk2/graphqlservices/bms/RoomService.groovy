@@ -19,18 +19,17 @@ class RoomService {
 	
 	//============== All Queries ====================
 	
-	@GraphQLQuery(name = "rooms", description = "Get all rooms")
+	@GraphQLQuery(name = "rooms", description = "Get all Rooms")
 	List<Room> findAll() {
 		return roomRepository.findAll().sort { it.roomName }
 	}
 	
 	@GraphQLQuery(name = "room", description = "Get Room By Id")
 	Room findById(@GraphQLArgument(name = "id") UUID id) {
-		
 		return roomRepository.findById(id).get()
 	}
 	
-	@GraphQLQuery(name = "availableRooms", description = "Get all available rooms")
+	@GraphQLQuery(name = "availableRooms", description = "Get all available Rooms")
 	List<Room> getAvailableRooms() {
 		return roomRepository.getAvailableRooms().sort { it.roomName }
 	}

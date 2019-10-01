@@ -2,7 +2,6 @@ package com.hisd3.hismk2.graphqlservices.pms
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.DepartmentDao
-import com.hisd3.hismk2.dao.pms.CaseDao
 import com.hisd3.hismk2.domain.pms.Transfer
 import com.hisd3.hismk2.repository.bms.RoomRepository
 import com.hisd3.hismk2.repository.pms.TransferRepository
@@ -25,9 +24,6 @@ class TransferService {
 	private TransferRepository transferRepository
 	
 	@Autowired
-	CaseDao caseDao
-	
-	@Autowired
 	DepartmentDao departmentDao
 	
 	@Autowired
@@ -46,27 +42,27 @@ class TransferService {
 		return transferRepository.findAll()
 	}
 	
-	@GraphQLQuery(name = "searchTransfers", description = "Search transfers")
+	@GraphQLQuery(name = "transfer", description = "Get Transfer By Id")
+	Transfer findById(@GraphQLArgument(name = "id") UUID id) {
+		return transferRepository.findById(id).get()
+	}
+	
+	@GraphQLQuery(name = "searchTransfers", description = "Search Transfers")
 	List<Transfer> searchTransfers(@GraphQLArgument(name = "filter") String filter) {
 		return transferRepository.searchTransfers(filter)
 	}
 	
-	@GraphQLQuery(name = "getTransfersByCase", description = "Transfers by case ID")
-	List<Transfer> getTransfersByCase(@GraphQLArgument(name = "id") String id) {
-		return transferRepository.getTransfersByCase(UUID.fromString(id))
+	@GraphQLQuery(name = "transfersByCase", description = "Transfers by case ID")
+	List<Transfer> getTransfersByCase(@GraphQLArgument(name = "id") UUID id) {
+		return transferRepository.getTransfersByCase(id)
 	}
 	
-	@GraphQLQuery(name = "census", description = "Get transfers by date range")
+	@GraphQLQuery(name = "census", description = "Get Transfers by Date range")
 	List<Transfer> getTransfersByDateRange(@GraphQLArgument(name = "fields") Map<String, Object> fields) {
 		def fromDate = fields["fromDate"] as LocalDateTime
 		def toDate = fields["toDate"] as LocalDateTime
 		def registryType = fields["registryType"] as String
 		
 		return transferRepository.getTransfersByDateRange(fromDate, toDate, registryType)
-	}
-	
-	@GraphQLQuery(name = "transfer", description = "Get Transfer By Id")
-	Transfer findById(@GraphQLArgument(name = "id") UUID id) {
-		return transferRepository.findById(id).get()
 	}
 }

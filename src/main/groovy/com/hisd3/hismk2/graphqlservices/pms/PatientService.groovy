@@ -2,12 +2,12 @@ package com.hisd3.hismk2.graphqlservices.pms
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.DepartmentDao
-import com.hisd3.hismk2.dao.pms.CaseDao
-import com.hisd3.hismk2.dao.pms.PatientDao
 import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.Patient
 import com.hisd3.hismk2.domain.pms.Transfer
+import com.hisd3.hismk2.repository.pms.CaseRepository
+import com.hisd3.hismk2.repository.pms.PatientRepository
 import com.hisd3.hismk2.repository.pms.TransferRepository
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
@@ -16,13 +16,12 @@ import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLContext
 import io.leangen.graphql.annotations.GraphQLMutation
 import io.leangen.graphql.annotations.GraphQLQuery
-import io.leangen.graphql.execution.relay.Page
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
 import org.apache.commons.lang3.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
-import java.time.LocalDateTime
+import java.time.Instant
 
 @TypeChecked
 @Component
@@ -30,10 +29,10 @@ import java.time.LocalDateTime
 class PatientService {
 	
 	@Autowired
-	PatientDao patientDao
+	private PatientRepository patientRepository
 	
 	@Autowired
-	CaseDao caseDao
+	private CaseRepository caseRepository
 	
 	@Autowired
 	private TransferRepository transferRepository
@@ -51,52 +50,41 @@ class PatientService {
 	
 	@GraphQLQuery(name = "patients", description = "Get All Patients")
 	List<Patient> findAll() {
-		patientDao.findAll()
+		patientRepository.findAll().sort { it.fullName }
 	}
 	
 	@GraphQLQuery(name = "patient", description = "Get Patient By Id")
-	Patient findById(@GraphQLArgument(name = "id") String id) {
-		
-		return id ? patientDao.findById(id) : null
-	}
-	
-	@GraphQLQuery(name = "patientsByPage", description = "Get All Patients By Page")
-	Page<Patient> getAllPatientsByPage(
-			@GraphQLArgument(name = "first") int first,
-			@GraphQLArgument(name = "after") String after = "0"
-	) {
-		
-		patientDao.getPatientRelayPage(first, Integer.parseInt(after))
+	Patient findById(@GraphQLArgument(name = "id") UUID id) {
+		return id ? patientRepository.findById(id).get() : null
 	}
 	
 	@GraphQLQuery(name = "searchPatients", description = "Search patients")
 	List<Patient> searchPatients(@GraphQLArgument(name = "filter") String filter) {
-		patientDao.searchPatients(filter)
+		patientRepository.searchPatients(filter).sort { it.fullName }
 	}
 	
 	@GraphQLQuery(name = "patientCases", description = "Get All Patient Cases")
 	List<Case> getCases(@GraphQLContext Patient patient) {
-		
-		return patientDao.getPatientCases(patient)
+		return caseRepository.getPatientCases(patient.id)
 	}
 	
 	@GraphQLQuery(name = "patientActiveCase", description = "Get Patient active Case")
 	Case getPatientActiveCase(@GraphQLContext Patient patient) {
-		return caseDao.getPatientActiveCase(patient.id)
+		return caseRepository.getPatientActiveCase(patient.id)
 	}
 	
 	//============== All Mutations ====================
 	
 	@GraphQLMutation
 	Patient upsertPatient(
-			@GraphQLArgument(name = "id") String id,
+			@GraphQLArgument(name = "id") UUID id,
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
 		
 		if (id) {
-			def patient = patientDao.findById(id)
+			Patient patient = patientRepository.findById(id).get()
 			objectMapper.updateValue(patient, fields)
-			return patientDao.save(patient)
+			return patientRepository.save(patient)
 		} else {
 			
 			def serviceType = fields["serviceType"] as String
@@ -112,7 +100,7 @@ class PatientService {
 			patientObj.patientNo = generatorService.getNextValue(GeneratorType.PATIENT_NO) { Long no ->
 				StringUtils.leftPad(no.toString(), 5, "0")
 			}
-			def patient = patientDao.save(patientObj)
+			def patient = patientRepository.save(patientObj)
 			
 			//Initialize case data
 			Case pCase = new Case()
@@ -126,10 +114,10 @@ class PatientService {
 			pCase.serviceType = serviceType
 			pCase.registryType = registryType
 			pCase.accommodationType = accommodationType
-			pCase.entryDateTime = LocalDateTime.now()
+			pCase.entryDateTime = Instant.now()
 			pCase.department = department
 			
-			caseDao.save(pCase)
+			caseRepository.save(pCase)
 			//END.Initialize case data -------
 			
 			//Initialize transfer data -------
@@ -137,7 +125,7 @@ class PatientService {
 			
 			pTransfer.registryType = registryType
 			pTransfer.department = department
-			pTransfer.entryDateTime = LocalDateTime.now()
+			pTransfer.entryDateTime = Instant.now()
 			pTransfer.parentCase = pCase
 			
 			transferRepository.save(pTransfer)

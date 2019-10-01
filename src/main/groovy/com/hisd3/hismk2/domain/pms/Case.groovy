@@ -12,6 +12,7 @@ import org.hibernate.annotations.NotFoundAction
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
+import java.time.Instant
 import java.time.LocalDateTime
 
 @TypeChecked
@@ -60,7 +61,7 @@ class Case extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
-	LocalDateTime entryDateTime
+	Instant entryDateTime
 	
 	@GraphQLQuery
 	@Column(name = "admission_datetime", columnDefinition = "timestamp")
@@ -301,13 +302,4 @@ class Case extends AbstractAuditingEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "department", referencedColumnName = "id")
 	Department department
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCase")
-	Set<NurseNote> caseNurseNotes = [] as Set
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCase")
-	Set<VitalSign> caseVitalSigns = [] as Set
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCase")
-	Set<Transfer> caseTransfers = [] as Set
 }

@@ -10,7 +10,7 @@ import org.hibernate.annotations.NotFoundAction
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
-import java.time.LocalDateTime
+import java.time.Instant
 
 @Entity
 @Table(schema = "pms", name = "medications")
@@ -61,7 +61,7 @@ class Medication extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
-	LocalDateTime entryDateTime
+	Instant entryDateTime
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "medication")
 	Set<Administration> administrations = [] as Set

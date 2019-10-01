@@ -11,7 +11,7 @@ import org.hibernate.annotations.NotFoundAction
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
-import java.time.LocalDateTime
+import java.time.Instant
 
 @TypeChecked
 @Entity
@@ -28,24 +28,24 @@ class Transfer extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
-	LocalDateTime entryDateTime
+	Instant entryDateTime
 	
 	@GraphQLQuery
 	@Column(name = "registry_type", columnDefinition = "varchar")
 	String registryType
 	
 	@NotFound(action = NotFoundAction.IGNORE)
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "department", referencedColumnName = "id")
 	Department department
 	
 	@NotFound(action = NotFoundAction.IGNORE)
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "`case`", referencedColumnName = "id")
 	Case parentCase
 	
 	@NotFound(action = NotFoundAction.IGNORE)
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "room", referencedColumnName = "id")
 	Room room
 	

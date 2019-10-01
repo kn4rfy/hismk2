@@ -9,7 +9,7 @@ import org.hibernate.annotations.NotFoundAction
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
-import java.time.LocalDateTime
+import java.time.Instant
 
 @Entity
 @Table(schema = "pms", name = "administrations")
@@ -42,7 +42,7 @@ class Administration extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
-	LocalDateTime entryDateTime
+	Instant entryDateTime
 	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)

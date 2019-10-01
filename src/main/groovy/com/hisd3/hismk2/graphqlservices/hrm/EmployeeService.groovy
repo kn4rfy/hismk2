@@ -7,6 +7,7 @@ import com.hisd3.hismk2.domain.User
 import com.hisd3.hismk2.domain.hrm.Employee
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
+import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLMutation
 import io.leangen.graphql.annotations.GraphQLQuery
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 
+@TypeChecked
 @Component
 @GraphQLApi
 class EmployeeService {
@@ -38,7 +40,7 @@ class EmployeeService {
 	//============== All Queries ====================
 	
 	@GraphQLQuery(name = "employees", description = "Get All Employees")
-	Set<Employee> findAll() {
+	List<Employee> findAll() {
 		employeeDao.findAll().sort { it.lastName }
 	}
 	

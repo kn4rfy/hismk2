@@ -59,7 +59,7 @@ class BillingDao {
 		billingItemRepository.getBillingItemsByBill(billingId)
 	}
 	
-	def toggleBillingItem(String billingItemId) {
+	BillingItem toggleBillingItem(String billingItemId) {
 		def billingItem = billingItemRepository.findById(UUID.fromString(billingItemId)).get()
 		
 		if (billingItem.status == 'INACTIVE')
@@ -70,12 +70,12 @@ class BillingDao {
 		billingItemRepository.save(billingItem)
 	}
 	
-	Billing saveBillingItems(String patientId, String caseId, String billingId, List<Map<String, Object>> billingItems) {
+	Billing saveBillingItems(UUID patientId, UUID caseId, UUID billingId, List<Map<String, Object>> billingItems) {
 		
 		if (billingId) {
 			
 			//.get(0) means that we get the first active billing result
-			def billingDto = billingRepository.findById(UUID.fromString(billingId)).get()
+			def billingDto = billingRepository.findById(billingId).get()
 			
 			if (billingItems) {
 				billingItems.each {
@@ -133,9 +133,9 @@ class BillingDao {
 			return billingDto
 		} else {
 			def newBilling = new Billing()
-			def patientDto = patientRepository.findById(UUID.fromString(patientId)).get()
+			def patientDto = patientRepository.findById(patientId).get()
 			newBilling.patient = patientDto
-			newBilling.patientCase = caseRepository.findById(UUID.fromString(caseId)).get()
+			newBilling.patientCase = caseRepository.findById(caseId).get()
 			newBilling.entryDateTime = Instant.now()
 			newBilling.status = "ACTIVE"
 			newBilling.billingNo = generatorService.getNextValue(GeneratorType.RR_NO) { Long no ->
