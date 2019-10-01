@@ -37,8 +37,8 @@ class OrderslipDao {
 		return orderslipRepository.findAll()
 	}
 
-	List<Orderslip> filterByPatientType(String type){
-		return orderslipRepository.filterByPatientType(type)
+	List<Orderslip> filterByPatientType(String type,String filter){
+		return orderslipRepository.filterByPatientType(type,filter)
 	}
 
 	List<Orderslip> findByDepartment(String id) {

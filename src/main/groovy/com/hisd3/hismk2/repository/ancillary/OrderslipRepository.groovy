@@ -12,10 +12,12 @@ interface OrderslipRepository extends JpaRepository<Orderslip, UUID> {
 	)
 	List<Orderslip> findByCase(@Param("id") UUID id)
 
-	@Query(
-			value = "Select o from Orderslip o where o.parentCase.registryType =:patientType"
-	)
-	List<Orderslip> filterByPatientType(@Param("patientType") String patientType)
+
+	@Query(value = '''Select o from Orderslip o where 
+            lower(o.parentCase.patient.fullName) like lower(concat('%',:filter,'%')) and o.parentCase.registryType =:patientType
+            ''')
+
+	List<Orderslip> filterByPatientType(@Param("patientType") String patientType,@Param("filter") String filter)
 	@Query(
 			value = "Select o from Orderslip o where o.parentCase.id =:id and o.service.department.id =:departmentId"
 	)

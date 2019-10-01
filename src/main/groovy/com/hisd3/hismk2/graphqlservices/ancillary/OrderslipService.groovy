@@ -36,10 +36,11 @@ class OrderslipService {
 
 	@GraphQLQuery(name = "orderslipsByPatientType", description = "Get All Orderslips by Department")
 	List<Orderslip> orderslipsByPatientType(
-			@GraphQLArgument(name = "type") String type = ""
+			@GraphQLArgument(name = "type") String type = "",
+			@GraphQLArgument(name = "filter") String filter = ""
 	) {
 
-		return orderslipDao.filterByPatientType(type)
+		return orderslipDao.filterByPatientType(type,filter)
 	}
 
 	@GraphQLQuery(name = "orderslipsByDepartment", description = "Get All Orderslips by Department")
