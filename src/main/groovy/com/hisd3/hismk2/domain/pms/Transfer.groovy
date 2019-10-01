@@ -11,7 +11,7 @@ import org.hibernate.annotations.NotFoundAction
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
-import java.time.LocalDateTime
+import java.time.Instant
 
 @TypeChecked
 @Entity
@@ -28,7 +28,7 @@ class Transfer extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
-	LocalDateTime entryDateTime
+	Instant entryDateTime
 	
 	@GraphQLQuery
 	@Column(name = "registry_type", columnDefinition = "varchar")

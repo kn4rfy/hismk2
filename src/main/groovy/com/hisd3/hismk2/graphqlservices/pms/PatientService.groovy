@@ -21,7 +21,7 @@ import org.apache.commons.lang3.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
-import java.time.LocalDateTime
+import java.time.Instant
 
 @TypeChecked
 @Component
@@ -114,7 +114,7 @@ class PatientService {
 			pCase.serviceType = serviceType
 			pCase.registryType = registryType
 			pCase.accommodationType = accommodationType
-			pCase.entryDateTime = LocalDateTime.now()
+			pCase.entryDateTime = Instant.now()
 			pCase.department = department
 			
 			caseRepository.save(pCase)
@@ -125,7 +125,7 @@ class PatientService {
 			
 			pTransfer.registryType = registryType
 			pTransfer.department = department
-			pTransfer.entryDateTime = LocalDateTime.now()
+			pTransfer.entryDateTime = Instant.now()
 			pTransfer.parentCase = pCase
 			
 			transferRepository.save(pTransfer)

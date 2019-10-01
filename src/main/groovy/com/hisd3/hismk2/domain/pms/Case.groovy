@@ -12,6 +12,7 @@ import org.hibernate.annotations.NotFoundAction
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
+import java.time.Instant
 import java.time.LocalDateTime
 
 @TypeChecked
@@ -60,7 +61,7 @@ class Case extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
-	LocalDateTime entryDateTime
+	Instant entryDateTime
 	
 	@GraphQLQuery
 	@Column(name = "admission_datetime", columnDefinition = "timestamp")

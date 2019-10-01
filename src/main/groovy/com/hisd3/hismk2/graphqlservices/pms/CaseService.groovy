@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component
 
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
-import java.time.LocalDateTime
+import java.time.Instant
 
 @TypeChecked
 @Component
@@ -133,7 +133,7 @@ class CaseService {
 			caseObj.serviceType = serviceType
 			caseObj.registryType = registryType
 			caseObj.accommodationType = accommodationType
-			caseObj.entryDateTime = LocalDateTime.now()
+			caseObj.entryDateTime = Instant.now()
 			
 			if (hasActiveCase(patientId)) {
 				caseObj.status = ""
@@ -148,7 +148,7 @@ class CaseService {
 			
 			pTransfer.registryType = registryType
 			pTransfer.department = department
-			pTransfer.entryDateTime = LocalDateTime.now()
+			pTransfer.entryDateTime = Instant.now()
 			pTransfer.parentCase = caseObj
 			
 			transferRepository.save(pTransfer)
