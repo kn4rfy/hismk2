@@ -2,12 +2,14 @@ package com.hisd3.hismk2.graphqlservices.pms
 
 import com.hisd3.hismk2.domain.pms.NurseNote
 import com.hisd3.hismk2.repository.pms.NurseNoteRepository
+import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLQuery
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+@TypeChecked
 @Component
 @GraphQLApi
 class NurseNoteService {

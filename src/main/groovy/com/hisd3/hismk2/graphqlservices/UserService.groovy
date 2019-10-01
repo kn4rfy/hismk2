@@ -6,6 +6,7 @@ import com.hisd3.hismk2.domain.PersistentToken
 import com.hisd3.hismk2.domain.User
 import com.hisd3.hismk2.domain.hrm.Employee
 import com.hisd3.hismk2.security.SecurityUtils
+import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLContext
 import io.leangen.graphql.annotations.GraphQLQuery
@@ -13,6 +14,7 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+@TypeChecked
 @Component
 @GraphQLApi
 class UserService {

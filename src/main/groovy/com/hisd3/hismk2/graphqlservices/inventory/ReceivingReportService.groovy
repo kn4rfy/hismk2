@@ -5,6 +5,7 @@ import com.hisd3.hismk2.dao.inventory.ReceivingDao
 import com.hisd3.hismk2.domain.inventory.ReceivingReport
 import com.hisd3.hismk2.domain.inventory.ReceivingReportItem
 import com.hisd3.hismk2.repository.inventory.ReceivingReportRepository
+import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLContext
 import io.leangen.graphql.annotations.GraphQLMutation
@@ -13,6 +14,7 @@ import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+@TypeChecked
 @Component
 @GraphQLApi
 class ReceivingReportService {
