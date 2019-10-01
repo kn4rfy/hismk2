@@ -60,7 +60,7 @@ class Case extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
-	LocalDateTime entryDatetime
+	LocalDateTime entryDateTime
 	
 	@GraphQLQuery
 	@Column(name = "admission_datetime", columnDefinition = "timestamp")

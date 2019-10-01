@@ -4,13 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.DepartmentDao
 import com.hisd3.hismk2.dao.pms.CaseDao
 import com.hisd3.hismk2.dao.pms.PatientDao
-import com.hisd3.hismk2.dao.pms.TransferDao
 import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.Patient
 import com.hisd3.hismk2.domain.pms.Transfer
+import com.hisd3.hismk2.repository.pms.TransferRepository
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
+import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLContext
 import io.leangen.graphql.annotations.GraphQLMutation
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Component
 
 import java.time.LocalDateTime
 
+@TypeChecked
 @Component
 @GraphQLApi
 class PatientService {
@@ -34,7 +36,7 @@ class PatientService {
 	CaseDao caseDao
 	
 	@Autowired
-	TransferDao transferDao
+	private TransferRepository transferRepository
 	
 	@Autowired
 	DepartmentDao departmentDao
@@ -48,7 +50,7 @@ class PatientService {
 	//============== All Queries ====================
 	
 	@GraphQLQuery(name = "patients", description = "Get All Patients")
-	Set<Patient> findAll() {
+	List<Patient> findAll() {
 		patientDao.findAll()
 	}
 	
@@ -73,7 +75,7 @@ class PatientService {
 	}
 	
 	@GraphQLQuery(name = "patientCases", description = "Get All Patient Cases")
-	Set<Case> getCases(@GraphQLContext Patient patient) {
+	List<Case> getCases(@GraphQLContext Patient patient) {
 		
 		return patientDao.getPatientCases(patient)
 	}
@@ -124,7 +126,7 @@ class PatientService {
 			pCase.serviceType = serviceType
 			pCase.registryType = registryType
 			pCase.accommodationType = accommodationType
-			pCase.entryDatetime = LocalDateTime.now()
+			pCase.entryDateTime = LocalDateTime.now()
 			pCase.department = department
 			
 			caseDao.save(pCase)
@@ -135,10 +137,10 @@ class PatientService {
 			
 			pTransfer.registryType = registryType
 			pTransfer.department = department
-			pTransfer.entryDatetime = LocalDateTime.now()
+			pTransfer.entryDateTime = LocalDateTime.now()
 			pTransfer.parentCase = pCase
 			
-			transferDao.save(pTransfer)
+			transferRepository.save(pTransfer)
 			//END.Initialize transfer data -------
 			
 			return patient

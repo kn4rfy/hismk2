@@ -11,12 +11,11 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class IntegrationConfigDao {
-    @Autowired
-    IntegrationConfigRepository integrationConfigRepository
-
-
-    List<IntegrationConfig> getActiveIntegration(){
-        return integrationConfigRepository.getActiveIntegration()
-
-    }
+	@Autowired
+	IntegrationConfigRepository integrationConfigRepository
+	
+	List<IntegrationConfig> getActiveIntegration() {
+		return integrationConfigRepository.getActiveIntegration()
+		
+	}
 }

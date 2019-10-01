@@ -163,4 +163,6 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/64_crisnil_supplier_item.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/65_jp_newcolumn.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>

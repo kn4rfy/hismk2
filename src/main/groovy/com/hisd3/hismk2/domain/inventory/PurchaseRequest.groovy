@@ -61,6 +61,10 @@ class PurchaseRequest extends AbstractAuditingEntity {
 	String suggestedSupplierName
 	
 	@GraphQLQuery
+	@Column(name = "status", columnDefinition = "varchar")
+	String status
+	
+	@GraphQLQuery
 	@Column(name = "request_type", columnDefinition = "varchar")
 	String requestType
 	

@@ -9,12 +9,12 @@ import java.time.LocalDateTime
 
 interface TransferRepository extends JpaRepository<Transfer, UUID> {
 	
-	@Query(value = "Select t from Transfer t order by t.entryDatetime")
+	@Query(value = "Select t from Transfer t order by t.entryDateTime")
 	List<Transfer> searchTransfers(@Param("filter") String filter)
 	
-	@Query(value = "Select t from Transfer t where t.parentCase.id = :id order by t.entryDatetime")
+	@Query(value = "Select t from Transfer t where t.parentCase.id = :id order by t.entryDateTime")
 	List<Transfer> getTransfersByCase(@Param("id") UUID id)
 	
-	@Query(value = "Select t from Transfer t where t.entryDatetime between :fromDate and :toDate and t.registryType = :registryType order by t.entryDatetime")
+	@Query(value = "Select t from Transfer t where t.entryDateTime between :fromDate and :toDate and t.registryType = :registryType order by t.entryDateTime")
 	List<Transfer> getTransfersByDateRange(@Param("fromDate") LocalDateTime fromDate, @Param("toDate") LocalDateTime toDate, @Param("registryType") String registryType)
 }

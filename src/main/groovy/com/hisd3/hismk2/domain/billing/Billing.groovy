@@ -27,7 +27,7 @@ class Billing extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@CreatedDate
 	@Column(name = "entry_datetime", nullable = false)
-	Instant entryDatetime
+	Instant entryDateTime
 	
 	@GraphQLQuery
 	@Column(name = "billing_no", columnDefinition = "varchar")

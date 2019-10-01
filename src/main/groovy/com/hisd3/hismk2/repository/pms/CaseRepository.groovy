@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param
 interface CaseRepository extends JpaRepository<Case, UUID> {
 	
 	@Query(
-			value = "Select c from Case c where c.patient.id = :patientId and c.status = 'ACTIVE' order by c.entryDatetime desc"
+			value = "Select c from Case c where c.patient.id = :patientId and c.status = 'ACTIVE' order by c.entryDateTime desc"
 	)
 	Case getPatientActiveCase(@Param("patientId") UUID patientId)
 	
@@ -19,6 +19,6 @@ interface CaseRepository extends JpaRepository<Case, UUID> {
 	)
 	Case findByCaseNo(@Param("caseNo") String caseNo)
 	
-	@Query(value = '''Select c from Case c where c.patient.id = :patientId order by c.entryDatetime desc''')
+	@Query(value = '''Select c from Case c where c.patient.id = :patientId order by c.entryDateTime desc''')
 	List<Case> getPatientCases(@Param("patientId") UUID patientId)
 }

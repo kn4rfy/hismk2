@@ -93,6 +93,7 @@ class PurchaseRequestService {
 			
 			pr.suggestedSupplierName = fields.get("requestType", "")
 			pr.requestType = fields.get("requestType", "")
+			pr.status = fields.get("status", "")
 			
 			items.each {
 				it ->
@@ -153,6 +154,7 @@ class PurchaseRequestService {
 			
 			pr.suggestedSupplierName = fields.get("requestType", "")
 			pr.requestType = fields.get("requestType", "")
+			pr.status = fields.get("status", "")
 			
 			def afterSave = purchaseRequestRepository.save(pr)
 			

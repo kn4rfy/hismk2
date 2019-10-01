@@ -1,7 +1,5 @@
 package com.hisd3.hismk2.domain
 
-import com.hisd3.hismk2.domain.pms.Case
-import com.hisd3.hismk2.domain.pms.Transfer
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.NotFound
@@ -70,14 +68,4 @@ class Department extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "deprecated", columnDefinition = "boolean")
 	Boolean deprecated
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
-	Set<Transfer> departmentTransfers = [] as Set
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
-	Set<Case> departmentCases = [] as Set
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
-	List<Case> departmentRooms = [] as List
-	
 }

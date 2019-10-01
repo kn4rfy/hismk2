@@ -53,5 +53,5 @@ class VitalSign extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
-	LocalDateTime entryDatetime
+	LocalDateTime entryDateTime
 }

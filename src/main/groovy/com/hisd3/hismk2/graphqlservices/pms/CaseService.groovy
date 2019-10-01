@@ -4,12 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.DepartmentDao
 import com.hisd3.hismk2.dao.pms.CaseDao
 import com.hisd3.hismk2.dao.pms.PatientDao
-import com.hisd3.hismk2.dao.pms.TransferDao
 import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.NurseNote
 import com.hisd3.hismk2.domain.pms.Transfer
 import com.hisd3.hismk2.domain.pms.VitalSign
+import com.hisd3.hismk2.repository.pms.TransferRepository
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
 import groovy.transform.TypeChecked
@@ -38,7 +38,7 @@ class CaseService {
 	CaseDao caseDao
 	
 	@Autowired
-	TransferDao transferDao
+	private TransferRepository transferRepository
 	
 	@Autowired
 	DepartmentDao departmentDao
@@ -114,7 +114,7 @@ class CaseService {
 			caseObj.serviceType = serviceType
 			caseObj.registryType = registryType
 			caseObj.accommodationType = accommodationType
-			caseObj.entryDatetime = LocalDateTime.now()
+			caseObj.entryDateTime = LocalDateTime.now()
 			
 			if (caseDao.hasActiveCase(patientId)) {
 				caseObj.status = ""
@@ -129,10 +129,10 @@ class CaseService {
 			
 			pTransfer.registryType = registryType
 			pTransfer.department = department
-			pTransfer.entryDatetime = LocalDateTime.now()
+			pTransfer.entryDateTime = LocalDateTime.now()
 			pTransfer.parentCase = caseObj
 			
-			transferDao.save(pTransfer)
+			transferRepository.save(pTransfer)
 			//END.Initialize transfer data -------
 			
 			return caseObj

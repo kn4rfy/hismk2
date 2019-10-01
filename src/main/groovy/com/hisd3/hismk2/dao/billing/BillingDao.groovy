@@ -38,10 +38,10 @@ class BillingDao {
 	
 	@Autowired
 	ServiceRepository serviceRepository
-
+	
 	@Autowired
 	ItemRepository itemRepository
-
+	
 	@Autowired
 	PatientRepository patientRepository
 	
@@ -83,15 +83,15 @@ class BillingDao {
 						
 						def billingItemDto = new BillingItem()
 						billingItemDto.billing = billingDto
-
+						
 						if (billingItem.itemType == 'SERVICE') {
-
+							
 							def item = serviceRepository.findById(UUID.fromString(billingItem.get("item") as String)).get()
 							Random rnd = new Random()
-
+							
 							billingItemDto.recordNo = rnd.nextInt(999999)
 							billingItemDto.qty = billingItem.get("qty", 0) as Integer
-
+							
 							billingItemDto.description = item.serviceName
 							billingItemDto.price = item.basePrice
 							billingItemDto.status = 'ACTIVE'
@@ -107,22 +107,20 @@ class BillingDao {
 										item.department.id
 								).get()
 							}
-						}
-
-						else if (billingItem.itemType == 'INVENTORY') {
-
+						} else if (billingItem.itemType == 'INVENTORY') {
+							
 							def item = itemRepository.findById(UUID.fromString(billingItem.get("item") as String)).get()
 							Random rnd = new Random()
-
+							
 							billingItemDto.recordNo = rnd.nextInt(999999)
 							billingItemDto.qty = billingItem.get("qty", 0) as Integer
-
+							
 							billingItemDto.description = item.descLong
 							billingItemDto.price = item.basePrice
 							billingItemDto.status = 'ACTIVE'
-
+							
 							def department = billingItem.get("department", "") as String
-
+							
 							billingItemDto.department = departmentRepository.findById(
 									UUID.fromString(department)
 							).get()
@@ -138,7 +136,7 @@ class BillingDao {
 			def patientDto = patientRepository.findById(UUID.fromString(patientId)).get()
 			newBilling.patient = patientDto
 			newBilling.patientCase = caseRepository.findById(UUID.fromString(caseId)).get()
-			newBilling.entryDatetime = Instant.now()
+			newBilling.entryDateTime = Instant.now()
 			newBilling.status = "ACTIVE"
 			newBilling.billingNo = generatorService.getNextValue(GeneratorType.RR_NO) { Long no ->
 				StringUtils.leftPad(no.toString(), 5, "0")

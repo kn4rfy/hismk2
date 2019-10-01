@@ -50,9 +50,6 @@ class Room extends AbstractAuditingEntity {
 	String type
 	
 	@GraphQLQuery
-	@Formula("concat(room_no, coalesce('-' || nullif(bed_no,''), ''), coalesce('-' || nullif(status,'') , ''))")
+	@Formula("concat(room_no, coalesce('-' || nullif(bed_no,''), ''), coalesce('-' || nullif(type,''), ''), coalesce('-' || nullif(status,'') , ''))")
 	String roomName
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "room")
-	Set<Transfer> roomTransfers = [] as Set
 }

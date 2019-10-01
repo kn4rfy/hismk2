@@ -9,6 +9,6 @@ interface BillingRepository extends JpaRepository<Billing, UUID> {
 	@Query("select b from Billing b where b.patient.id = :patientid")
 	List<Billing> getByPatientId(@Param("patientid") UUID patientid)
 	
-	@Query("select b from Billing b where b.patient.id = :patientId and b.status = 'ACTIVE' order by b.entryDatetime ASC")
+	@Query("select b from Billing b where b.patient.id = :patientId and b.status = 'ACTIVE' order by b.entryDateTime ASC")
 	List<Billing> getBillingByPatient(@Param("patientId") UUID patientId)
 }

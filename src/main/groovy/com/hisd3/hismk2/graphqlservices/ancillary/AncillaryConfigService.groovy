@@ -13,18 +13,17 @@ import org.springframework.stereotype.Component
 @Component
 @GraphQLApi
 class AncillaryConfigService {
-
-   @Autowired
-   AncillaryConfigDao ancillaryConfigDao
-
-
-    @GraphQLQuery(name = "getAllConfig", description = "Search Confog")
-    List<AncillaryConfig> getAllConfig() {
-        ancillaryConfigDao.findAll()
-    }
-
-    @GraphQLQuery(name = "getConfigByEntityName", description = "Search Config")
-    List<AncillaryConfig> getConfigByName(@GraphQLArgument(name = "name") String name) {
-        ancillaryConfigDao.getConfigByName(name)
-    }
+	
+	@Autowired
+	AncillaryConfigDao ancillaryConfigDao
+	
+	@GraphQLQuery(name = "getAllConfig", description = "Search Confog")
+	List<AncillaryConfig> getAllConfig() {
+		ancillaryConfigDao.findAll()
+	}
+	
+	@GraphQLQuery(name = "getConfigByEntityName", description = "Search Config")
+	List<AncillaryConfig> getConfigByName(@GraphQLArgument(name = "name") String name) {
+		ancillaryConfigDao.getConfigByName(name)
+	}
 }
