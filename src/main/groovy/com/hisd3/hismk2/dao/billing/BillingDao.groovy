@@ -59,7 +59,7 @@ class BillingDao {
 		billingItemRepository.getBillingItemsByBill(billingId)
 	}
 	
-	def toggleBillingItem(String billingItemId) {
+	BillingItem toggleBillingItem(String billingItemId) {
 		def billingItem = billingItemRepository.findById(UUID.fromString(billingItemId)).get()
 		
 		if (billingItem.status == 'INACTIVE')
