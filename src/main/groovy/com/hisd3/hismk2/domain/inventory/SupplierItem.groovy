@@ -31,8 +31,8 @@ class SupplierItem extends AbstractAuditingEntity {
 
 
     @GraphQLQuery
-    @Column(name = "price")
-    String price
+    @Column(name = "cost")
+    String cost
 
 
 }

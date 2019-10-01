@@ -24,6 +24,13 @@ class Supplier extends AbstractAuditingEntity {
     @Column(name = "supplier_name")
     String supplierName
 
+    @GraphQLQuery
+    @Column(name = "description")
+    String description
+
+    @GraphQLQuery
+    @Column(name = "address")
+    String address
 
     @GraphQLQuery
     @Column(name = "contact_person")
@@ -32,7 +39,7 @@ class Supplier extends AbstractAuditingEntity {
 
     @GraphQLQuery
     @Column(name = "contact_no")
-    String contacatNo
+    String contactNo
 
 
     @GraphQLQuery
