@@ -2,16 +2,12 @@ package com.hisd3.hismk2.graphqlservices.pms
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.DepartmentDao
-import com.hisd3.hismk2.dao.pms.PatientDao
 import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.NurseNote
 import com.hisd3.hismk2.domain.pms.Transfer
 import com.hisd3.hismk2.domain.pms.VitalSign
-import com.hisd3.hismk2.repository.pms.CaseRepository
-import com.hisd3.hismk2.repository.pms.NurseNoteRepository
-import com.hisd3.hismk2.repository.pms.TransferRepository
-import com.hisd3.hismk2.repository.pms.VitalSignRepository
+import com.hisd3.hismk2.repository.pms.*
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
 import groovy.transform.TypeChecked
@@ -34,7 +30,7 @@ import java.time.LocalDateTime
 class CaseService {
 	
 	@Autowired
-	PatientDao patientDao
+	private PatientRepository patientRepository
 	
 	@Autowired
 	private CaseRepository caseRepository
@@ -62,7 +58,7 @@ class CaseService {
 	
 	//============== All Queries ====================
 	
-	@GraphQLQuery(name = "cases", description = "Get all cases")
+	@GraphQLQuery(name = "cases", description = "Get all Cases")
 	List<Case> findAll() {
 		return caseRepository.findAll()
 	}
@@ -79,19 +75,19 @@ class CaseService {
 	
 	@GraphQLQuery(name = "caseNurseNotes", description = "Get all Case NurseNotes")
 	List<NurseNote> getNurseNotes(@GraphQLContext Case parentCase) {
-		return nurseNoteRepository.getNurseNotesByCase(parentCase.id)
+		return nurseNoteRepository.getNurseNotesByCase(parentCase.id).sort { it.entryDateTime }
 	}
 	
 	@GraphQLQuery(name = "caseVitalSigns", description = "Get all Case VitalSigns")
 	List<VitalSign> getVitalSigns(@GraphQLContext Case parentCase) {
 		
-		return vitalSignRepository.getVitalSignByCase(parentCase.id)
+		return vitalSignRepository.getVitalSignsByCase(parentCase.id).sort { it.entryDateTime }
 	}
 	
 	@GraphQLQuery(name = "caseTransfers", description = "Get all Case Transfers")
 	List<Transfer> getTransfers(@GraphQLContext Case parentCase) {
 		
-		return transferRepository.getTransfersByCase(parentCase.id)
+		return transferRepository.getTransfersByCase(parentCase.id).sort { it.entryDateTime }
 	}
 	
 	Boolean hasActiveCase(UUID patientId) {
@@ -110,7 +106,7 @@ class CaseService {
 	) {
 		
 		if (id) {
-			Case caseObj = caseRepository.findById(id) as Case
+			Case caseObj = caseRepository.findById(id).get()
 			objectMapper.updateValue(caseObj, fields)
 			return caseRepository.save(caseObj)
 		} else {
@@ -130,7 +126,7 @@ class CaseService {
 				StringUtils.leftPad(i.toString(), 6, "0")
 			})
 			
-			caseObj.patient = patientDao.findById(patientId)
+			caseObj.patient = patientRepository.findById(patientId).get()
 			
 			caseObj.department = department
 			caseObj.caseNo = caseNo
@@ -168,7 +164,7 @@ class CaseService {
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
 		
-		Case caseObj = caseRepository.findById(fields["caseId"] as UUID) as Case
+		Case caseObj = caseRepository.findById(fields["caseId"] as UUID).get()
 		caseObj.status = fields["status"] as String
 		return caseRepository.save(caseObj)
 	}

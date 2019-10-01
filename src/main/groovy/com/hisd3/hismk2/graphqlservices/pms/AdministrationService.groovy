@@ -17,6 +17,16 @@ class AdministrationService {
 	
 	//============== All Queries ====================
 	
+	@GraphQLQuery(name = "administrations", description = "Get All Administration")
+	List<Administration> findAll() {
+		return administrationRepository.findAll()
+	}
+	
+	@GraphQLQuery(name = "administration", description = "Get Administration By Id")
+	Administration findById(@GraphQLArgument(name = "id") UUID id) {
+		return administrationRepository.findById(id).get()
+	}
+	
 	@GraphQLQuery(name = "medicationAdministrations", description = "Get all Administrations by Medication ID")
 	List<Administration> getMedicationAdministrations(@GraphQLArgument(name = "medication") UUID medication) {
 		return administrationRepository.getMedicationAdministrations(medication)

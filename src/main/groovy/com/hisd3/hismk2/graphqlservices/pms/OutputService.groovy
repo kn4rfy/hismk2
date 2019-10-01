@@ -1,7 +1,7 @@
 package com.hisd3.hismk2.graphqlservices.pms
 
-import com.hisd3.hismk2.dao.pms.OutputDao
 import com.hisd3.hismk2.domain.pms.Output
+import com.hisd3.hismk2.repository.pms.OutputRepository
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLQuery
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
@@ -13,17 +13,22 @@ import org.springframework.stereotype.Component
 class OutputService {
 	
 	@Autowired
-	OutputDao outputDao
+	private OutputRepository outputRepository
 	
 	//============== All Queries ====================
 	
-	@GraphQLQuery(name = "outputs", description = "Get all outputs")
+	@GraphQLQuery(name = "outputs", description = "Get all Outputs")
 	List<Output> findAll() {
-		return outputDao.findAll()
+		return outputRepository.findAll().sort { it.entryDateTime }
 	}
 	
-	@GraphQLQuery(name = "outputsByCase", description = "Get all patient outputs by case ID")
+	@GraphQLQuery(name = "output", description = "Get Output By Id")
+	Output findById(@GraphQLArgument(name = "id") UUID id) {
+		return outputRepository.findById(id).get()
+	}
+	
+	@GraphQLQuery(name = "outputsByCase", description = "Get all Outputs by Case Id")
 	List<Output> getOutputsByCase(@GraphQLArgument(name = "caseId") UUID caseId) {
-		return outputDao.getOutputsByCase(caseId)
+		return outputRepository.getOutputsByCase(caseId).sort { it.entryDateTime }
 	}
 }

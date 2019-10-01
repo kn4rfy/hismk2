@@ -7,5 +7,5 @@ import org.springframework.data.repository.query.Param
 
 interface VitalSignRepository extends JpaRepository<VitalSign, UUID> {
 	@Query(value = "Select vs from VitalSign vs where vs.parentCase.id = :parentCase")
-	List<VitalSign> getVitalSignByCase(@Param("parentCase") UUID parentCase)
+	List<VitalSign> getVitalSignsByCase(@Param("parentCase") UUID parentCase)
 }
