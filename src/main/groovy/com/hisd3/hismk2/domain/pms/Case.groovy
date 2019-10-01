@@ -301,13 +301,4 @@ class Case extends AbstractAuditingEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "department", referencedColumnName = "id")
 	Department department
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCase")
-	Set<NurseNote> caseNurseNotes = [] as Set
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCase")
-	Set<VitalSign> caseVitalSigns = [] as Set
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCase")
-	Set<Transfer> caseTransfers = [] as Set
 }

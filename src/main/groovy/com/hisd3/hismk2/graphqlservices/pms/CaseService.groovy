@@ -2,14 +2,16 @@ package com.hisd3.hismk2.graphqlservices.pms
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.DepartmentDao
-import com.hisd3.hismk2.dao.pms.CaseDao
 import com.hisd3.hismk2.dao.pms.PatientDao
 import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.NurseNote
 import com.hisd3.hismk2.domain.pms.Transfer
 import com.hisd3.hismk2.domain.pms.VitalSign
+import com.hisd3.hismk2.repository.pms.CaseRepository
+import com.hisd3.hismk2.repository.pms.NurseNoteRepository
 import com.hisd3.hismk2.repository.pms.TransferRepository
+import com.hisd3.hismk2.repository.pms.VitalSignRepository
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
 import groovy.transform.TypeChecked
@@ -35,7 +37,13 @@ class CaseService {
 	PatientDao patientDao
 	
 	@Autowired
-	CaseDao caseDao
+	private CaseRepository caseRepository
+	
+	@Autowired
+	private NurseNoteRepository nurseNoteRepository
+	
+	@Autowired
+	private VitalSignRepository vitalSignRepository
 	
 	@Autowired
 	private TransferRepository transferRepository
@@ -56,47 +64,62 @@ class CaseService {
 	
 	@GraphQLQuery(name = "cases", description = "Get all cases")
 	List<Case> findAll() {
-		return caseDao.findAll()
+		return caseRepository.findAll()
 	}
 	
 	@GraphQLQuery(name = "case", description = "Get Case By Id")
-	Case findById(@GraphQLArgument(name = "id") String id) {
-		return caseDao.findById(id)
+	Case findById(@GraphQLArgument(name = "id") UUID id) {
+		return caseRepository.findById(id).get()
 	}
 	
 	@GraphQLQuery(name = "patientActiveCase", description = "Get Patient active Case")
 	Case getPatientActiveCase(@GraphQLArgument(name = "patientId") UUID patientId) {
-		return caseDao.getPatientActiveCase(patientId)
+		return caseRepository.getPatientActiveCase(patientId)
 	}
 	
 	@GraphQLQuery(name = "caseNurseNotes", description = "Get all Case NurseNotes")
-	Set<NurseNote> getNurseNotes(@GraphQLContext Case parentCase) {
-		return caseDao.getNurseNotes(parentCase)
+	List<NurseNote> getNurseNotes(@GraphQLContext Case parentCase) {
+		return nurseNoteRepository.getNurseNotesByCase(parentCase.id)
 	}
 	
 	@GraphQLQuery(name = "caseVitalSigns", description = "Get all Case VitalSigns")
-	Set<VitalSign> getVitalSigns(@GraphQLContext Case parentCase) {
+	List<VitalSign> getVitalSigns(@GraphQLContext Case parentCase) {
 		
-		return caseDao.getVitalSigns(parentCase)
+		return vitalSignRepository.getVitalSignByCase(parentCase.id)
+	}
+	
+	@GraphQLQuery(name = "caseTransfers", description = "Get all Case Transfers")
+	List<Transfer> getTransfers(@GraphQLContext Case parentCase) {
+		
+		return transferRepository.getTransfersByCase(parentCase.id)
+	}
+	
+	Boolean hasActiveCase(UUID patientId) {
+		def currentCase = caseRepository.getPatientActiveCase(patientId)
+		
+		if (currentCase)
+			return true
+		else
+			return false
 	}
 	
 	@GraphQLMutation
 	Case upsertCase(
-			@GraphQLArgument(name = "id") String id,
+			@GraphQLArgument(name = "id") UUID id,
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
 		
 		if (id) {
-			def caseObj = caseDao.findById(id)
+			Case caseObj = caseRepository.findById(id) as Case
 			objectMapper.updateValue(caseObj, fields)
-			return caseDao.save(caseObj)
+			return caseRepository.save(caseObj)
 		} else {
 			
 			def serviceType = fields["serviceType"] as String
 			def registryType = fields["registryType"] as String
 			def accommodationType = fields["accommodationType"] as String
 			def departmentId = fields["departmentId"] as String
-			def patientId = fields["patientId"] as String
+			def patientId = fields["patientId"] as UUID
 			
 			//Initialize patient data
 			def caseObj = objectMapper.convertValue(fields, Case)
@@ -116,11 +139,11 @@ class CaseService {
 			caseObj.accommodationType = accommodationType
 			caseObj.entryDateTime = LocalDateTime.now()
 			
-			if (caseDao.hasActiveCase(patientId)) {
+			if (hasActiveCase(patientId)) {
 				caseObj.status = ""
 			}
 			
-			caseDao.save(caseObj)
+			caseRepository.save(caseObj)
 			
 			//END.Initialize case data -------
 			
@@ -145,10 +168,8 @@ class CaseService {
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
 		
-		def caseObj = caseDao.findById(fields["caseId"] as String)
+		Case caseObj = caseRepository.findById(fields["caseId"] as UUID) as Case
 		caseObj.status = fields["status"] as String
-		caseDao.save(caseObj)
-		
-		return caseObj
+		return caseRepository.save(caseObj)
 	}
 }

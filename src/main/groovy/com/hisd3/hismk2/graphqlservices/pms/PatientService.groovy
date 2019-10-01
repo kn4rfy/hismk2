@@ -2,12 +2,12 @@ package com.hisd3.hismk2.graphqlservices.pms
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.DepartmentDao
-import com.hisd3.hismk2.dao.pms.CaseDao
 import com.hisd3.hismk2.dao.pms.PatientDao
 import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.Patient
 import com.hisd3.hismk2.domain.pms.Transfer
+import com.hisd3.hismk2.repository.pms.CaseRepository
 import com.hisd3.hismk2.repository.pms.TransferRepository
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
@@ -33,7 +33,7 @@ class PatientService {
 	PatientDao patientDao
 	
 	@Autowired
-	CaseDao caseDao
+	private CaseRepository caseRepository
 	
 	@Autowired
 	private TransferRepository transferRepository
@@ -55,7 +55,7 @@ class PatientService {
 	}
 	
 	@GraphQLQuery(name = "patient", description = "Get Patient By Id")
-	Patient findById(@GraphQLArgument(name = "id") String id) {
+	Patient findById(@GraphQLArgument(name = "id") UUID id) {
 		
 		return id ? patientDao.findById(id) : null
 	}
@@ -82,14 +82,14 @@ class PatientService {
 	
 	@GraphQLQuery(name = "patientActiveCase", description = "Get Patient active Case")
 	Case getPatientActiveCase(@GraphQLContext Patient patient) {
-		return caseDao.getPatientActiveCase(patient.id)
+		return caseRepository.getPatientActiveCase(patient.id)
 	}
 	
 	//============== All Mutations ====================
 	
 	@GraphQLMutation
 	Patient upsertPatient(
-			@GraphQLArgument(name = "id") String id,
+			@GraphQLArgument(name = "id") UUID id,
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
 		
@@ -129,7 +129,7 @@ class PatientService {
 			pCase.entryDateTime = LocalDateTime.now()
 			pCase.department = department
 			
-			caseDao.save(pCase)
+			caseRepository.save(pCase)
 			//END.Initialize case data -------
 			
 			//Initialize transfer data -------

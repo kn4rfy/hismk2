@@ -35,17 +35,17 @@ class Transfer extends AbstractAuditingEntity {
 	String registryType
 	
 	@NotFound(action = NotFoundAction.IGNORE)
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "department", referencedColumnName = "id")
 	Department department
 	
 	@NotFound(action = NotFoundAction.IGNORE)
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "`case`", referencedColumnName = "id")
 	Case parentCase
 	
 	@NotFound(action = NotFoundAction.IGNORE)
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "room", referencedColumnName = "id")
 	Room room
 	

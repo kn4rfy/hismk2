@@ -34,8 +34,8 @@ class PatientDao {
 		return patientRepository.findAll()
 	}
 	
-	Patient findById(String id) {
-		return patientRepository.findById(UUID.fromString(id)).get()
+	Patient findById(UUID id) {
+		return patientRepository.findById(id).get()
 	}
 	
 	Page<Patient> getPatientRelayPage(int first, int offset) {

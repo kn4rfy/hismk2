@@ -2,7 +2,6 @@ package com.hisd3.hismk2.domain.bms
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
 import com.hisd3.hismk2.domain.Department
-import com.hisd3.hismk2.domain.pms.Transfer
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.*
 
