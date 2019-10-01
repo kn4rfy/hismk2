@@ -24,4 +24,12 @@ class SupplierService {
         return supplierRepository.findAll()
     }
 
+
+    @GraphQLQuery(name = "supplier", description = "List of Suppliers")
+    Supplier getSupplier(
+            @GraphQLArgument(name = "id") String id
+    ) {
+        return supplierRepository.findById(UUID.fromString(id)).get()
+    }
+
 }

@@ -25,9 +25,9 @@ class SupplierItem extends AbstractAuditingEntity {
     Supplier supplier
 
 
-    @GraphQLQuery
-    @Column(name = "item_id")
-    UUID item
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "item", referencedColumnName = "id")
+    Item item
 
 
     @GraphQLQuery
