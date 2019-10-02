@@ -13,22 +13,22 @@ import org.springframework.stereotype.Component
 @GraphQLApi
 @TypeChecked
 class SupplierService {
-
+	
 	@Autowired
 	SupplierRepository supplierRepository
-
+	
 	@GraphQLQuery(name = "supplier_list", description = "List of Suppliers")
 	List<Supplier> allSupplier(
 			@GraphQLArgument(name = "filter") String filter
 	) {
 		return supplierRepository.findAllByFilter(filter)
 	}
-
+	
 	@GraphQLQuery(name = "supplier", description = "List of Suppliers")
 	Supplier getSupplier(
 			@GraphQLArgument(name = "id") String id
 	) {
 		return supplierRepository.findById(UUID.fromString(id)).get()
 	}
-
+	
 }
