@@ -19,9 +19,10 @@ class SupplierItemService {
 
     @GraphQLQuery(name = "allSupplyItemsBySupplier", description = "List of Supplies")
     List<SupplierItem> allSupplyItems(
-            @GraphQLArgument(name = "id") String id
+            @GraphQLArgument(name = "id") String id,
+            @GraphQLArgument(name = "filter") String filter
     ) {
-        return supplierItemRepository.findBySupplier(UUID.fromString(id))
+        return supplierItemRepository.findBySupplier(UUID.fromString(id),filter)
     }
 
     @GraphQLQuery(name = "getSupplyItem", description = "Supply Item")
