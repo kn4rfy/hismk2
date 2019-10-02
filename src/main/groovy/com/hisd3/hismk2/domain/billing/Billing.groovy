@@ -38,15 +38,15 @@ class Billing extends AbstractAuditingEntity {
 	String status
 	
 	@NotFound(action = NotFoundAction.IGNORE)
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "patient", referencedColumnName = "id")
 	Patient patient
 	
 	@NotFound(action = NotFoundAction.IGNORE)
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "patient_case", referencedColumnName = "id")
 	Case patientCase
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "billing")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "billing")
 	List<BillingItem> billingItemList
 }

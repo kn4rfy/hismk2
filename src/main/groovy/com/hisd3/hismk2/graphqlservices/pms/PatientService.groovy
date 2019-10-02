@@ -1,11 +1,11 @@
 package com.hisd3.hismk2.graphqlservices.pms
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.hisd3.hismk2.dao.DepartmentDao
 import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.Patient
 import com.hisd3.hismk2.domain.pms.Transfer
+import com.hisd3.hismk2.repository.DepartmentRepository
 import com.hisd3.hismk2.repository.pms.CaseRepository
 import com.hisd3.hismk2.repository.pms.PatientRepository
 import com.hisd3.hismk2.repository.pms.TransferRepository
@@ -38,7 +38,7 @@ class PatientService {
 	private TransferRepository transferRepository
 	
 	@Autowired
-	DepartmentDao departmentDao
+	private DepartmentRepository departmentRepository
 	
 	@Autowired
 	GeneratorService generatorService
@@ -95,7 +95,7 @@ class PatientService {
 			//Initialize patient data
 			def patientObj = objectMapper.convertValue(fields, Patient)
 			
-			Department department = departmentDao.findById(departmentId as String)
+			Department department = departmentRepository.findById(departmentId as UUID).get()
 			
 			patientObj.patientNo = generatorService.getNextValue(GeneratorType.PATIENT_NO) { Long no ->
 				StringUtils.leftPad(no.toString(), 5, "0")

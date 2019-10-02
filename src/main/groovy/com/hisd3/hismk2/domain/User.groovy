@@ -78,15 +78,14 @@ class User extends AbstractAuditingEntity {
 	@JoinTable(name = "t_user_authority",
 			joinColumns = [@JoinColumn(name = "user_id", referencedColumnName = "id")],
 			inverseJoinColumns = [@JoinColumn(name = "authority_name", referencedColumnName = "name")])
-	Set<Authority> authorities = [] as Set
+	List<Authority> authorities = [] as List
 	
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true, mappedBy = "user")
-	Set<PersistentToken> persistentTokens = [] as Set
+	List<PersistentToken> persistentTokens = [] as List
 	
 	@Transient
-	Set<String> getRoles() {
-		
+	List<String> getRoles() {
 		def roles = []
 		if (authorities != null)
 			authorities.each { auth ->
@@ -94,6 +93,6 @@ class User extends AbstractAuditingEntity {
 				roles.add(auth.name)
 			}
 		
-		return roles as Set
+		return roles as List
 	}
 }

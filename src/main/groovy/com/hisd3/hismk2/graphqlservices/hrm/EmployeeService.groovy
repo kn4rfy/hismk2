@@ -1,10 +1,10 @@
 package com.hisd3.hismk2.graphqlservices.hrm
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.hisd3.hismk2.dao.UserDao
-import com.hisd3.hismk2.dao.hrm.EmployeeDao
 import com.hisd3.hismk2.domain.User
 import com.hisd3.hismk2.domain.hrm.Employee
+import com.hisd3.hismk2.repository.UserRepository
+import com.hisd3.hismk2.repository.hrm.EmployeeRepository
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
 import groovy.transform.TypeChecked
@@ -23,10 +23,10 @@ import org.springframework.stereotype.Component
 class EmployeeService {
 	
 	@Autowired
-	EmployeeDao employeeDao
+	private UserRepository userRepository
 	
 	@Autowired
-	UserDao userDao
+	private EmployeeRepository employeeRepository
 	
 	@Autowired
 	GeneratorService generatorService
@@ -41,34 +41,34 @@ class EmployeeService {
 	
 	@GraphQLQuery(name = "employees", description = "Get All Employees")
 	List<Employee> findAll() {
-		employeeDao.findAll().sort { it.lastName }
+		employeeRepository.findAll().sort { it.lastName }
 	}
 	
 	@GraphQLQuery(name = "searchEmployees", description = "Search employees")
 	List<Employee> searchEmployees(@GraphQLArgument(name = "filter") String filter) {
-		employeeDao.searchEmployees(filter)
+		employeeRepository.searchEmployees(filter).sort { it.lastName }
 	}
 	
 	@GraphQLQuery(name = "employee", description = "Get Employee By Id")
-	Employee findById(@GraphQLArgument(name = "id") String id) {
+	Employee findById(@GraphQLArgument(name = "id") UUID id) {
 		
-		return id ? employeeDao.findById(id) : null
+		return id ? employeeRepository.findById(id).get() : null
 	}
 	
 	//============== All Mutations ====================
 	
 	@GraphQLMutation
 	Employee upsertEmployee(
-			@GraphQLArgument(name = "id") String id,
+			@GraphQLArgument(name = "id") UUID id,
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
 		if (id) {
-			def employee = employeeDao.findById(id)
+			Employee employee = employeeRepository.findById(id).get()
 			objectMapper.updateValue(employee, fields)
 			
-			return employeeDao.save(employee)
+			return employeeRepository.save(employee)
 		} else {
-			def employee = objectMapper.convertValue(fields, Employee)
+			Employee employee = objectMapper.convertValue(fields, Employee)
 			
 			User user = new User()
 			user.login = fields["login"].toString().toLowerCase()
@@ -78,7 +78,7 @@ class EmployeeService {
 			user.email = fields["login"].toString().toLowerCase() + "@hismkii.com"
 			user.activated = true
 			user.langKey = "en"
-			userDao.save(user)
+			userRepository.save(user)
 			
 			employee.user = user
 			
@@ -86,7 +86,7 @@ class EmployeeService {
 				StringUtils.leftPad(no.toString(), 6, "0")
 			}
 			
-			return employeeDao.save(employee)
+			return employeeRepository.save(employee)
 		}
 	}
 }
