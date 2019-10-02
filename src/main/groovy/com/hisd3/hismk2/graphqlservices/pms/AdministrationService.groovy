@@ -21,7 +21,7 @@ class AdministrationService {
 	
 	@GraphQLQuery(name = "administrations", description = "Get All Administration")
 	List<Administration> findAll() {
-		return administrationRepository.findAll()
+		return administrationRepository.findAll().sort { it.entryDateTime }
 	}
 	
 	@GraphQLQuery(name = "administration", description = "Get Administration By Id")
@@ -29,13 +29,13 @@ class AdministrationService {
 		return administrationRepository.findById(id).get()
 	}
 	
-	@GraphQLQuery(name = "medicationAdministrations", description = "Get all Administrations by Medication ID")
+	@GraphQLQuery(name = "medicationAdministrations", description = "Get all Administrations by Medication Id")
 	List<Administration> getMedicationAdministrations(@GraphQLArgument(name = "medication") UUID medication) {
-		return administrationRepository.getMedicationAdministrations(medication)
+		return administrationRepository.getMedicationAdministrations(medication).sort { it.entryDateTime }
 	}
 	
-	@GraphQLQuery(name = "medicationAdministrationsByCase", description = "Get all Administrations by case ID")
+	@GraphQLQuery(name = "medicationAdministrationsByCase", description = "Get all Administrations by Case Id")
 	List<Administration> getMedicationAdministrationsByCase(@GraphQLArgument(name = "caseId") UUID caseId) {
-		return administrationRepository.getMedicationAdministrationsByCase(caseId)
+		return administrationRepository.getMedicationAdministrationsByCase(caseId).sort { it.entryDateTime }
 	}
 }

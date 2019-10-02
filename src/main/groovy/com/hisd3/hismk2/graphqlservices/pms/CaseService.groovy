@@ -2,10 +2,7 @@ package com.hisd3.hismk2.graphqlservices.pms
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.domain.Department
-import com.hisd3.hismk2.domain.pms.Case
-import com.hisd3.hismk2.domain.pms.NurseNote
-import com.hisd3.hismk2.domain.pms.Transfer
-import com.hisd3.hismk2.domain.pms.VitalSign
+import com.hisd3.hismk2.domain.pms.*
 import com.hisd3.hismk2.repository.DepartmentRepository
 import com.hisd3.hismk2.repository.pms.*
 import com.hisd3.hismk2.services.GeneratorService
@@ -41,6 +38,15 @@ class CaseService {
 	
 	@Autowired
 	private TransferRepository transferRepository
+	
+	@Autowired
+	private MedicationRepository medicationRepository
+	
+	@Autowired
+	private IntakeRepository intakeRepository
+	
+	@Autowired
+	private OutputRepository outputRepository
 	
 	@Autowired
 	private DepartmentRepository departmentRepository
@@ -83,6 +89,21 @@ class CaseService {
 	List<Transfer> getTransfers(@GraphQLContext Case parentCase) {
 		
 		return transferRepository.getTransfersByCase(parentCase.id).sort { it.entryDateTime }
+	}
+	
+	@GraphQLQuery(name = "caseMedications", description = "Get all Case Medications")
+	List<Medication> getMedicationsByCase(@GraphQLContext Case parentCase) {
+		return medicationRepository.getMedicationsByCase(parentCase.id).sort { it.entryDateTime }
+	}
+	
+	@GraphQLQuery(name = "caseIntakes", description = "Get all Case Intakes")
+	List<Intake> getIntakesByCase(@GraphQLContext Case parentCase) {
+		return intakeRepository.getIntakesByCase(parentCase.id).sort { it.entryDateTime }
+	}
+	
+	@GraphQLQuery(name = "caseOutputs", description = "Get all Case Outputs")
+	List<Output> getOutputsByCase(@GraphQLContext Case parentCase) {
+		return outputRepository.getOutputsByCase(parentCase.id).sort { it.entryDateTime }
 	}
 	
 	Boolean hasActiveCase(UUID patientId) {
