@@ -17,15 +17,18 @@ class SupplierItemService {
 
     @Autowired SupplierItemRepository supplierItemRepository
 
-    @GraphQLQuery(name = "supplier_item_list", description = "List of Supplies")
-    List<SupplierItem> allSupplyItems() {
-        return supplierItemRepository.findAll()
+    @GraphQLQuery(name = "allSupplyItemsBySupplier", description = "List of Supplies")
+    List<SupplierItem> allSupplyItems(
+            @GraphQLArgument(name = "id") String id
+    ) {
+        return supplierItemRepository.findBySupplier(UUID.fromString(id))
     }
 
-    @GraphQLQuery(name = "supply_item", description = "Supply Item")
+    @GraphQLQuery(name = "getSupplyItem", description = "Supply Item")
     SupplierItem getSupplyItem(
             @GraphQLArgument(name = "id") String id
     ) {
         return supplierItemRepository.findById(UUID.fromString(id)).get()
     }
+
 }
