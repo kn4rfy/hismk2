@@ -9,23 +9,15 @@ import org.springframework.data.repository.query.Param
 @TypeChecked
 interface RoomRepository extends JpaRepository<Room, UUID> {
 	
-	@Query(
-			value = "Select room from Room room where room.status = 'AVAILABLE'"
-	)
+	@Query(value = "Select room from Room room where room.status = 'AVAILABLE'")
 	List<Room> getAvailableRooms()
 	
-	@Query(
-			value = "Select room from Room room where upper(room.roomName) like upper(concat('%',:filter,'%'))"
-	)
+	@Query(value = "Select room from Room room where upper(room.roomName) like upper(concat('%',:filter,'%'))")
 	List<Room> getRoomsByFilter(@Param("filter") String filter)
 	
-	@Query(
-			value = "Select room from Room room where room.department.id = :departmentId and room.status = 'AVAILABLE'"
-	)
+	@Query(value = "Select room from Room room where room.department.id = :departmentId and room.status = 'AVAILABLE'")
 	List<Room> getAvailableRoomsByDepartment(@Param("departmentId") UUID departmentId)
 	
-	@Query(
-			value = "Select room from Room room where room.department.id = :departmentId"
-	)
+	@Query(value = "Select room from Room room where room.department.id = :departmentId")
 	List<Room> getRoomsByDepartment(@Param("departmentId") UUID departmentId)
 }

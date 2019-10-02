@@ -2,10 +2,13 @@ package com.hisd3.hismk2.graphqlservices
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.domain.Department
+import com.hisd3.hismk2.domain.bms.Room
 import com.hisd3.hismk2.repository.DepartmentRepository
+import com.hisd3.hismk2.repository.bms.RoomRepository
 import com.hisd3.hismk2.services.GeneratorService
 import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLArgument
+import io.leangen.graphql.annotations.GraphQLContext
 import io.leangen.graphql.annotations.GraphQLMutation
 import io.leangen.graphql.annotations.GraphQLQuery
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
@@ -21,6 +24,9 @@ class DepartmentService {
 	private DepartmentRepository departmentRepository
 	
 	@Autowired
+	private RoomRepository roomRepository
+	
+	@Autowired
 	GeneratorService generatorService
 	
 	@Autowired
@@ -33,14 +39,24 @@ class DepartmentService {
 		departmentRepository.findAll()
 	}
 	
+	@GraphQLQuery(name = "department", description = "Get Department By Id")
+	Department findById(@GraphQLArgument(name = "id") UUID id) {
+		return departmentRepository.findById(id).get()
+	}
+	
 	@GraphQLQuery(name = "searchDepartments", description = "Search departments")
 	List<Department> searchDepartments(@GraphQLArgument(name = "filter") String filter) {
 		departmentRepository.searchDepartments(filter)
 	}
 	
-	@GraphQLQuery(name = "department", description = "Get Department By Id")
-	Department findById(@GraphQLArgument(name = "id") UUID id) {
-		return departmentRepository.findById(id).get()
+	@GraphQLQuery(name = "availableDepartmentRooms", description = "Get all available Department Rooms")
+	List<Room> getAvailableRoomsByDepartment(@GraphQLContext Department department) {
+		return roomRepository.getAvailableRoomsByDepartment(department.id).sort { it.roomName }
+	}
+	
+	@GraphQLQuery(name = "departmentRooms", description = "Get all Department Rooms")
+	List<Room> getRoomsByDepartment(@GraphQLContext Department department) {
+		return roomRepository.getRoomsByDepartment(department.id).sort { it.roomName }
 	}
 	
 	//============== All Mutations ====================

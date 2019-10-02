@@ -39,12 +39,12 @@ class RoomService {
 		return roomRepository.getRoomsByFilter(filter).sort { it.roomName }
 	}
 	
-	@GraphQLQuery(name = "availableRoomsByDepartment", description = "Get available Rooms by department")
+	@GraphQLQuery(name = "availableRoomsByDepartment", description = "Get all available Rooms by Department")
 	List<Room> getAvailableRoomsByDepartment(@GraphQLArgument(name = "departmentId") UUID departmentId) {
 		return roomRepository.getAvailableRoomsByDepartment(departmentId).sort { it.roomName }
 	}
 	
-	@GraphQLQuery(name = "roomsByDepartment", description = "Get Rooms by department")
+	@GraphQLQuery(name = "roomsByDepartment", description = "Get all Rooms by Department")
 	List<Room> getRoomsByDepartment(@GraphQLArgument(name = "departmentId") UUID departmentId) {
 		return roomRepository.getRoomsByDepartment(departmentId).sort { it.roomName }
 	}
