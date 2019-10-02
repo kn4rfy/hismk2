@@ -26,13 +26,13 @@ class SupplierItem extends AbstractAuditingEntity {
 
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "item", referencedColumnName = "id")
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
     Item item
 
 
     @GraphQLQuery
     @Column(name = "cost")
-    String cost
+    BigDecimal cost
 
 
 }
