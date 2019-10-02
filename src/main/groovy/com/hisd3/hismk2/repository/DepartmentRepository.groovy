@@ -7,12 +7,15 @@ import org.springframework.data.repository.query.Param
 
 interface DepartmentRepository extends JpaRepository<Department, UUID> {
 	
-	@Query(value = '''Select d from Department d where
-            lower(d.departmentName) like concat('%',:filter,'%') or 
-            lower(d.departmentCode) like concat('%',:filter,'%')''')
-	List<Department> searchDepartments(@Param("filter") String filter)
+	@Query(value = '''Select department from Department department where
+            upper(department.departmentName) like upper(concat('%',:filter,'%')) or
+            upper(department.departmentCode) like upper(concat('%',:filter,'%'))''')
+	List<Department> departmentsByFilter(@Param("filter") String filter)
 	
-	@Query(value = '''Select d from Department d where
-            upper(d.departmentName) like upper(concat('%',:name,'%'))''')
+	@Query(value = '''Select department from Department department where
+            upper(department.departmentName) like upper(concat('%',:name,'%'))''')
 	Department findByName(@Param("name") String name)
+	
+	@Query(value = "Select department from Department department where department.hasRooms = true")
+	List<Department> getDepartmentWithRooms()
 }

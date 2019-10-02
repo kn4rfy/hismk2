@@ -44,9 +44,14 @@ class DepartmentService {
 		return departmentRepository.findById(id).get()
 	}
 	
-	@GraphQLQuery(name = "searchDepartments", description = "Search departments")
-	List<Department> searchDepartments(@GraphQLArgument(name = "filter") String filter) {
-		departmentRepository.searchDepartments(filter)
+	@GraphQLQuery(name = "departmentsByFilter", description = "Get Departments by filter")
+	List<Department> departmentsByFilter(@GraphQLArgument(name = "filter") String filter) {
+		departmentRepository.departmentsByFilter(filter)
+	}
+	
+	@GraphQLQuery(name = "departmentsWithRooms", description = "Get Departments with Rooms")
+	List<Department> getDepartmentWithRooms() {
+		departmentRepository.getDepartmentWithRooms()
 	}
 	
 	@GraphQLQuery(name = "availableDepartmentRooms", description = "Get all available Department Rooms")
