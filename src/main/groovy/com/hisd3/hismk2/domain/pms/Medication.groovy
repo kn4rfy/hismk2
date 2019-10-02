@@ -62,7 +62,4 @@ class Medication extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
 	Instant entryDateTime
-	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "medication")
-	Set<Administration> administrations = [] as Set
 }

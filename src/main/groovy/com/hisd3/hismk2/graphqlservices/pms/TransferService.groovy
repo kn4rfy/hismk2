@@ -1,11 +1,7 @@
 package com.hisd3.hismk2.graphqlservices.pms
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.hisd3.hismk2.dao.DepartmentDao
 import com.hisd3.hismk2.domain.pms.Transfer
-import com.hisd3.hismk2.repository.bms.RoomRepository
 import com.hisd3.hismk2.repository.pms.TransferRepository
-import com.hisd3.hismk2.services.GeneratorService
 import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLQuery
@@ -22,18 +18,6 @@ class TransferService {
 	
 	@Autowired
 	private TransferRepository transferRepository
-	
-	@Autowired
-	DepartmentDao departmentDao
-	
-	@Autowired
-	private RoomRepository roomRepository
-	
-	@Autowired
-	GeneratorService generatorService
-	
-	@Autowired
-	ObjectMapper objectMapper
 	
 	//============== All Queries ====================
 	

@@ -1,6 +1,8 @@
 package com.hisd3.hismk2.graphqlservices.pms
 
+import com.hisd3.hismk2.domain.pms.Administration
 import com.hisd3.hismk2.domain.pms.Medication
+import com.hisd3.hismk2.repository.pms.AdministrationRepository
 import com.hisd3.hismk2.repository.pms.MedicationRepository
 import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLArgument
@@ -16,6 +18,9 @@ class MedicationService {
 	
 	@Autowired
 	private MedicationRepository medicationRepository
+	
+	@Autowired
+	private AdministrationRepository administrationRepository
 	
 	//============== All Queries ====================
 	
@@ -37,5 +42,10 @@ class MedicationService {
 	@GraphQLQuery(name = "medicationsByCaseAndType", description = "Get all Medications by Case Id and Type")
 	List<Medication> getMedicationsByCaseAndType(@GraphQLArgument(name = "caseId") UUID caseId, @GraphQLArgument(name = "type") String type) {
 		return medicationRepository.getMedicationsByCaseAndType(caseId, type)
+	}
+	
+	@GraphQLQuery(name = "administrations", description = "Get all Administrations by Medication ID")
+	List<Administration> getAdministrations(@GraphQLArgument(name = "medication") Medication medication) {
+		return administrationRepository.getMedicationAdministrations(medication.id)
 	}
 }

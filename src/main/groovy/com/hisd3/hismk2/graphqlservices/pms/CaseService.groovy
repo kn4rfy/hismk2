@@ -1,12 +1,12 @@
 package com.hisd3.hismk2.graphqlservices.pms
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.hisd3.hismk2.dao.DepartmentDao
 import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.NurseNote
 import com.hisd3.hismk2.domain.pms.Transfer
 import com.hisd3.hismk2.domain.pms.VitalSign
+import com.hisd3.hismk2.repository.DepartmentRepository
 import com.hisd3.hismk2.repository.pms.*
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
@@ -20,8 +20,6 @@ import org.apache.commons.lang3.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
-import javax.persistence.EntityManager
-import javax.persistence.PersistenceContext
 import java.time.Instant
 
 @TypeChecked
@@ -45,16 +43,13 @@ class CaseService {
 	private TransferRepository transferRepository
 	
 	@Autowired
-	DepartmentDao departmentDao
+	private DepartmentRepository departmentRepository
 	
 	@Autowired
 	GeneratorService generatorService
 	
 	@Autowired
 	ObjectMapper objectMapper
-	
-	@PersistenceContext
-	EntityManager entityManager
 	
 	//============== All Queries ====================
 	
@@ -120,7 +115,7 @@ class CaseService {
 			//Initialize patient data
 			def caseObj = objectMapper.convertValue(fields, Case)
 			
-			Department department = departmentDao.findById(departmentId)
+			Department department = departmentRepository.findById(departmentId as UUID).get()
 			
 			def caseNo = generatorService?.getNextValue(GeneratorType.CASE_NO, { i ->
 				StringUtils.leftPad(i.toString(), 6, "0")
