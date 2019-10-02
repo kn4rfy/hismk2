@@ -2,6 +2,7 @@ package com.hisd3.hismk2.dao.ancillary
 
 import com.hisd3.hismk2.domain.ancillary.Service as HisService
 import com.hisd3.hismk2.repository.ancillary.ServiceRepository
+import groovy.transform.TypeChecked
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
+@TypeChecked
 @Service
 @Transactional
 class ServiceDao {
@@ -19,7 +21,7 @@ class ServiceDao {
 	@PersistenceContext
 	EntityManager entityManager
 	
-	Set<HisService> findAll() {
+	List<HisService> findAll() {
 		return servicesRepository.findAll()
 	}
 	

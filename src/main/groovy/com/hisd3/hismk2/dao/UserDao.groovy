@@ -4,6 +4,7 @@ import com.hisd3.hismk2.domain.Authority
 import com.hisd3.hismk2.domain.PersistentToken
 import com.hisd3.hismk2.domain.User
 import com.hisd3.hismk2.repository.UserRepository
+import groovy.transform.TypeChecked
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
+@TypeChecked
 @Service
 @Transactional
 class UserDao {
