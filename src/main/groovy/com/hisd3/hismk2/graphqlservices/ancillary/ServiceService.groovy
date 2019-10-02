@@ -38,7 +38,7 @@ class ServiceService {
 	//============== All Queries ====================
 	
 	@GraphQLQuery(name = "services", description = "Get All Service")
-	Set<HisService> findAll() {
+	List<HisService> findAll() {
 		servicesDao.findAll()
 	}
 	
