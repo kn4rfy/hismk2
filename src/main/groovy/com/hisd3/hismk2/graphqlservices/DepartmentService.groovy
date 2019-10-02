@@ -63,38 +63,4 @@ class DepartmentService {
 	List<Room> getRoomsByDepartment(@GraphQLContext Department department) {
 		return roomRepository.getRoomsByDepartment(department.id).sort { it.roomName }
 	}
-	
-	//============== All Mutations ====================
-	
-	@GraphQLMutation
-	Department upsertDepartment(
-			@GraphQLArgument(name = "id") UUID id,
-			@GraphQLArgument(name = "fields") Map<String, Object> fields
-	) {
-		
-		if (id) {
-			def department = departmentRepository.findById(id).get()
-			objectMapper.updateValue(department, fields)
-			
-			def deptId = fields["parentDepartmentId"]
-			
-			if (deptId) {
-				Department dept = departmentRepository.findById(deptId as UUID).get()
-				department.parentDepartment = dept
-			}
-			
-			return departmentRepository.save(department)
-		} else {
-			def department = objectMapper.convertValue(fields, Department)
-			
-			def deptId = fields["parentDepartmentId"]
-			
-			if (deptId) {
-				Department dept = departmentRepository.findById(deptId as UUID).get()
-				department.parentDepartment = dept
-			}
-			
-			return departmentRepository.save(department)
-		}
-	}
 }
