@@ -53,6 +53,16 @@ class DepartmentService {
 		departmentRepository.getDepartmentWithRooms()
 	}
 	
+	@GraphQLQuery(name = "isDepartmentCodeUnique", description = "Check if departmentCode exists")
+	Boolean findOneByDepartmentCode(@GraphQLArgument(name = "departmentCode") String departmentCode) {
+		return !departmentRepository.findOneByDepartmentCode(departmentCode)
+	}
+	
+	@GraphQLQuery(name = "isDepartmentNameUnique", description = "Check if departmentName exists")
+	Boolean findOneByDepartmentName(@GraphQLArgument(name = "departmentName") String departmentName) {
+		return !departmentRepository.findOneByDepartmentName(departmentName)
+	}
+	
 	@GraphQLQuery(name = "availableDepartmentRooms", description = "Get all available Department Rooms")
 	List<Room> getAvailableRoomsByDepartment(@GraphQLContext Department department) {
 		return roomRepository.getAvailableRoomsByDepartment(department.id).sort { it.roomName }
