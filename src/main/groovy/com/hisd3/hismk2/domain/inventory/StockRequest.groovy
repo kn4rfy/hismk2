@@ -1,6 +1,9 @@
 package com.hisd3.hismk2.domain.inventory
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
+import com.hisd3.hismk2.domain.Department
+import com.hisd3.hismk2.domain.hrm.Employee
+import com.hisd3.hismk2.domain.pms.Patient
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
@@ -21,35 +24,46 @@ class StockRequest extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "stock_request_no")
-	BigDecimal stockRequestNo
-	
+	String stockRequestNo
+
+	@GraphQLQuery
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "patient", referencedColumnName = "id")
+	Patient patient
+
+	@GraphQLQuery
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "requesting_department", referencedColumnName = "id")
+	Department requestingDepartment
+
+	@GraphQLQuery
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "requested_department", referencedColumnName = "id")
+	Department requestedDepartment
+
+	@GraphQLQuery
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "requested_by", referencedColumnName = "id")
+	Employee requestedBy
+
+	@GraphQLQuery
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "prepared_by", referencedColumnName = "id")
+	Employee preparedBy
+
+	@GraphQLQuery
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "dispensed_by", referencedColumnName = "id")
+	Employee dispensedBy
+
+	@GraphQLQuery
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "claimed_by", referencedColumnName = "id")
+	Employee claimedBy
+
 	@GraphQLQuery
 	@Column(name = "status")
 	String status
-	
-	@GraphQLQuery
-	@Column(name = "patient")
-	String patient
-	
-	@GraphQLQuery
-	@Column(name = "requested_by")
-	String requestedBy
-	
-	@GraphQLQuery
-	@Column(name = "requesting_department")
-	String requestingDepartment
-	
-	@GraphQLQuery
-	@Column(name = "requested_department")
-	String requestedDepartment
-	
-	@GraphQLQuery
-	@Column(name = "requesting_department_reference_id")
-	UUID requestingDepartmentReferenceId
-	
-	@GraphQLQuery
-	@Column(name = "requested_department_reference_id")
-	UUID requestedDepartmentReferenceId
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "stockRequest")
 	List<StockRequestItem> stockRequestItems

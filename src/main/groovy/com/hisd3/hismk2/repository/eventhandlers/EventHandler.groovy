@@ -60,18 +60,32 @@ class EventHandler {
 	
 	@HandleAfterSave
 	handleMedicationAfterSave(StockRequest stockRequest) {
-		if (stockRequest.status == "CLAIMABLE") {
-			println("MUST NOTIFY THAT REQUEST IS CLAIMABLE")
-			for (StockRequestItem stockRequestItem in stockRequest.stockRequestItems) {
-				if (stockRequestItem.itemReferenceId != null) {
-					//deduct on inventory
-				} else {
-					println("Item has no inventory reference id and cannot charge or deduct on inventory : " + stockRequestItem.itemDescription)
-				}
-			}
-		}
-		if (stockRequest.status == "CLAIMED") {
-			println("MUST CHARGE MEDCS")
+//		if (stockRequest.status == "CLAIMABLE") {
+//			println("MUST NOTIFY THAT REQUEST IS CLAIMABLE")
+//			for (StockRequestItem stockRequestItem in stockRequest.stockRequestItems) {
+//				if (stockRequestItem.itemReferenceId != null) {
+//					//deduct on inventory
+//				} else {
+//					println("Item has no inventory reference id and cannot charge or deduct on inventory : " + stockRequestItem.itemDescription)
+//				}
+//			}
+//		}
+//		if (stockRequest.status == "CLAIMED") {
+//			println("MUST CHARGE MEDCS")
+//		}
+	}
+
+	@HandleBeforeCreate
+	handleBeforeCreatePatient(StockRequest stockRequest) {
+		if (!stockRequest.stockRequestNo) {
+
+			//Generate stock request
+			stockRequest.stockRequestNo = generatorService?.getNextValue(GeneratorType.STOCK_REQUEST_NO, { i ->
+				StringUtils.leftPad(i.toString(), 6, "0")
+			})
+
+			//Set initial stock request status
+			stockRequest.status = "REQUESTED"
 		}
 	}
 }

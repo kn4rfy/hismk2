@@ -16,9 +16,9 @@ class StockRequestService {
 	
 	@Autowired
 	StockRequestRepository stockRequestRepository
-	
+
 	@GraphQLQuery(name = "stockrequests", description = "List of Stock Requests")
-	List<StockRequest> allStockRequests() {
+	List<StockRequest> allStockRequests(@GraphQLArgument(name = "patientId") String patientId          ) {
 		return stockRequestRepository.findAll()
 	}
 	

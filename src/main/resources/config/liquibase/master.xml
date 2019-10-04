@@ -169,8 +169,10 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/67_crisnil_alter_supplier_item.sql"
              relativeToChangelogFile="false"/>
-
     <include file="classpath:config/liquibase/changelog/68_crisnil_alter_supplier.sql"
              relativeToChangelogFile="false"/>
-
+    <include file="classpath:config/liquibase/changelog/69_add_stock_request_fields.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/70_ace_stock_request_item_recreate.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>

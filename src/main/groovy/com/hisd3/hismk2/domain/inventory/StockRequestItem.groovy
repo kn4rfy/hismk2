@@ -18,15 +18,15 @@ class StockRequestItem extends AbstractAuditingEntity {
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
-	
-	@GraphQLQuery
-	@Column(name = "item_description")
-	String itemDescription
-	
+
 	@GraphQLQuery
 	@Column(name = "expected_barcode")
 	String expectedBarcode
-	
+
+	@GraphQLQuery
+	@Column(name = "item_description")
+	String itemDescription
+
 	@GraphQLQuery
 	@Column(name = "item_reference_id")
 	UUID itemReferenceId
