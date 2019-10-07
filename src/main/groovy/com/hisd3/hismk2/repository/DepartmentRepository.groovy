@@ -7,6 +7,12 @@ import org.springframework.data.repository.query.Param
 
 interface DepartmentRepository extends JpaRepository<Department, UUID> {
 	
+	@Query(value = "Select department from Department department where upper(department.departmentCode) = upper(:departmentCode)")
+	Department findOneByDepartmentCode(@Param("departmentCode") String departmentCode)
+	
+	@Query(value = "Select department from Department department where upper(department.departmentName) = upper(:departmentName)")
+	Department findOneByDepartmentName(@Param("departmentName") String departmentName)
+	
 	@Query(value = '''Select department from Department department where
             upper(department.departmentName) like upper(concat('%',:filter,'%')) or
             upper(department.departmentCode) like upper(concat('%',:filter,'%'))''')

@@ -3,6 +3,8 @@ package com.hisd3.hismk2.domain.inventory
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
+import org.hibernate.annotations.NotFound
+import org.hibernate.annotations.NotFoundAction
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
@@ -18,15 +20,20 @@ class PurchaseRequestItem extends AbstractAuditingEntity {
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
-	
-	@GraphQLQuery
-	@Column(name = "ref_item", columnDefinition = "uuid")
-	UUID refItem
-	
-	@GraphQLQuery
-	@Column(name = "ref_pr", columnDefinition = "uuid")
-	UUID refPr
-	
+
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "`ref_item`", referencedColumnName = "id")
+	Item refItem
+
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "`ref_pr`", referencedColumnName = "id")
+	PurchaseRequest refPr
+
+	@Column(name = "ref_po", columnDefinition = "uuid")
+	UUID refPo
+
 	@GraphQLQuery
 	@Column(name = "item_name", columnDefinition = "varchar")
 	String itemName

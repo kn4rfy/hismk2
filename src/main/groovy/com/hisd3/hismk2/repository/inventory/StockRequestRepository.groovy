@@ -8,4 +8,8 @@ import org.springframework.data.repository.query.Param
 interface StockRequestRepository extends JpaRepository<StockRequest, UUID> {
 	@Query(value = "Select msr from StockRequest msr where msr.status=:status and upper(msr.patient) like  upper(concat('%',:filter,'%'))")
 	List<StockRequest> stockRequestByFilter(@Param("status") String status, @Param("filter") String filter)
+
+
+	@Query(value="select sr from StockRequest sr where sr.patient.id = :patientId")
+	List<StockRequest> getStockRequestByPatient(@Param("patientId") String patientId)
 }
