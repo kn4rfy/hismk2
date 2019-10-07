@@ -169,8 +169,11 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/67_crisnil_alter_supplier_item.sql"
              relativeToChangelogFile="false"/>
-
+    <include file="classpath:config/liquibase/changelog/66_jp_newtable.sql"
+             relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/68_crisnil_alter_supplier.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/69_jp_newcolumn.sql"
              relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
