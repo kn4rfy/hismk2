@@ -1,6 +1,7 @@
 package com.hisd3.hismk2.domain.inventory
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
+import com.hisd3.hismk2.domain.hrm.Employee
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
@@ -28,9 +29,10 @@ class StockRequestItem extends AbstractAuditingEntity {
 	String itemDescription
 
 	@GraphQLQuery
-	@Column(name = "item_reference_id")
-	UUID itemReferenceId
-	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "item", referencedColumnName = "id")
+	Item item
+
 	@GraphQLQuery
 	@Column(name = "requested_qty")
 	BigDecimal requestedQty
@@ -46,14 +48,11 @@ class StockRequestItem extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "billed_to_patient")
 	BigDecimal billedToPatient
-	
+
 	@GraphQLQuery
-	@Column(name = "ordered_by")
-	String orderedBy
-	
-	@GraphQLQuery
-	@Column(name = "ordered_by_reference_id")
-	UUID orderedByReferenceId
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ordered_by", referencedColumnName = "id")
+	Employee orderedBy
 	
 	@GraphQLQuery
 	@ManyToOne(fetch = FetchType.LAZY)

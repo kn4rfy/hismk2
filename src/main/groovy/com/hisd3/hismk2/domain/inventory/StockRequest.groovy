@@ -7,8 +7,10 @@ import com.hisd3.hismk2.domain.pms.Patient
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
+import org.springframework.data.annotation.CreatedDate
 
 import javax.persistence.*
+import java.time.Instant
 
 @Entity
 @Table(schema = "inventory", name = "stock_request")
@@ -64,6 +66,11 @@ class StockRequest extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "status")
 	String status
+
+	@GraphQLQuery
+	@CreatedDate
+	@Column(name = "created_date", nullable = false)
+	Instant createdDate
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "stockRequest")
 	List<StockRequestItem> stockRequestItems

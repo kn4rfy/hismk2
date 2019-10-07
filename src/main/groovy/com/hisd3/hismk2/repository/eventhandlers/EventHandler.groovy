@@ -76,7 +76,7 @@ class EventHandler {
 	}
 
 	@HandleBeforeCreate
-	handleBeforeCreatePatient(StockRequest stockRequest) {
+	handleBeforeCreateStockRequest(StockRequest stockRequest) {
 		if (!stockRequest.stockRequestNo) {
 
 			//Generate stock request

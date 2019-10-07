@@ -22,13 +22,23 @@ class StockRequestService {
 		return stockRequestRepository.findAll()
 	}
 	
-	@GraphQLQuery(name = "stockrequests", description = "List of Stock Requests with filter and status")
-	List<StockRequest> allStockRequests(@GraphQLArgument(name = "status") String status, @GraphQLArgument(name = "filter") String filter) {
-		return stockRequestRepository.stockRequestByFilter(status, filter)
-	}
-	
-	@GraphQLQuery(name = "stockrequest", description = "Get stockrequest By Id")
+	@GraphQLQuery(name = "getStockRequest", description = "List of ")
 	StockRequest findById(@GraphQLArgument(name = "id") UUID id) {
 		return stockRequestRepository.findById(id).get()
+	}
+
+	@GraphQLQuery(name = "getStockRequestsByPatientAndStatus", description = "List of Stock Requests with patient and status")
+	List<StockRequest> getStockRequestsByPatientAndStatus(@GraphQLArgument(name = "status") String status, @GraphQLArgument(name = "patientId") String patientId) {
+		return stockRequestRepository.getStockRequestsByPatientAndStatus(status, UUID.fromString(patientId))
+	}
+
+	@GraphQLQuery(name = "getStockRequestsByPatient", description = "List of Stock Requests with patient and status")
+	List<StockRequest> getStockRequestsByPatient(@GraphQLArgument(name = "status") String status, @GraphQLArgument(name = "patientId") String patientId) {
+		return stockRequestRepository.getStockRequestsByPatient(UUID.fromString(patientId))
+	}
+
+	@GraphQLQuery(name = "getStockRequestsByStatus", description = "List of Stock Requests with patient and status")
+	List<StockRequest> getStockRequestsByStatus(@GraphQLArgument(name = "status") String status) {
+		return stockRequestRepository.getStockRequestsByStatus(status)
 	}
 }
