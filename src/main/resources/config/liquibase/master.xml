@@ -173,4 +173,7 @@
     <include file="classpath:config/liquibase/changelog/68_crisnil_alter_supplier.sql"
              relativeToChangelogFile="false"/>
 
+    <include file="classpath:config/liquibase/changelog/69_crisnil_sale.sql"
+             relativeToChangelogFile="false"/>
+
 </databaseChangeLog>
