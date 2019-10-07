@@ -176,9 +176,7 @@
     <include file="classpath:config/liquibase/changelog/69_jp_newcolumn.sql"
              relativeToChangelogFile="false"/>
 
-    <include file="classpath:config/liquibase/changelog/69_add_stock_request_fields.sql"
-             relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/70_ace_stock_request_item_recreate.sql"
+    <include file="classpath:config/liquibase/changelog/69_crisnil_sale.sql"
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/71_ace_update_stock_request.sql"
              relativeToChangelogFile="false"/>

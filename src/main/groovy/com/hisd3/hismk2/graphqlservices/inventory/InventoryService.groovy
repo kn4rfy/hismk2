@@ -13,13 +13,19 @@ import org.springframework.stereotype.Component
 @GraphQLApi
 @TypeChecked
 class InventoryService {
-	
+
 	@Autowired
 	InventoryRepository inventoryRepository
-	
+
 	@GraphQLQuery(name = "inventory_list", description = "List of Inventory filtered by department")
 	List<Inventory> allItems(@GraphQLArgument(name = "departmentid") UUID departmentid, @GraphQLArgument(name = "filter") String filter) {
 		return inventoryRepository.inventoryByDepartmentAndFilter(departmentid, filter)
 	}
-	
+
+	@GraphQLQuery(name = "inventoryItemsByFilter", description = "List of Inventory Items")
+	List<Inventory> getInventoryByFilter(@GraphQLArgument(name = "filter") String filter)
+	{
+		return inventoryRepository.itemsByFilter(filter).sort { it.item.descLong }
+	}
+
 }
