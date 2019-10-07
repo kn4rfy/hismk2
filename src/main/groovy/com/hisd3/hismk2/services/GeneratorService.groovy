@@ -10,7 +10,8 @@ enum GeneratorType {
 	OrderSlip_NO,
 	RR_NO,
 	BILLING_NO,
-	PR_NO
+	PR_NO,
+	STOCK_REQUEST_NO
 }
 
 @Service
