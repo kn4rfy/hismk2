@@ -1,6 +1,5 @@
 package com.hisd3.hismk2.graphqlservices.sales
 
-
 import com.hisd3.hismk2.domain.sales.SalesTransactionItem
 import com.hisd3.hismk2.repository.sales.SalesTransactionItemRepository
 import groovy.transform.TypeChecked
@@ -14,22 +13,22 @@ import org.springframework.stereotype.Component
 @GraphQLApi
 @TypeChecked
 class SalesTranscationItemService {
-
-    @Autowired
-    SalesTransactionItemRepository salesTransactionItemRepository
-
-    @GraphQLQuery(name = "sales_transaction_items", description = "List of Sale Transaction Items")
-    List<SalesTransactionItem> allSalesTransactionItems(
-            @GraphQLArgument(name = "filter") String filter
-    ) {
-        return salesTransactionItemRepository.findAllByFilter(filter)
-    }
-
-    @GraphQLQuery(name = "sales_transaction_item", description = "Sales Transaction")
-    SalesTransactionItem getTransactionItem(
-            @GraphQLArgument(name = "id") String id
-    ) {
-        return salesTransactionItemRepository.findById(UUID.fromString(id)).get()
-    }
-
+	
+	@Autowired
+	SalesTransactionItemRepository salesTransactionItemRepository
+	
+	@GraphQLQuery(name = "sales_transaction_items", description = "List of Sale Transaction Items")
+	List<SalesTransactionItem> allSalesTransactionItems(
+			@GraphQLArgument(name = "filter") String filter
+	) {
+		return salesTransactionItemRepository.findAllByFilter(filter)
+	}
+	
+	@GraphQLQuery(name = "sales_transaction_item", description = "Sales Transaction")
+	SalesTransactionItem getTransactionItem(
+			@GraphQLArgument(name = "id") String id
+	) {
+		return salesTransactionItemRepository.findById(UUID.fromString(id)).get()
+	}
+	
 }

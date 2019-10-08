@@ -9,16 +9,14 @@ interface PurchaseRequestItemRepository extends JpaRepository<PurchaseRequestIte
 	
 	@Query(value = "select p from PurchaseRequestItem p where p.refPr.id = :refPr")
 	List<PurchaseRequestItem> getByPrId(@Param("refPr") UUID refPr)
-
-	@Query(value= "select p from PurchaseRequestItem p where p.refPo is null")
+	
+	@Query(value = "select p from PurchaseRequestItem p where p.refPo is null")
 	List<PurchaseRequestItem> getPrItemByPoNull()
-
-	@Query(value= "select p from PurchaseRequestItem p where p.refPo is null and p.refPr.status = 'APPROVED'")
+	
+	@Query(value = "select p from PurchaseRequestItem p where p.refPo is null and p.refPr.status = 'APPROVED'")
 	List<PurchaseRequestItem> getPrItemByWherePoIsNotNullandStatusIsApproved()
-
-	@Query(value= "select p from PurchaseRequestItem p where p.refItem.id = :item_id and p.refPo is null and p.refPr.status = 'APPROVED'")
+	
+	@Query(value = "select p from PurchaseRequestItem p where p.refItem.id = :item_id and p.refPo is null and p.refPr.status = 'APPROVED'")
 	List<PurchaseRequestItem> getAllByItemIdWhereStatusIsApproved(@Param("item_id") UUID itemId)
-
-
-
+	
 }

@@ -20,20 +20,20 @@ class PurchaseRequestItem extends AbstractAuditingEntity {
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
-
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "`ref_item`", referencedColumnName = "id")
 	Item refItem
-
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "`ref_pr`", referencedColumnName = "id")
 	PurchaseRequest refPr
-
+	
 	@Column(name = "ref_po", columnDefinition = "uuid")
 	UUID refPo
-
+	
 	@GraphQLQuery
 	@Column(name = "item_name", columnDefinition = "varchar")
 	String itemName

@@ -1,7 +1,6 @@
 package com.hisd3.hismk2.graphqlservices.inventory
 
 import com.hisd3.hismk2.dao.inventory.PurchaseRequestDao
-import com.hisd3.hismk2.domain.inventory.PurchaseOrder
 import com.hisd3.hismk2.domain.inventory.PurchaseRequest
 import com.hisd3.hismk2.domain.inventory.PurchaseRequestItem
 import com.hisd3.hismk2.domain.inventory.SupplierItem
@@ -13,7 +12,6 @@ import com.hisd3.hismk2.repository.inventory.SupplierItemRepository
 import com.hisd3.hismk2.rest.dto.PurchaseOrderDto
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
-import com.sun.org.apache.xpath.internal.operations.Bool
 import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLMutation
@@ -29,45 +27,45 @@ import java.time.Instant
 @Component
 @GraphQLApi
 class PurchaseRequestService {
-
+	
 	@Autowired
 	PurchaseRequestRepository purchaseRequestRepository
-
+	
 	@Autowired
 	PurchaseRequestItemRepository purchaseRequestItemRepository
-
+	
 	@Autowired
 	ItemRepository itemRepository
-
+	
 	@Autowired
 	PurchaseRequestDao purchaseRequestDao
-
+	
 	@Autowired
 	EmployeeRepository employeeRepository
-
+	
 	@Autowired
 	SupplierItemRepository supplierItemRepository
-
+	
 	@Autowired
 	GeneratorService generatorService
-
+	
 	@GraphQLQuery
 	List<PurchaseRequest> getAllPurchaseRequest() {
 		purchaseRequestRepository.findAll()
 	}
-
+	
 	@GraphQLQuery
 	List<PurchaseRequestItem> getAllPurchaseRequestItems(@GraphQLArgument(name = "prId") UUID prId) {
 		purchaseRequestDao.getpRItems(prId)
 	}
-
+	
 	@GraphQLQuery
 	PurchaseRequest getPurchaseRequest(@GraphQLArgument(name = "prId") UUID prId) {
 		if (prId) {
 			return purchaseRequestRepository.findById(prId).get()
 		}
 	}
-
+	
 	@GraphQLMutation
 	PurchaseRequest savePurchaseReqeust(
 			@GraphQLArgument(name = "items") ArrayList<Map<String, Object>> items,
@@ -75,36 +73,36 @@ class PurchaseRequestService {
 	) {
 		if (fields.get("id")) {
 			def pr = purchaseRequestRepository.findById(UUID.fromString(fields.get("id") as String)).get()
-
+			
 			if (fields.get("requestedBy")) {
 				def employee = employeeRepository.findById(UUID.fromString(fields.get("requestedBy") as String)).get()
 				pr.requestedBy = employee.id
 				pr.requestedByName = employee.fullName
-
+				
 			}
-
+			
 			if (fields.get("approvedBy")) {
 				def employee = employeeRepository.findById(UUID.fromString(fields.get("approvedBy") as String)).get()
 				pr.approvedBy = employee.id
 				pr.approvedName = employee.fullName
-
+				
 			}
-
+			
 			if (fields.get("approvedDate")) {
 				pr.approvedDate = Instant.parse(fields.get("approvedDate") as String)
 			}
 			if (fields.get("requestedDate")) {
 				pr.requestedDate = Instant.parse(fields.get("requestedDate") as String)
 			}
-
+			
 			if (fields.get("dateNeeded")) {
 				pr.dateNeeded = Instant.parse(fields.get("dateNeeded") as String)
 			}
-
+			
 			pr.suggestedSupplierName = fields.get("requestType", "")
 			pr.requestType = fields.get("requestType", "")
 			pr.status = fields.get("status", "")
-
+			
 			items.each {
 				it ->
 					if (it.get("id") == null) {
@@ -115,23 +113,23 @@ class PurchaseRequestService {
 							prItems.refItem = item
 							prItems.itemName = item.descLong
 							prItems.qty = it.get("qty") as Integer
-
+							
 						} else {
 							prItems.itemName = it.get("itemName")
 							prItems.qty = it.get("qty") as Integer
 						}
-
+						
 						purchaseRequestItemRepository.save(prItems)
 					} else {
 						def prItems = purchaseRequestItemRepository.findById(UUID.fromString(it.get("id") as String)).get()
 						prItems.qty = it.get("qty") as Integer
 						purchaseRequestItemRepository.save(prItems)
-
+						
 					}
 			}
-
+			
 			return purchaseRequestRepository.save(pr)
-
+			
 		} else {
 			def pr = new PurchaseRequest()
 			pr.prNo = generatorService.getNextValue(GeneratorType.PR_NO) { Long no ->
@@ -141,33 +139,33 @@ class PurchaseRequestService {
 				def employee = employeeRepository.findById(UUID.fromString(fields.get("requestedBy") as String)).get()
 				pr.requestedBy = employee.id
 				pr.requestedByName = employee.fullName
-
+				
 			}
-
+			
 			if (fields.get("approvedBy")) {
 				def employee = employeeRepository.findById(UUID.fromString(fields.get("approvedBy") as String)).get()
 				pr.approvedBy = employee.id
 				pr.approvedName = employee.fullName
-
+				
 			}
-
+			
 			if (fields.get("approvedDate")) {
 				pr.approvedDate = Instant.parse(fields.get("approvedDate") as String)
 			}
 			if (fields.get("requestedDate")) {
 				pr.requestedDate = Instant.parse(fields.get("requestedDate") as String)
 			}
-
+			
 			if (fields.get("dateNeeded")) {
 				pr.dateNeeded = Instant.parse(fields.get("dateNeeded") as String)
 			}
-
+			
 			pr.suggestedSupplierName = fields.get("requestType", "")
 			pr.requestType = fields.get("requestType", "")
 			pr.status = fields.get("status", "")
-
+			
 			def afterSave = purchaseRequestRepository.save(pr)
-
+			
 			items.each {
 				it ->
 					if (it.get("id") == null) {
@@ -178,36 +176,36 @@ class PurchaseRequestService {
 							prItems.refItem = item
 							prItems.itemName = item.descLong
 							prItems.qty = it.get("qty") as Integer
-
+							
 						} else {
 							prItems.itemName = it.get("itemName")
 							prItems.qty = it.get("qty") as Integer
 						}
-
+						
 						purchaseRequestItemRepository.save(prItems)
 					} else {
 						def prItems = purchaseRequestItemRepository.findById(UUID.fromString(it.get("id") as String)).get()
 						prItems.qty = it.get("qty") as Integer
 						purchaseRequestItemRepository.save(prItems)
-
+						
 					}
 			}
-
+			
 			return afterSave
 		}
 	}
-
-	@GraphQLQuery(name = "pritem_by_supplier",description = "List of pr items by supplier")
-	List<PurchaseOrderDto> prItemsBySupplier(@GraphQLArgument(name = "supplier") UUID supplier){
+	
+	@GraphQLQuery(name = "pritem_by_supplier", description = "List of pr items by supplier")
+	List<PurchaseOrderDto> prItemsBySupplier(@GraphQLArgument(name = "supplier") UUID supplier) {
 		List<SupplierItem> supplierItems = supplierItemRepository.findBySupplierId(supplier)
 		List<PurchaseRequestItem> purchaseRequestItems = purchaseRequestItemRepository.getPrItemByWherePoIsNotNullandStatusIsApproved()
-		List< PurchaseOrderDto> poItemList = new ArrayList<>()
-		List< PurchaseOrderDto> poItemList2 = new ArrayList<>()
+		List<PurchaseOrderDto> poItemList = new ArrayList<>()
+		List<PurchaseOrderDto> poItemList2 = new ArrayList<>()
 		supplierItems.each {
-			it->
+			it ->
 				purchaseRequestItems.each {
-					it3->
-						if(it3.refItem.id == it.item.id){
+					it3 ->
+						if (it3.refItem.id == it.item.id) {
 							PurchaseOrderDto dto = new PurchaseOrderDto()
 							dto.id = it3.refItem.id
 							dto.prNo = it3.refPr.prNo
@@ -219,30 +217,28 @@ class PurchaseRequestService {
 							poItemList.add(dto)
 						}
 				}
-
+			
 		}
-
-
-
-		poItemList.eachWithIndex{ PurchaseOrderDto entry, int i ->
-			if(poItemList2.isEmpty()){
+		
+		poItemList.eachWithIndex { PurchaseOrderDto entry, int i ->
+			if (poItemList2.isEmpty()) {
 				poItemList2.add(entry)
-			}else{
+			} else {
 				def dto = poItemList2.find {
 					PurchaseOrderDto dto ->
 						(dto.id == entry.id && dto.prNo == entry.prNo)
 				}
-
-				if(dto){
+				
+				if (dto) {
 					dto.qty += entry.qty
-				}else{
+				} else {
 					poItemList2.add(entry)
 				}
 			}
 		}
-		return  poItemList2.sort{
-			sort-> sort.prNo
+		return poItemList2.sort {
+			sort -> sort.prNo
 		}
 	}
-
+	
 }

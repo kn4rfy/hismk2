@@ -19,20 +19,20 @@ class StockRequestItem extends AbstractAuditingEntity {
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
-
+	
 	@GraphQLQuery
 	@Column(name = "expected_barcode")
 	String expectedBarcode
-
+	
 	@GraphQLQuery
 	@Column(name = "item_description")
 	String itemDescription
-
+	
 	@GraphQLQuery
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "item", referencedColumnName = "id")
 	Item item
-
+	
 	@GraphQLQuery
 	@Column(name = "requested_qty")
 	BigDecimal requestedQty
@@ -48,7 +48,7 @@ class StockRequestItem extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "billed_to_patient")
 	BigDecimal billedToPatient
-
+	
 	@GraphQLQuery
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ordered_by", referencedColumnName = "id")

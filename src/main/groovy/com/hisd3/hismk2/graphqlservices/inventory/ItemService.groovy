@@ -13,26 +13,25 @@ import org.springframework.stereotype.Component
 @GraphQLApi
 @TypeChecked
 class ItemService {
-
+	
 	@Autowired
 	ItemRepository itemRepository
-
+	
 	@GraphQLQuery(name = "items", description = "List of Items")
 	List<Item> findAll() {
 		return itemRepository.findAll().sort { it.descLong }
 	}
-
+	
 	@GraphQLQuery(name = "itemsByFilter", description = "List of Items")
-	List<Item> findByFilter(@GraphQLArgument(name = "filter") String filter)
-	{
+	List<Item> findByFilter(@GraphQLArgument(name = "filter") String filter) {
 		return itemRepository.itemsByFilter(filter).sort { it.descLong }
 	}
-
+	
 	@GraphQLQuery(name = "medicines", description = "List of Medicines")
 	List<Item> findAllMedicines() {
 		return itemRepository.findAllMedicines().sort { it.descLong }
 	}
-
+	
 	@GraphQLQuery(name = "item", description = "Get Item By Id")
 	Item findById(@GraphQLArgument(name = "id") UUID id) {
 		return itemRepository.findById(id).get()

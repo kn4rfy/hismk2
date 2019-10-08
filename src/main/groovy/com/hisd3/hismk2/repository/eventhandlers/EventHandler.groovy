@@ -1,7 +1,6 @@
 package com.hisd3.hismk2.repository.eventhandlers
 
 import com.hisd3.hismk2.domain.inventory.StockRequest
-import com.hisd3.hismk2.domain.inventory.StockRequestItem
 import com.hisd3.hismk2.domain.pms.Case
 import com.hisd3.hismk2.domain.pms.Patient
 import com.hisd3.hismk2.services.GeneratorService
@@ -74,16 +73,16 @@ class EventHandler {
 //			println("MUST CHARGE MEDCS")
 //		}
 	}
-
+	
 	@HandleBeforeCreate
 	handleBeforeCreateStockRequest(StockRequest stockRequest) {
 		if (!stockRequest.stockRequestNo) {
-
+			
 			//Generate stock request
 			stockRequest.stockRequestNo = generatorService?.getNextValue(GeneratorType.STOCK_REQUEST_NO, { i ->
 				StringUtils.leftPad(i.toString(), 6, "0")
 			})
-
+			
 			//Set initial stock request status
 			stockRequest.status = "REQUESTED"
 		}

@@ -1,9 +1,7 @@
 package com.hisd3.hismk2.graphqlservices.inventory
 
-import com.hisd3.hismk2.domain.inventory.StockRequest
 import com.hisd3.hismk2.domain.inventory.StockRequestItem
 import com.hisd3.hismk2.repository.inventory.StockRequestItemRepository
-import com.hisd3.hismk2.repository.inventory.StockRequestRepository
 import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLQuery

@@ -27,46 +27,46 @@ class StockRequest extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "stock_request_no")
 	String stockRequestNo
-
+	
 	@GraphQLQuery
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "patient", referencedColumnName = "id")
 	Patient patient
-
+	
 	@GraphQLQuery
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "requesting_department", referencedColumnName = "id")
 	Department requestingDepartment
-
+	
 	@GraphQLQuery
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "requested_department", referencedColumnName = "id")
 	Department requestedDepartment
-
+	
 	@GraphQLQuery
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "requested_by", referencedColumnName = "id")
 	Employee requestedBy
-
+	
 	@GraphQLQuery
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "prepared_by", referencedColumnName = "id")
 	Employee preparedBy
-
+	
 	@GraphQLQuery
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "dispensed_by", referencedColumnName = "id")
 	Employee dispensedBy
-
+	
 	@GraphQLQuery
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "claimed_by", referencedColumnName = "id")
 	Employee claimedBy
-
+	
 	@GraphQLQuery
 	@Column(name = "status")
 	String status
-
+	
 	@GraphQLQuery
 	@CreatedDate
 	@Column(name = "created_date", nullable = false)

@@ -12,10 +12,10 @@ interface SupplierItemRepository extends JpaRepository<SupplierItem, UUID> {
             lower(items.item.genericName) like concat('%',:filter,'%'))'''
 	)
 	List<SupplierItem> findBySupplier(@Param("id") UUID id, @Param("filter") String filter)
-
-	@Query(value="select s from SupplierItem s where s.item.id = :item_id")
+	
+	@Query(value = "select s from SupplierItem s where s.item.id = :item_id")
 	List<SupplierItem> findByItem(@Param("item_id") UUID itemId)
-
-	@Query(value="select s from SupplierItem s where s.supplier.id = :supplier_id")
+	
+	@Query(value = "select s from SupplierItem s where s.supplier.id = :supplier_id")
 	List<SupplierItem> findBySupplierId(@Param("supplier_id") UUID supplierId)
 }
