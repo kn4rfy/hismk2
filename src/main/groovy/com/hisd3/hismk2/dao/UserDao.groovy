@@ -1,6 +1,7 @@
 package com.hisd3.hismk2.dao
 
 import com.hisd3.hismk2.domain.Authority
+import com.hisd3.hismk2.domain.Permission
 import com.hisd3.hismk2.domain.PersistentToken
 import com.hisd3.hismk2.domain.User
 import com.hisd3.hismk2.repository.UserRepository
@@ -23,24 +24,31 @@ class UserDao {
 	@PersistenceContext
 	EntityManager entityManager
 	
-	Set<Authority> getAuthorities(User user) {
+	List<Authority> getAuthorities(User user) {
 		
 		def mergedUser = entityManager.merge(user)
 		mergedUser.authorities.size()
-		return mergedUser.authorities as Set
+		return mergedUser.authorities as List
 	}
 	
-	Set<PersistentToken> getPersistentTokens(User user) {
+	List<PersistentToken> getPersistentTokens(User user) {
 		
 		def mergedUser = entityManager.merge(user)
 		mergedUser.persistentTokens.size()
-		return mergedUser.persistentTokens as Set
+		return mergedUser.persistentTokens as List
 	}
 	
-	Set<String> getRoles(User user) {
+	List<String> getRoles(User user) {
 		
 		def mergedUser = entityManager.merge(user)
 		mergedUser.roles.size()
-		return mergedUser.roles as Set
+		return mergedUser.roles as List
+	}
+	
+	List<Permission> getPermissions(User user) {
+		
+		def mergedUser = entityManager.merge(user)
+		mergedUser.permissions.size()
+		return mergedUser.permissions as List
 	}
 }

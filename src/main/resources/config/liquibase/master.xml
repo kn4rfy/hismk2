@@ -184,4 +184,6 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/71_ace_update_stock_request.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/72_kn4rfy_add_table_t_user_permissions.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>

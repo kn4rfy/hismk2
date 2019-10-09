@@ -2,6 +2,7 @@ package com.hisd3.hismk2.graphqlservices
 
 import com.hisd3.hismk2.dao.UserDao
 import com.hisd3.hismk2.domain.Authority
+import com.hisd3.hismk2.domain.Permission
 import com.hisd3.hismk2.domain.PersistentToken
 import com.hisd3.hismk2.domain.User
 import com.hisd3.hismk2.domain.hrm.Employee
@@ -39,18 +40,23 @@ class UserService {
 	}
 	
 	@GraphQLQuery(name = "authorities", description = "Get all User authorities")
-	Set<Authority> getAuthorities(@GraphQLContext User user) {
+	List<Authority> getAuthorities(@GraphQLContext User user) {
 		return userDao.getAuthorities(user)
 	}
 	
 	@GraphQLQuery(name = "persistentTokens", description = "Get all User persistentTokens")
-	Set<PersistentToken> getPersistentTokens(@GraphQLContext User user) {
+	List<PersistentToken> getPersistentTokens(@GraphQLContext User user) {
 		return userDao.getPersistentTokens(user)
 	}
 	
 	@GraphQLQuery(name = "roles", description = "Get all User roles")
-	Set<String> getRoles(@GraphQLContext User user) {
+	List<String> getRoles(@GraphQLContext User user) {
 		return userDao.getRoles(user)
+	}
+	
+	@GraphQLQuery(name = "permissions", description = "Get all User permissions")
+	List<Permission> getPermissions(@GraphQLContext User user) {
+		return userDao.getPermissions(user)
 	}
 	
 	@GraphQLQuery(name = "isLoginUnique", description = "Check if username exists")

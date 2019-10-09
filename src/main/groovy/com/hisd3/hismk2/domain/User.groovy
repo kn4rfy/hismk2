@@ -84,6 +84,13 @@ class User extends AbstractAuditingEntity {
 	@OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true, mappedBy = "user")
 	List<PersistentToken> persistentTokens = [] as List
 	
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+	@JoinTable(name = "t_user_permission",
+			joinColumns = [@JoinColumn(name = "user_id", referencedColumnName = "id")],
+			inverseJoinColumns = [@JoinColumn(name = "permission_name", referencedColumnName = "name")])
+	List<Authority> permissions = [] as List
+	
 	@Transient
 	List<String> getRoles() {
 		def roles = []
