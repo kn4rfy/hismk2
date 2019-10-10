@@ -8,5 +8,5 @@ class DiagnosticsResultsDto {
 	String 	orderNo = ""
 	Department department
 	ArrayList<OrderSlipItem> diagnosticsList = new ArrayList<Orderslip>()
-
+	
 }
