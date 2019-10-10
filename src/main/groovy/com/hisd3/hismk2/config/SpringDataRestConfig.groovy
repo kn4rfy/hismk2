@@ -10,12 +10,12 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer
 
 @Configuration
 class SpringDataRestConfig implements RepositoryRestConfigurer {
-
+	
 	@Override
 	void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
 		config.exposeIdsFor(Patient.class, SalesTransaction.class)
 	}
-
+	
 	@Bean
 	EventHandler eventHandler() {
 		return new EventHandler()

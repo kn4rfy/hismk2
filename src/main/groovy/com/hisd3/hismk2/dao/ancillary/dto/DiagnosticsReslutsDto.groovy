@@ -7,5 +7,5 @@ import com.hisd3.hismk2.domain.ancillary.Orderslip
 class DiagnosticsResultsDto {
 	Department department
 	ArrayList<OrderSlipItem> diagnosticsList = new ArrayList<Orderslip>()
-
+	
 }

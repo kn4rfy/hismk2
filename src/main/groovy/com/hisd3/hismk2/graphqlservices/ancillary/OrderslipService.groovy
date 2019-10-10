@@ -18,70 +18,69 @@ import org.springframework.stereotype.Component
 @Component
 @GraphQLApi
 class OrderslipService {
-
+	
 	@Autowired
 	OrderslipDao orderslipDao
-
+	
 	@Autowired
 	GeneratorService generatorService
-
+	
 	@Autowired
 	ObjectMapper objectMapper
-
-
+	
 	//============== All Queries ====================
-
+	
 	@GraphQLQuery(name = "orderslips", description = "Get All Orderslips")
 	List<Orderslip> findAll() {
 		orderslipDao.findAll()
 	}
-
+	
 	@GraphQLQuery(name = "orderslipsByPatientType", description = "Get All Orderslips by Department")
 	List<Orderslip> orderslipsByPatientType(
 			@GraphQLArgument(name = "type") String type = "",
 			@GraphQLArgument(name = "filter") String filter = ""
 	) {
-
+		
 		return orderslipDao.filterByPatientType(type, filter)
 	}
-
+	
 	@GraphQLQuery(name = "orderslipsByDepartment", description = "Get All Orderslips by Department")
 	List<Orderslip> findByDepartment(
 			@GraphQLArgument(name = "id") String id = ""
 	) {
-
+		
 		return orderslipDao.findByDepartment(id)
 	}
-
+	
 	@GraphQLQuery(name = "orderslipsByCase", description = "Get All Orderslips by case")
 	List<DiagnosticsResultsDto> findByCase(
 			@GraphQLArgument(name = "id") String id
 	) {
-
+		
 		return orderslipDao.findByCase(id)
 	}
-
+	
 	@GraphQLQuery(name = "orderslipsByCaseAndDepartment", description = "Get All Orderslips filter by case and department")
 	List<DiagnosticsResultsDto> findByCaseAndDeparment(
 			@GraphQLArgument(name = "id") String id,
 			@GraphQLArgument(name = "departmentId") String departmentId
 	) {
 		return orderslipDao.findByCaseAndDepartment(id, departmentId)
-
+		
 	}
-
+	
 	//============== All Mutations ====================
-
+	
 	@GraphQLMutation
 	List<OrderSlipItem> addOrderslip(
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
 		//println(fields)
-
-		List<OrderSlipItem> orderslipItem= []
+		
+		List<OrderSlipItem> orderslipItem = []
 		def oSlip
-		oSlip = objectMapper.convertValue( fields.get("order"), Orderslip) as Orderslip
-
+		oSlip = objectMapper.convertValue(fields.get("order"), Orderslip) as Orderslip
+		
 		def ordersItems
 		ordersItems = fields.get("requested") as ArrayList<OrderSlipItem>
 		ordersItems.each {
@@ -92,8 +91,8 @@ class OrderslipService {
 				order.deleted = false
 				orderslipItem.add(order)
 		}
-
-		return orderslipDao.insertOrderTransaction(oSlip,orderslipItem)
+		
+		return orderslipDao.insertOrderTransaction(oSlip, orderslipItem)
 	}
 }
 

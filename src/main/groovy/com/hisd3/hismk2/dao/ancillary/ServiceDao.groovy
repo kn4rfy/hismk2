@@ -14,25 +14,25 @@ import javax.persistence.PersistenceContext
 @Service
 @Transactional
 class ServiceDao {
-
+	
 	@Autowired
 	private ServiceRepository servicesRepository
-
+	
 	@PersistenceContext
 	EntityManager entityManager
-
+	
 	List<HisService> findAll() {
 		return servicesRepository.findAll()
 	}
-
+	
 	HisService findById(UUID id) {
 		return servicesRepository.findById(id).get()
 	}
-
+	
 	List<HisService> searchHisServices(String filter) {
 		return servicesRepository.searchlist(filter)
 	}
-
+	
 	HisService save(HisService serviceitem) {
 		servicesRepository.save(serviceitem)
 	}
