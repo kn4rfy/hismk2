@@ -193,4 +193,6 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/74_crisnil_alter_timestamps.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/75_kn4rfy_insert_t_user_permissions.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>
