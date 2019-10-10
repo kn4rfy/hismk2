@@ -186,4 +186,11 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/72_kn4rfy_add_table_t_user_permissions.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/72_crisnil_oSlip_item.sql"
+             relativeToChangelogFile="false"/>
+
+    <include file="classpath:config/liquibase/changelog/73_crisnil_alter_oslip_item.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/74_crisnil_alter_timestamps.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>
