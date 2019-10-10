@@ -38,6 +38,13 @@ class UserDao {
 		return mergedUser.persistentTokens as List
 	}
 	
+	List<Permission> getPermissions(User user) {
+		
+		def mergedUser = entityManager.merge(user)
+		mergedUser.permissions.size()
+		return mergedUser.permissions as List
+	}
+	
 	List<String> getRoles(User user) {
 		
 		def mergedUser = entityManager.merge(user)
@@ -45,10 +52,10 @@ class UserDao {
 		return mergedUser.roles as List
 	}
 	
-	List<Permission> getPermissions(User user) {
+	List<String> getAccess(User user) {
 		
 		def mergedUser = entityManager.merge(user)
-		mergedUser.permissions.size()
-		return mergedUser.permissions as List
+		mergedUser.access.size()
+		return mergedUser.access as List
 	}
 }

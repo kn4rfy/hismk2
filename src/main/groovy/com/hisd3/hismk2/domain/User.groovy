@@ -89,17 +89,29 @@ class User extends AbstractAuditingEntity {
 	@JoinTable(name = "t_user_permission",
 			joinColumns = [@JoinColumn(name = "user_id", referencedColumnName = "id")],
 			inverseJoinColumns = [@JoinColumn(name = "permission_name", referencedColumnName = "name")])
-	List<Authority> permissions = [] as List
+	List<Permission> permissions = [] as List
 	
 	@Transient
 	List<String> getRoles() {
 		def roles = []
 		if (authorities != null)
-			authorities.each { auth ->
+			authorities.each { authority ->
 				
-				roles.add(auth.name)
+				roles.add(authority.name)
 			}
 		
 		return roles as List
+	}
+	
+	@Transient
+	List<String> getAccess() {
+		def access = []
+		if (permissions != null)
+			permissions.each { permission ->
+				
+				access.add(permission.name)
+			}
+		
+		return access as List
 	}
 }

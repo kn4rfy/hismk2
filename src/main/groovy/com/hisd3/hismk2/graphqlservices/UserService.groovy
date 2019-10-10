@@ -49,14 +49,19 @@ class UserService {
 		return userDao.getPersistentTokens(user)
 	}
 	
+	@GraphQLQuery(name = "permissions", description = "Get all User permissions")
+	List<Permission> getPermissions(@GraphQLContext User user) {
+		return userDao.getPermissions(user)
+	}
+	
 	@GraphQLQuery(name = "roles", description = "Get all User roles")
 	List<String> getRoles(@GraphQLContext User user) {
 		return userDao.getRoles(user)
 	}
 	
-	@GraphQLQuery(name = "permissions", description = "Get all User permissions")
-	List<Permission> getPermissions(@GraphQLContext User user) {
-		return userDao.getPermissions(user)
+	@GraphQLQuery(name = "access", description = "Get all User access")
+	List<String> getAccess(@GraphQLContext User user) {
+		return userDao.getAccess(user)
 	}
 	
 	@GraphQLQuery(name = "isLoginUnique", description = "Check if username exists")
