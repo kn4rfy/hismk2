@@ -16,24 +16,24 @@ import javax.persistence.PersistenceContext
 @Service
 @Transactional
 class DiagnosticResultDao {
-	
+
 	@Autowired
 	private DiagnosticsResultRepository diagnosticsResultRepository
-	
+
 	@Autowired
 	private ObjectMapper objectMapper
-	
+
 	@Autowired
 	GeneratorService generatorService
-	
+
 	@PersistenceContext
 	EntityManager entityManager
-	
+
 	List<DiagnosticResult> findAll() {
 		return diagnosticsResultRepository.findAll()
 	}
-	
+
 	List<DiagnosticResult> findByOrderSlip(UUID id) {
-		return diagnosticsResultRepository.findByOrderSlip(id)
+		return diagnosticsResultRepository.findByOrderSlipItem(id)
 	}
 }
