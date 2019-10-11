@@ -16,7 +16,7 @@ import java.time.LocalDateTime
 @Entity
 @Table(schema = "ancillary", name = "orderslip_item")
 class OrderSlipItem extends AbstractAuditingEntity {
-	
+
 	@GraphQLQuery
 	@Id
 	@GeneratedValue(generator = "system-uuid")
@@ -24,44 +24,48 @@ class OrderSlipItem extends AbstractAuditingEntity {
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
-	
+
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "service", referencedColumnName = "id")
 	Service service
-	
+
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "orderslip", referencedColumnName = "id")
 	Orderslip orderslip
-	
+
 	@GraphQLQuery
 	@Column(name = "time_started", columnDefinition = "timestamp")
 	LocalDateTime timeStarted
-	
+
 	@GraphQLQuery
 	@Column(name = "time_completed", columnDefinition = "timestamp")
 	LocalDateTime timeCompleted
-	
+
 	@GraphQLQuery
 	@Column(name = "status", columnDefinition = "varchar")
 	String status
-	
+
 	@GraphQLQuery
 	@Column(name = "posted", columnDefinition = "boolean")
 	Boolean posted
-	
+
 	@GraphQLQuery
 	@Column(name = "deleted", columnDefinition = "boolean")
 	Boolean deleted
-	
+
 	@GraphQLQuery
 	@Column(name = "batch_num", columnDefinition = "varchar")
 	String batchNumber
-	
+
+	@GraphQLQuery
+	@Column(name = "item_no", columnDefinition = "varchar")
+	String itemNo
+
 	@Transient
 	Instant getCreated() {
 		return createdDate
 	}
-	
+
 }
