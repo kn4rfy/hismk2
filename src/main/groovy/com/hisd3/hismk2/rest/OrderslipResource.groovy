@@ -2,7 +2,6 @@ package com.hisd3.hismk2.rest
 
 import com.hisd3.hismk2.domain.ancillary.DiagnosticResult
 import com.hisd3.hismk2.domain.ancillary.OrderSlipItem
-import com.hisd3.hismk2.domain.ancillary.Orderslip
 import com.hisd3.hismk2.repository.ancillary.DiagnosticsResultRepository
 import com.hisd3.hismk2.repository.ancillary.OrderSlipItemRepository
 import com.hisd3.hismk2.repository.ancillary.OrderslipRepository
@@ -26,27 +25,27 @@ import org.springframework.web.multipart.MultipartRequest
 @TypeChecked
 @RestController
 class OrderslipResource {
-
+	
 	@Autowired
 	private OrderslipRepository orderslipRepository
-
+	
 	@Autowired
 	OrderSlipItemRepository orderSlipItemRepository
-
+	
 	@Autowired
 	DiagnosticsResultRepository diagnosticsResultRepository
-
+	
 	@RequestMapping(method = [RequestMethod.GET], value = "/api/orderSlips/getImageResults/{id}")
 	ResponseEntity<ByteArray> getImageResults(@PathVariable(value = "id") String id) {
-
+		
 		HttpHeaders responseHeaders = new HttpHeaders()
-
+		
 		DiagnosticResult resultImage = diagnosticsResultRepository.findById(UUID.fromString(id)).get()
 		if (resultImage != null) {
 			if (resultImage.url_path != null) {
 				NtlmPasswordAuthentication ntlmPasswordAuthentication = new NtlmPasswordAuthentication(null, "hisd3", "xsXY4;")
 				SmbFile attachementfile = new SmbFile(resultImage.url_path, ntlmPasswordAuthentication)
-
+				
 				SmbFileInputStream inFile = new SmbFileInputStream(attachementfile)
 				BufferedInputStream bMess = new BufferedInputStream(inFile)
 				byte[] data = bMess.bytes
@@ -61,19 +60,19 @@ class OrderslipResource {
 				return new ResponseEntity(data, params, HttpStatus.OK)
 			}
 		} else {
-
+			
 			return new ResponseEntity(responseHeaders, HttpStatus.NOT_FOUND)
 		}
-
+		
 	}
-
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/api/orderSlips/addresultsimages")
 	ResponseEntity<String> addresultsimages(@RequestParam String id, MultipartRequest request) {
-
+		
 		OrderSlipItem orderSlipItem = orderSlipItemRepository.findById(UUID.fromString(id)).get()
-
+		
 		def attachement = request.getFiles("file")
-
+		
 		try {
 			attachement.forEach { file ->
 				MultipartFile f = file
@@ -84,7 +83,7 @@ class OrderslipResource {
 				uploadedResult.service = orderSlipItem.service
 				uploadedResult.orderSlipItem = orderSlipItem
 				diagnosticsResultRepository.save(uploadedResult)
-
+				
 				try {
 					/*** ready for NAS***/
 					String origin = f.resource.filename
@@ -92,7 +91,7 @@ class OrderslipResource {
 					String idfname = uploadedResult.id.toString() + "." + extension
 					byte[] byteData = f.getBytes()
 					try {
-
+						
 						uploadedResult.url_path = resultWitteronSmb(orderSlipItem, byteData, idfname)
 						diagnosticsResultRepository.save(uploadedResult)
 					} catch (Exception e) {
@@ -101,27 +100,27 @@ class OrderslipResource {
 								"Error uploading Files",
 								HttpStatus.BAD_REQUEST)
 					}
-
+					
 				} catch (Exception e) {
 					e.printStackTrace()
 				}
 			}
-
+			
 			return new ResponseEntity<>(
 					"Success Uploading Files",
 					HttpStatus.OK)
-
+			
 		} catch (Exception e) {
-
+			
 			e.printStackTrace()
 			return new ResponseEntity<>(
 					"Error uploading Files",
 					HttpStatus.BAD_REQUEST)
 		}
 	}
-
+	
 	String resultWitteronSmb(OrderSlipItem orderSlipItem, byte[] byteData, String fname) {
-
+		
 		// var hospInfo = hospitalInfoRepository.findAll().firstOrNull()
 		String tofile = null
 		try {
@@ -133,27 +132,27 @@ class OrderslipResource {
 //          val path = shared + orderSlip.patientID +"/"+orderSlip?.serviceFee?.department + "/" + orderSlip.serviceFee?.category + "/"
 
 //          var pFolder = if (hospInfo?.live_deployment!!) orderSlip.pdsc?.patient?.patientNo.toString() + "/" else "DEMO" + orderSlip.pdsc?.patient?.patientNo.toString() + "/"
-
+			
 			String pFolder = orderSlipItem.orderslip.parentCase.patient.patientNo.toString() + "/"
 			String dFolder = StringUtils.trim(orderSlipItem.service.serviceName).replace(" ", "") + "/"
 			String caseFolder = StringUtils.trim(orderSlipItem.orderslip.parentCase.caseNo.toString()) + "/"
 			String finalName = StringUtils.trim(fname)
-
+			
 			SmbFile sFile = new SmbFile(shared + pFolder, ntlmPasswordAuthentication)
-
+			
 			if (folderCreator(sFile)) {
 				SmbFile sFile1 = new SmbFile(shared + pFolder + caseFolder, ntlmPasswordAuthentication)
 				if (folderCreator(sFile1)) {
-
+					
 					SmbFile sFile2 = new SmbFile(shared + pFolder + caseFolder + dFolder, ntlmPasswordAuthentication)
-
+					
 					folderCreator(sFile2)
 				}
 			}
-
+			
 			tofile = shared + pFolder + caseFolder + dFolder + finalName
 			SmbFile sFileFinal = new SmbFile(tofile, ntlmPasswordAuthentication)
-
+			
 			SmbFileOutputStream sfos = new SmbFileOutputStream(sFileFinal)
 			sfos.write(byteData)
 			sfos.flush()
@@ -161,12 +160,12 @@ class OrderslipResource {
 		} catch (Exception e) {
 			e.printStackTrace()
 		}
-
+		
 		return tofile
 	}
-
+	
 	Boolean folderCreator(SmbFile smbFile) {
-
+		
 		try {
 			if (!smbFile.exists()) {
 				smbFile.mkdir()
@@ -177,5 +176,5 @@ class OrderslipResource {
 		}
 		return true
 	}
-
+	
 }
