@@ -195,4 +195,7 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/75_kn4rfy_insert_t_user_permissions.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/76_crinil_alter_oSlipItem.sql"
+             relativeToChangelogFile="false"/>
+
 </databaseChangeLog>
