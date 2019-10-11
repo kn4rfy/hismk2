@@ -11,13 +11,12 @@ import org.hibernate.annotations.Type
 
 import javax.persistence.*
 import java.time.Instant
-import java.time.LocalDateTime
 
 @TypeChecked
 @Entity
 @Table(schema = "ancillary", name = "orderslips")
 class Orderslip extends AbstractAuditingEntity {
-
+	
 	@GraphQLQuery
 	@Id
 	@GeneratedValue(generator = "system-uuid")
@@ -30,7 +29,7 @@ class Orderslip extends AbstractAuditingEntity {
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "service", referencedColumnName = "id")
 //	Service service
-
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "case_number", referencedColumnName = "id")
@@ -38,10 +37,10 @@ class Orderslip extends AbstractAuditingEntity {
 
 //	@Column(name = "department", columnDefinition = "uuid")
 //	UUID department
-
+	
 	@Column(name = "doctors_order", columnDefinition = "uuid")
 	UUID doctorsOrder
-
+	
 	@GraphQLQuery
 	@Column(name = "orderslip_no", columnDefinition = "varchar")
 	String orderslipNo
@@ -73,14 +72,14 @@ class Orderslip extends AbstractAuditingEntity {
 //	@GraphQLQuery
 //	@Column(name = "batchnum", columnDefinition = "varchar")
 //	String batchNum
-
+	
 	@GraphQLQuery
 	@Column(name = "deleted", columnDefinition = "boolean")
 	Boolean deleted
-
+	
 	@Transient
 	Instant getCreated() {
 		return createdDate
 	}
-
+	
 }

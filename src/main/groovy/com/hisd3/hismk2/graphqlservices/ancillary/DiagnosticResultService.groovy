@@ -15,26 +15,26 @@ import org.springframework.stereotype.Component
 @Component
 @GraphQLApi
 class DiagnosticResultService {
-
+	
 	@Autowired
 	DiagnosticResultDao diagnosticResultDao
-
+	
 	@Autowired
 	GeneratorService generatorService
-
+	
 	@Autowired
 	ObjectMapper objectMapper
-
+	
 	//============== All Queries ====================
-
+	
 	@GraphQLQuery(name = "DiagnosticResults", description = "Get All Diagnostics Results")
 	List<DiagnosticResult> findAll() {
 		diagnosticResultDao.findAll()
 	}
-
+	
 	@GraphQLQuery(name = "ResultsByOrderSlip", description = "Get Results by OrderSilp")
 	List<DiagnosticResult> findByOrderSlipItem(@GraphQLArgument(name = "id") String id = "") {
 		diagnosticResultDao.findByOrderSlip(UUID.fromString(id))
 	}
-
+	
 }
