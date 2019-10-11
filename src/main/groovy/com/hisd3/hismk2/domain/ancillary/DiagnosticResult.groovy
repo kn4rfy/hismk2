@@ -15,7 +15,7 @@ import java.time.Instant
 @Entity
 @Table(schema = "ancillary", name = "diagnostic_results")
 class DiagnosticResult extends AbstractAuditingEntity {
-	
+
 	@GraphQLQuery
 	@Id
 	@GeneratedValue(generator = "system-uuid")
@@ -23,54 +23,54 @@ class DiagnosticResult extends AbstractAuditingEntity {
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
-	
+
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "orderslip", referencedColumnName = "id")
-	Orderslip orderSlip
-	
+	@JoinColumn(name = "orderslip_item", referencedColumnName = "id")
+	OrderSlipItem orderSlipItem
+
 	//@Column(name = "service", columnDefinition = "uuid")
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "service", referencedColumnName = "id")
 	Service service
-	
+
 	@GraphQLQuery
 	@Column(name = "name", columnDefinition = "varchar")
 	String name
-	
+
 	@GraphQLQuery
 	@Column(name = "type", columnDefinition = "varchar")
 	String type
-	
+
 	@GraphQLQuery
 	@Column(name = "data", columnDefinition = "varchar")
 	String data
-	
+
 	@GraphQLQuery
 	@Column(name = "mimetype", columnDefinition = "varchar")
 	String mimetype
-	
+
 	@GraphQLQuery
 	@Column(name = "file_name", columnDefinition = "varchar")
 	String file_name
-	
+
 	@GraphQLQuery
 	@Column(name = "url_path", columnDefinition = "varchar")
 	String url_path
-	
+
 	@GraphQLQuery
 	@Column(name = "accession", columnDefinition = "varchar")
 	String accession
-	
+
 	@GraphQLQuery
 	@Column(name = "parsed", columnDefinition = "varchar")
 	String parsed
-	
+
 	@GraphQLQuery
 	@Column(name = "deleted", columnDefinition = "bool")
 	Boolean deleted
-	
+
 	@Transient
 	Instant getCreated() {
 		return createdDate

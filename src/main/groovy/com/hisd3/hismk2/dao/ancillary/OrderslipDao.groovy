@@ -77,6 +77,7 @@ class OrderslipDao {
 		List<DiagnosticsResultsDto> res = []
 		serviceDepartment.each { def dep ->
 			DiagnosticsResultsDto diagnostic = new DiagnosticsResultsDto()
+			diagnostic.orderNo = results[0].orderslip.orderslipNo
 			diagnostic.department = dep
 			for (def order : results) {
 				if (order.service.department == dep) {
@@ -110,8 +111,6 @@ class OrderslipDao {
 				it.orderslipNo = generatorService?.getNextValue(GeneratorType.OrderSlip_NO, { i ->
 					StringUtils.leftPad(i.toString(), 6, "0")
 				})
-				it.submittedViaHl7 = false
-				it.posted = false
 				it.status = "NEW"
 				it.deleted = false
 				res.add(orderslipRepository.save(it))

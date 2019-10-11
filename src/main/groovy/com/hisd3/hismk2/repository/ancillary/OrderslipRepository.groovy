@@ -14,7 +14,7 @@ interface OrderslipRepository extends JpaRepository<Orderslip, UUID> {
 	List<Orderslip> filterByPatientType(@Param("patientType") String patientType, @Param("filter") String filter)
 	
 	@Query(
-			value = "Select o from Orderslip o where  o.service.department.id =:id"
+			value = "Select o from OrderSlipItem o where  o.service.department.id =:id"
 	)
 	List<Orderslip> findByDepartment(@Param("id") UUID id)
 	
