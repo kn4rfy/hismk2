@@ -93,7 +93,7 @@ class OrderslipResource {
 					byte[] byteData = f.getBytes()
 					try {
 
-						uploadedResult.url_path = resultWitteronSmb(orderSlipItem.orderslip, byteData, idfname)
+						uploadedResult.url_path = resultWitteronSmb(orderSlipItem, byteData, idfname)
 						diagnosticsResultRepository.save(uploadedResult)
 					} catch (Exception e) {
 						e.printStackTrace()
@@ -120,7 +120,7 @@ class OrderslipResource {
 		}
 	}
 
-	String resultWitteronSmb(Orderslip orderSlip, byte[] byteData, String fname) {
+	String resultWitteronSmb(OrderSlipItem orderSlipItem, byte[] byteData, String fname) {
 
 		// var hospInfo = hospitalInfoRepository.findAll().firstOrNull()
 		String tofile = null
@@ -134,9 +134,9 @@ class OrderslipResource {
 
 //          var pFolder = if (hospInfo?.live_deployment!!) orderSlip.pdsc?.patient?.patientNo.toString() + "/" else "DEMO" + orderSlip.pdsc?.patient?.patientNo.toString() + "/"
 
-			String pFolder = orderSlip.parentCase.patient.patientNo.toString() + "/"
-			String dFolder = StringUtils.trim(orderSlip.service.serviceName).replace(" ", "") + "/"
-			String caseFolder = StringUtils.trim(orderSlip.parentCase.caseNo.toString()) + "/"
+			String pFolder = orderSlipItem.orderslip.parentCase.patient.patientNo.toString() + "/"
+			String dFolder = StringUtils.trim(orderSlipItem.service.serviceName).replace(" ", "") + "/"
+			String caseFolder = StringUtils.trim(orderSlipItem.orderslip.parentCase.caseNo.toString()) + "/"
 			String finalName = StringUtils.trim(fname)
 
 			SmbFile sFile = new SmbFile(shared + pFolder, ntlmPasswordAuthentication)
