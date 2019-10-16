@@ -197,5 +197,7 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/76_crinil_alter_oSlipItem.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/77_kn4rfy_update_employee.sql"
+             relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
