@@ -95,7 +95,7 @@ class PatientService {
 			//Initialize patient data
 			def patientObj = objectMapper.convertValue(fields, Patient)
 			
-			Department department = departmentRepository.findById(departmentId as UUID).get()
+			Department department = departmentRepository.findById(UUID.fromString(departmentId)).get()
 			
 			patientObj.patientNo = generatorService.getNextValue(GeneratorType.PATIENT_NO) { Long no ->
 				StringUtils.leftPad(no.toString(), 5, "0")

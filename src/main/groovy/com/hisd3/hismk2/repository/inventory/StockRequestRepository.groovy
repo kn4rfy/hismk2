@@ -13,6 +13,9 @@ interface StockRequestRepository extends JpaRepository<StockRequest, UUID> {
 	@Query(value = "Select sr from StockRequest sr where sr.status = :status")
 	List<StockRequest> getStockRequestsByStatus(@Param("status") String status)
 	
-	@Query(value = "select sr from StockRequest sr where sr.patient.id = :patientId")
+	@Query(value = "Select sr from StockRequest sr where sr.patient.id = :patientId")
 	List<StockRequest> getStockRequestsByPatient(@Param("patientId") UUID patientId)
+
+	@Query(value = "Select sr from StockRequest sr where sr.stockRequestNo = :srNo")
+	StockRequest stockRequestBySRNo(@Param("srNo") String srNo)
 }
