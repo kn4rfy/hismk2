@@ -24,4 +24,7 @@ interface DepartmentRepository extends JpaRepository<Department, UUID> {
 	
 	@Query(value = "Select department from Department department where department.hasRooms = true")
 	List<Department> getDepartmentWithRooms()
+	
+	@Query(value = "Select department from Department department where department.parentDepartment is null")
+	List<Department> getParentDepartments()
 }

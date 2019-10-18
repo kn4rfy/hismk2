@@ -53,6 +53,11 @@ class DepartmentService {
 		departmentRepository.getDepartmentWithRooms()
 	}
 	
+	@GraphQLQuery(name = "parentDepartments", description = "Get Parent Departments")
+	List<Department> getParentDepartments() {
+		departmentRepository.getParentDepartments()
+	}
+	
 	@GraphQLQuery(name = "isDepartmentCodeUnique", description = "Check if departmentCode exists")
 	Boolean findOneByDepartmentCode(@GraphQLArgument(name = "departmentCode") String departmentCode) {
 		return !departmentRepository.findOneByDepartmentCode(departmentCode)
