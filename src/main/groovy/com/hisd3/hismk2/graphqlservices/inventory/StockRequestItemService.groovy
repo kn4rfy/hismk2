@@ -18,7 +18,7 @@ class StockRequestItemService {
 	
 	@Autowired
 	StockRequestItemRepository stockRequestItemRepository
-
+	
 	@Autowired
 	StockRequestItemDao stockRequestItemDao
 	
@@ -26,12 +26,12 @@ class StockRequestItemService {
 	List<StockRequestItem> getSRItemsBySRId(@GraphQLArgument(name = "srId") String srId) {
 		return stockRequestItemRepository.getSRItemsBySRId(UUID.fromString(srId))
 	}
-
+	
 	@GraphQLMutation
 	List<StockRequestItem> upsertStockRequestItems(
-		@GraphQLArgument(name = "stockRequestId") String stockRequestId,
-		@GraphQLArgument(name = "stockRequestItems") List<Map<String, Object>> stockRequestItems) {
-
+			@GraphQLArgument(name = "stockRequestId") String stockRequestId,
+			@GraphQLArgument(name = "stockRequestItems") List<Map<String, Object>> stockRequestItems) {
+		
 		return stockRequestItemDao.saveStockRequestItem(stockRequestId, stockRequestItems)
 	}
 }
