@@ -42,42 +42,4 @@ class StockRequestService {
 		return stockRequestRepository.getStockRequestsByStatus(status)
 	}
 
-//	StockRequestItem saveStockRequestItems(List<Map<String, Object>> billingItems) {
-//
-//		if (billingId) {
-//
-//
-//			//.get(0) means that we get the first active billing result
-//			def billingDto = billingRepository.findById(billingId).get()
-//
-//			if (billingItems) {
-//				billingItems.each {
-//					Map<String, Object> billingItem ->
-//
-//						def billingItemDto = new BillingItem()
-//						billingItemDto.billing = billingDto
-//
-//						def item = itemRepository.findById(UUID.fromString(billingItem.get("item") as String)).get()
-//						Random rnd = new Random()
-//
-//						billingItemDto.recordNo = rnd.nextInt(999999)
-//						billingItemDto.qty = billingItem.get("qty", 0) as Integer
-//
-//						billingItemDto.description = item.descLong
-//						billingItemDto.price = item.basePrice
-//						billingItemDto.status = 'ACTIVE'
-//
-//						def department = billingItem.get("department", "") as String
-//
-//						billingItemDto.department = departmentRepository.findById(
-//								UUID.fromString(department)
-//						).get()
-//
-//						billingItemRepository.save(billingItemDto)
-//				}
-//			}
-//
-//			return billingDto
-//		}
-//	}
 }

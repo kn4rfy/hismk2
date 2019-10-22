@@ -106,8 +106,8 @@ class CaseService {
 		return outputRepository.getOutputsByCase(parentCase.id).sort { it.entryDateTime }
 	}
 	
-	Boolean hasActiveCase(UUID patientId) {
-		def currentCase = caseRepository.getPatientActiveCase(patientId)
+	Boolean hasActiveCase(String patientId) {
+		def currentCase = caseRepository.getPatientActiveCase(UUID.fromString(patientId))
 		
 		if (currentCase)
 			return true
@@ -131,18 +131,18 @@ class CaseService {
 			def registryType = fields["registryType"] as String
 			def accommodationType = fields["accommodationType"] as String
 			def departmentId = fields["departmentId"] as String
-			def patientId = fields["patientId"] as UUID
+			def patientId = fields["patientId"] as String
 			
 			//Initialize patient data
 			def caseObj = objectMapper.convertValue(fields, Case)
 			
-			Department department = departmentRepository.findById(departmentId as UUID).get()
+			Department department = departmentRepository.findById(UUID.fromString(departmentId)).get()
 			
 			def caseNo = generatorService?.getNextValue(GeneratorType.CASE_NO, { i ->
 				StringUtils.leftPad(i.toString(), 6, "0")
 			})
 			
-			caseObj.patient = patientRepository.findById(patientId).get()
+			caseObj.patient = patientRepository.findById(UUID.fromString(patientId)).get()
 			
 			caseObj.department = department
 			caseObj.caseNo = caseNo
@@ -180,7 +180,7 @@ class CaseService {
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
 		
-		Case caseObj = caseRepository.findById(fields["caseId"] as UUID).get()
+		Case caseObj = caseRepository.findById(UUID.fromString(fields["caseId"] as String)).get()
 		caseObj.status = fields["status"] as String
 		return caseRepository.save(caseObj)
 	}
