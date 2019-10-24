@@ -41,5 +41,5 @@ class StockRequestService {
 	List<StockRequest> getStockRequestsByStatus(@GraphQLArgument(name = "status") String status) {
 		return stockRequestRepository.getStockRequestsByStatus(status)
 	}
-
+	
 }
