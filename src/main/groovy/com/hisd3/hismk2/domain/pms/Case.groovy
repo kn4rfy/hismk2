@@ -274,6 +274,14 @@ class Case extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "rvs_diagnosis", columnDefinition = "varchar")
 	String rvsDiagnosis
+
+	@GraphQLQuery
+	@Column(name = "primary_dx", columnDefinition = "varchar")
+	String primaryDx
+
+	@GraphQLQuery
+	@Column(name = "secondary_dx", columnDefinition = "varchar")
+	String secondaryDx
 	
 	@GraphQLQuery
 	@Column(name = "physical_exam_list", columnDefinition = "varchar")

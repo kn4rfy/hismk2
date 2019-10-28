@@ -199,5 +199,8 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/77_kn4rfy_update_employee.sql"
              relativeToChangelogFile="false"/>
-
+    <include file="classpath:config/liquibase/changelog/78_ace_rvs_icd_on_case.sql"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/79_ace_rvs_icd_on_case.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>
