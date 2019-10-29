@@ -9,7 +9,7 @@ import javax.persistence.*
 import java.time.LocalDateTime
 
 @Entity
-@Table(schema = "inventory", name = "purchase_order_items")
+@Table(schema = "inventory", name = "purchase_order")
 class PurchaseOrder extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Id

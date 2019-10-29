@@ -226,10 +226,12 @@ class PurchaseRequestService {
 			} else {
 				def dto = poItemList2.find {
 					PurchaseOrderDto dto ->
-						(dto.id == entry.id && dto.prNo == entry.prNo)
+						(dto.id == entry.id)
 				}
 				
 				if (dto) {
+                    dto.prNo  = dto.prNo.concat(","+entry.prNo);
+
 					dto.qty += entry.qty
 				} else {
 					poItemList2.add(entry)
