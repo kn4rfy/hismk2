@@ -22,7 +22,7 @@ class PurchaseRequestItem extends AbstractAuditingEntity {
 	UUID id
 	
 	@NotFound(action = NotFoundAction.IGNORE)
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "`ref_item`", referencedColumnName = "id")
 	Item refItem
 	
@@ -30,9 +30,11 @@ class PurchaseRequestItem extends AbstractAuditingEntity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "`ref_pr`", referencedColumnName = "id")
 	PurchaseRequest refPr
-	
-	@Column(name = "ref_po", columnDefinition = "uuid")
-	UUID refPo
+
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "`ref_po`", referencedColumnName = "id")
+	PurchaseOrder refPo
 	
 	@GraphQLQuery
 	@Column(name = "item_name", columnDefinition = "varchar")

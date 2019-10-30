@@ -32,13 +32,14 @@ class StockRequestService {
 		return stockRequestRepository.getStockRequestsByPatientAndStatus(status, UUID.fromString(patientId))
 	}
 	
-	@GraphQLQuery(name = "getStockRequestsByPatient", description = "List of Stock Requests with patient and status")
-	List<StockRequest> getStockRequestsByPatient(@GraphQLArgument(name = "status") String status, @GraphQLArgument(name = "patientId") String patientId) {
+	@GraphQLQuery(name = "getStockRequestsByPatient", description = "List of Stock Requests with patient")
+	List<StockRequest> getStockRequestsByPatient(@GraphQLArgument(name = "patientId") String patientId) {
 		return stockRequestRepository.getStockRequestsByPatient(UUID.fromString(patientId))
 	}
 	
-	@GraphQLQuery(name = "getStockRequestsByStatus", description = "List of Stock Requests with patient and status")
+	@GraphQLQuery(name = "getStockRequestsByStatus", description = "List of Stock Requests with status")
 	List<StockRequest> getStockRequestsByStatus(@GraphQLArgument(name = "status") String status) {
 		return stockRequestRepository.getStockRequestsByStatus(status)
 	}
+	
 }

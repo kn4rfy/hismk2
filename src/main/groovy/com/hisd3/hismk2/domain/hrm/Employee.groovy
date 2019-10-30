@@ -1,6 +1,7 @@
 package com.hisd3.hismk2.domain.hrm
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
+import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.User
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.*
@@ -24,6 +25,11 @@ class Employee extends AbstractAuditingEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "`user`", referencedColumnName = "id")
 	User user
+	
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "department", referencedColumnName = "id")
+	Department department
 	
 	@GraphQLQuery
 	@Column(name = "employee_no", columnDefinition = "varchar")
@@ -91,5 +97,4 @@ class Employee extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Formula("concat(last_name , coalesce(', ' || nullif(first_name,'') , ''), coalesce(' ' || nullif(middle_name,'') , ''), coalesce(' ' || nullif(name_suffix,'') , ''))")
 	String fullName
-	
 }

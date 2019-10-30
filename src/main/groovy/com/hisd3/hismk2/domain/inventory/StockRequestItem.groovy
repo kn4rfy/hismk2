@@ -47,7 +47,7 @@ class StockRequestItem extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "billed_to_patient")
-	BigDecimal billedToPatient
+	Boolean billedToPatient
 	
 	@GraphQLQuery
 	@ManyToOne(fetch = FetchType.EAGER)
