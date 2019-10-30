@@ -18,4 +18,11 @@ interface StockRequestRepository extends JpaRepository<StockRequest, UUID> {
 	
 	@Query(value = "Select sr from StockRequest sr where sr.stockRequestNo = :srNo")
 	StockRequest stockRequestBySRNo(@Param("srNo") String srNo)
+
+	@Query(value = '''Select sr from StockRequest sr where 
+						(lower(sr.patient.lastName) like lower(concat('%',:search,'%')) or 
+						lower(sr.patient.firstName) like lower(concat('%',:search,'%')) or 
+						lower(sr.patient.middleName) like lower(concat('%',:search,'%'))) and 
+						sr.status = :status''')
+	List<StockRequest> searchStockRequest(@Param("search") String search, @Param("status") String status)
 }
