@@ -29,6 +29,7 @@ class SocketController {
         def msg
         msg = objectMapper.convertValue(message, Message.class)
         msg.topic =topic
+        //do something with the payload
         return msg
     }
 }
