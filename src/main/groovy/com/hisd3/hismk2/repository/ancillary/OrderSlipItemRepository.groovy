@@ -25,8 +25,8 @@ interface OrderSlipItemRepository extends JpaRepository<OrderSlipItem, UUID> {
 	List<OrderSlipItem> findByOrderNoandParentDept(@Param("orderno") String orderno, @Param("parentDept") UUID parentDept)
 	
 	@Query(
-			value = "Select o from OrderSlipItem o where o.orderslip.orderslipNo =:orderno and o.orderslip.parentCase.id =:caseId"
+			value = "Select o from OrderSlipItem o where o.orderslip.orderslipNo =:orderNo and o.orderslip.parentCase.id =:caseId"
 	)
-	List<OrderSlipItem> findByOrderNoAndCase(@Param("orderno") String orderno, @Param("caseId") UUID caseId)
+	List<OrderSlipItem> findByOrderNoAndCase(@Param("orderNo") String orderNo, @Param("caseId") UUID caseId)
 	
 }

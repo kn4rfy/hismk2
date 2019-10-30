@@ -40,6 +40,13 @@ class Orderslip extends AbstractAuditingEntity {
 	
 	@Column(name = "doctors_order", columnDefinition = "uuid")
 	UUID doctorsOrder
+
+	@Column(name = "requesting_physician", columnDefinition = "uuid")
+	UUID requestingPhysician
+
+	@GraphQLQuery
+	@Column(name = "requesting_physician_name", columnDefinition = "varchar")
+	String requestingPhysicianName
 	
 	@GraphQLQuery
 	@Column(name = "orderslip_no", columnDefinition = "varchar")
@@ -56,6 +63,10 @@ class Orderslip extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "status", columnDefinition = "varchar")
 	String status
+
+	@GraphQLQuery
+	@Column(name = "notes", columnDefinition = "varchar")
+	String notes
 //
 //	@GraphQLQuery
 //	@Column(name = "accession", columnDefinition = "varchar")

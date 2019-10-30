@@ -203,4 +203,8 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/79_ace_rvs_icd_on_case.sql"
              relativeToChangelogFile="false"/>
+
+    <include file="classpath:config/liquibase/changelog/77_crisnil_alter_orderslip.sql"
+             relativeToChangelogFile="false"/>
+
 </databaseChangeLog>

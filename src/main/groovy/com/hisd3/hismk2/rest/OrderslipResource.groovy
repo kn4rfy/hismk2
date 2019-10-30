@@ -5,6 +5,8 @@ import com.hisd3.hismk2.domain.ancillary.OrderSlipItem
 import com.hisd3.hismk2.repository.ancillary.DiagnosticsResultRepository
 import com.hisd3.hismk2.repository.ancillary.OrderSlipItemRepository
 import com.hisd3.hismk2.repository.ancillary.OrderslipRepository
+import com.hisd3.hismk2.socket.Message
+import com.hisd3.hismk2.socket.SocketService
 import groovy.transform.TypeChecked
 import javassist.bytecode.ByteArray
 import jcifs.smb.NtlmPasswordAuthentication
@@ -34,8 +36,26 @@ class OrderslipResource {
 	
 	@Autowired
 	DiagnosticsResultRepository diagnosticsResultRepository
-	
-	@RequestMapping(method = [RequestMethod.GET], value = "/api/orderSlips/getImageResults/{id}")
+
+	@Autowired
+	SocketService socketService
+
+	@RequestMapping(method = [RequestMethod.GET], value = "/api/testSend")
+	ResponseEntity<String> testSend() {
+		HttpHeaders responseHeaders = new HttpHeaders()
+
+		Message mes = new Message()
+			mes.from = "From server"
+			mes.message = "Sample Message"
+			mes.topic = "reload"
+		socketService.helloWithPayload(mes)
+		//socketService.helloToUser(mes)
+
+	return  new ResponseEntity(responseHeaders, HttpStatus.OK)
+
+	}
+
+	@RequestMapping(method = [RequestMethod.GET], value = "/api/orderSlipItem/getImageResults/{id}")
 	ResponseEntity<ByteArray> getImageResults(@PathVariable(value = "id") String id) {
 		
 		HttpHeaders responseHeaders = new HttpHeaders()
@@ -43,7 +63,9 @@ class OrderslipResource {
 		DiagnosticResult resultImage = diagnosticsResultRepository.findById(UUID.fromString(id)).get()
 		if (resultImage != null) {
 			if (resultImage.url_path != null) {
-				NtlmPasswordAuthentication ntlmPasswordAuthentication = new NtlmPasswordAuthentication(null, "hisd3", "xsXY4;")
+//				NtlmPasswordAuthentication ntlmPasswordAuthentication = new NtlmPasswordAuthentication(null, "hisd3", "xsXY4;")
+				NtlmPasswordAuthentication ntlmPasswordAuthentication = new NtlmPasswordAuthentication(null, "administrator", "xsXY4;")
+
 				SmbFile attachementfile = new SmbFile(resultImage.url_path, ntlmPasswordAuthentication)
 				
 				SmbFileInputStream inFile = new SmbFileInputStream(attachementfile)
@@ -124,9 +146,11 @@ class OrderslipResource {
 		// var hospInfo = hospitalInfoRepository.findAll().firstOrNull()
 		String tofile = null
 		try {
-			NtlmPasswordAuthentication ntlmPasswordAuthentication = new NtlmPasswordAuthentication(null, "hisd3", "xsXY4;")
-//			def shared = "smb://127.0.0.1/Shared/"
-			def shared = "smb://172.16.12.30/Diagnostics/HISMKII/"
+//			NtlmPasswordAuthentication ntlmPasswordAuthentication = new NtlmPasswordAuthentication(null, "hisd3", "xsXY4;")
+			NtlmPasswordAuthentication ntlmPasswordAuthentication = new NtlmPasswordAuthentication(null, "administrator", "xsXY4;")
+
+			def shared = "smb://127.0.0.1/Shared/"
+//			def shared = "smb://172.16.12.30/Diagnostics/HISMKII/"
 			SmbFile directory = new SmbFile(shared, ntlmPasswordAuthentication)
 
 //          val path = shared + orderSlip.patientID +"/"+orderSlip?.serviceFee?.department + "/" + orderSlip.serviceFee?.category + "/"
@@ -135,7 +159,7 @@ class OrderslipResource {
 			
 			String pFolder = orderSlipItem.orderslip.parentCase.patient.patientNo.toString() + "/"
 			String dFolder = StringUtils.trim(orderSlipItem.service.serviceName).replace(" ", "") + "/"
-			String caseFolder = StringUtils.trim(orderSlipItem.orderslip.parentCase.caseNo.toString()) + "/"
+			String caseFolder = StringUtils.trim(orderSlipItem.itemNo.toString()) + "/"
 			String finalName = StringUtils.trim(fname)
 			
 			SmbFile sFile = new SmbFile(shared + pFolder, ntlmPasswordAuthentication)

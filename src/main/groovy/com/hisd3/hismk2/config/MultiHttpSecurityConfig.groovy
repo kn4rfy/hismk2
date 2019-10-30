@@ -127,6 +127,7 @@ class MultiHttpSecurityConfig {
 					.antMatchers("/api/**").authenticated()
 					.antMatchers("/ping").permitAll()
 					.antMatchers("/public/**").permitAll()
+					.antMatchers("/chat/**").permitAll()
 					.antMatchers("/").permitAll()
 		}
 	}

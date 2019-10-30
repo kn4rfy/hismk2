@@ -69,17 +69,17 @@ class OrderslipDao {
 		def results = orderSlipItemRepository.findByCase(UUID.fromString(id)).sort { it.created }
 		results.reverse(true)
 		
-		Set<Department> serviceDepartment = []
+		Set<String> orderNumber = []
 		for (def item : results) {
-			serviceDepartment.add(item.service.department)
+			orderNumber.add(item.orderslip.orderslipNo)
 		}
 		
 		List<DiagnosticsResultsDto> res = []
-		serviceDepartment.each { def dep ->
+		orderNumber.each { def dep ->
 			DiagnosticsResultsDto diagnostic = new DiagnosticsResultsDto()
-			diagnostic.department = dep
+			diagnostic.orderNo = dep
 			for (def order : results) {
-				if (order.service.department == dep) {
+				if (order.orderslip.orderslipNo == dep) {
 					
 					diagnostic.diagnosticsList.add(order)
 				}
@@ -94,26 +94,29 @@ class OrderslipDao {
 		
 		def results = orderSlipItemRepository.findByOrderNoAndCase(orderNo, UUID.fromString(parentCase)).sort { it.created }
 		results.reverse(true)
-		
-		Set<Department> serviceDepartment = []
-		for (def item : results) {
-			serviceDepartment.add(item.service.department)
-		}
-		
 		List<DiagnosticsResultsDto> res = []
-		serviceDepartment.each { def dep ->
-			DiagnosticsResultsDto diagnostic = new DiagnosticsResultsDto()
-			diagnostic.department = dep
-			for (def order : results) {
-				if (order.service.department == dep) {
-					
-					diagnostic.diagnosticsList.add(order)
-				}
+
+		if(results != null){
+			Set<String> orderNumber = []
+			for (def item : results) {
+				orderNumber.add(item.orderslip.orderslipNo)
 			}
-			res.add(diagnostic)
+
+			orderNumber.each { def dep ->
+				DiagnosticsResultsDto diagnostic = new DiagnosticsResultsDto()
+				diagnostic.orderNo = dep
+				for (def order : results) {
+					if (order.orderslip.orderslipNo == dep) {
+						diagnostic.diagnosticsList.add(order)
+					}
+				}
+				res.add(diagnostic)
+			}
+
 		}
-		
+
 		return res
+
 	}
 	
 	List<DiagnosticsResultsDto> findByOrderNoandParentDept(String orderNo, String parentDept) {
@@ -122,24 +125,23 @@ class OrderslipDao {
 			it.created
 		}
 		results.reverse(true)
-		
-		Set<Department> serviceDepartment = []
-		for (def item : results) {
-			serviceDepartment.add(item.service.department)
-		}
-		
-		List<DiagnosticsResultsDto> res = []
-		serviceDepartment.each { def dep ->
-			DiagnosticsResultsDto diagnostic = new DiagnosticsResultsDto()
-			diagnostic.department = dep
-			for (def order : results) {
-				if (order.service.department == dep) {
-					
-					diagnostic.diagnosticsList.add(order)
-				}
-			}
-			res.add(diagnostic)
-		}
+
+        Set<String> orderNumber = []
+        for (def item : results) {
+            orderNumber.add(item.orderslip.orderslipNo)
+        }
+
+        List<DiagnosticsResultsDto> res = []
+        orderNumber.each { def dep ->
+            DiagnosticsResultsDto diagnostic = new DiagnosticsResultsDto()
+            diagnostic.orderNo = dep
+            for (def order : results) {
+                if (order.orderslip.orderslipNo == dep) {
+                    diagnostic.diagnosticsList.add(order)
+                }
+            }
+            res.add(diagnostic)
+        }
 		
 		return res
 	}
@@ -147,13 +149,23 @@ class OrderslipDao {
 	List<DiagnosticsResultsDto> findByCaseAndDepartment(String id, String departmentId) {
 		def results = orderSlipItemRepository.findByCaseAndDepartment(UUID.fromString(id), UUID.fromString(departmentId))
 		List<DiagnosticsResultsDto> res = []
-		DiagnosticsResultsDto diagnostic = new DiagnosticsResultsDto()
-		diagnostic.department = results[0].service.department
-		for (def order : results) {
-			diagnostic.diagnosticsList.add(order)
-		}
-		res.add(diagnostic)
-		return res
+
+        Set<String> orderNumber = []
+        for (def item : results) {
+            orderNumber.add(item.orderslip.orderslipNo)
+        }
+        orderNumber.each { def dep ->
+            DiagnosticsResultsDto diagnostic = new DiagnosticsResultsDto()
+            diagnostic.orderNo = dep
+            for (def order : results) {
+                if (order.orderslip.orderslipNo == dep) {
+                    diagnostic.diagnosticsList.add(order)
+                }
+            }
+            res.add(diagnostic)
+        }
+
+        return res
 	}
 	
 	List<Orderslip> addOrderslip(List<Orderslip> orderslips) {
@@ -174,15 +186,13 @@ class OrderslipDao {
 	List<OrderSlipItem> insertOrderTransaction(Orderslip orderSlip, List<OrderSlipItem> orderItems) {
 		
 		List<OrderSlipItem> res = []
-		def oSlip
-		oSlip = orderSlip as Orderslip
-		oSlip.orderslipNo = generatorService?.getNextValue(GeneratorType.OrderSlip_NO, { i -> StringUtils.leftPad(i.toString(), 6, "0") })
-		oSlip.status = "NEW"
-		oSlip.deleted = false
-		Orderslip ret = orderslipRepository.save(oSlip)
-		def items
-		items = orderItems as List<OrderSlipItem>
-		items.each {
+		orderSlip.orderslipNo = generatorService?.getNextValue(GeneratorType.OrderSlip_NO, { i -> StringUtils.leftPad(i.toString(), 6, "0") })
+		orderSlip.status = "NEW"
+		orderSlip.deleted = false
+		Orderslip ret = orderslipRepository.save(orderSlip)
+//		def items
+//		items = orderItems as List<OrderSlipItem>
+		orderItems.each {
 			it ->
 				it.itemNo = generatorService?.getNextValue(GeneratorType.OrdserSlipItem_NO, { i -> StringUtils.leftPad(i.toString(), 6, "0") })
 				it.orderslip = ret
