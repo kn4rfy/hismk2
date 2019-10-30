@@ -48,7 +48,16 @@ dependencies {
 			}
 	compile group: 'org.apache.tika', name: 'tika-core', version: '1.18'
 	compile group: 'commons-io', name: 'commons-io', version: '2.6'
-	
+	//SOCKET
+
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.2.0.RELEASE'
+	compile group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3-1'
+	compile group: 'org.webjars', name: 'sockjs-client', version: '1.1.2'
+//	compile group: 'org.springframework', name: 'spring-websocket', version: '5.2.0.RELEASE'
+//	compile group: 'org.springframework', name: 'spring-messaging', version: '5.2.0.RELEASE'
+//	
+//    compile group: 'org.webjars', name: 'sockjs-client', version: '1.1.2'
+//	compile group: 'org.webjars', name: 'stomp-websocket', version: '2.3.3-1'
 }
 
 sourceSets {

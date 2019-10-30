@@ -34,7 +34,7 @@ class DiagnosticResultService {
 	
 	@GraphQLQuery(name = "ResultsByOrderSlip", description = "Get Results by OrderSilp")
 	List<DiagnosticResult> findByOrderSlipItem(@GraphQLArgument(name = "id") String id = "") {
-		diagnosticResultDao.findByOrderSlip(UUID.fromString(id))
+		diagnosticResultDao.findByOrderSlipItem(UUID.fromString(id))
 	}
 	
 }

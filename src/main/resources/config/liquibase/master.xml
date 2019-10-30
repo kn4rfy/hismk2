@@ -198,4 +198,7 @@
     <include file="classpath:config/liquibase/changelog/76_crinil_alter_oSlipItem.sql"
              relativeToChangelogFile="false"/>
 
+    <include file="classpath:config/liquibase/changelog/77_crisnil_alter_orderslip.sql"
+             relativeToChangelogFile="false"/>
+
 </databaseChangeLog>

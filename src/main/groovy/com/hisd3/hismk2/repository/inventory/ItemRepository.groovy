@@ -16,4 +16,11 @@ interface ItemRepository extends JpaRepository<Item, UUID> {
 			''')
 	
 	List<Item> itemsByFilter(@Param("filter") String filter)
+
+	@Query(value = '''Select item from Item  item  where  
+					  lower(item.descLong) like lower(concat('%',:filter,'%')) or  
+					  lower(item.barcode) like lower(concat('%',:filter,'%'))
+			''')
+
+	List<Item> itemsByFilterLimited(@Param("filter") String filter)
 }

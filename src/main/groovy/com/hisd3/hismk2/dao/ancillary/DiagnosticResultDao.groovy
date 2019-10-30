@@ -33,7 +33,7 @@ class DiagnosticResultDao {
 		return diagnosticsResultRepository.findAll()
 	}
 	
-	List<DiagnosticResult> findByOrderSlip(UUID id) {
+	List<DiagnosticResult> findByOrderSlipItem(UUID id) {
 		return diagnosticsResultRepository.findByOrderSlipItem(id)
 	}
 }

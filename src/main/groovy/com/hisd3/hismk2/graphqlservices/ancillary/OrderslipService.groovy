@@ -27,9 +27,11 @@ class OrderslipService {
 	
 	@Autowired
 	ObjectMapper objectMapper
-	
+
+
 	//============== All Queries ====================
-	
+
+
 	@GraphQLQuery(name = "orderslips", description = "Get All Orderslips")
 	List<Orderslip> findAll() {
 		orderslipDao.findAll()
@@ -91,7 +93,7 @@ class OrderslipService {
 		oSlip = objectMapper.convertValue(fields.get("order"), Orderslip) as Orderslip
 		
 		def ordersItems
-		ordersItems = fields.get("requested") as ArrayList<OrderSlipItem>
+		ordersItems = fields.get("req") as ArrayList<OrderSlipItem>
 		ordersItems.each {
 			it ->
 				def order = objectMapper.convertValue(it, OrderSlipItem)
