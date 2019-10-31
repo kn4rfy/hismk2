@@ -41,7 +41,7 @@ class StockRequestService {
 	List<StockRequest> getStockRequestsByStatus(@GraphQLArgument(name = "status") String status) {
 		return stockRequestRepository.getStockRequestsByStatus(status)
 	}
-
+	
 	@GraphQLQuery(name = "searchStockRequest", description = "Search stock request")
 	List<StockRequest> searchStockRequest(@GraphQLArgument(name = "search") String search, @GraphQLArgument(name = "status") String status) {
 		return stockRequestRepository.searchStockRequest(search, status)

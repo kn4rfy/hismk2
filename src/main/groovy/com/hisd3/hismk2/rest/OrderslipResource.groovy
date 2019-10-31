@@ -36,25 +36,25 @@ class OrderslipResource {
 	
 	@Autowired
 	DiagnosticsResultRepository diagnosticsResultRepository
-
+	
 	@Autowired
 	SocketService socketService
-
+	
 	@RequestMapping(method = [RequestMethod.GET], value = "/api/testSend/{username}")
 	ResponseEntity<String> testSend(@PathVariable(value = "username") String username) {
 		HttpHeaders responseHeaders = new HttpHeaders()
-
+		
 		Message mes = new Message()
-			mes.from = "From server"
-			mes.message = "Sample Message"
-			mes.topic = "reload"
+		mes.from = "From server"
+		mes.message = "Sample Message"
+		mes.topic = "reload"
 		//socketService.helloWithPayload(mes)
-		socketService.helloToUser(mes,username)
-
-	return  new ResponseEntity(responseHeaders, HttpStatus.OK)
-
+		socketService.helloToUser(mes, username)
+		
+		return new ResponseEntity(responseHeaders, HttpStatus.OK)
+		
 	}
-
+	
 	@RequestMapping(method = [RequestMethod.GET], value = "/api/orderSlipItem/getImageResults/{id}")
 	ResponseEntity<ByteArray> getImageResults(@PathVariable(value = "id") String id) {
 		
@@ -65,7 +65,7 @@ class OrderslipResource {
 			if (resultImage.url_path != null) {
 //				NtlmPasswordAuthentication ntlmPasswordAuthentication = new NtlmPasswordAuthentication(null, "hisd3", "xsXY4;")
 				NtlmPasswordAuthentication ntlmPasswordAuthentication = new NtlmPasswordAuthentication(null, "administrator", "xsXY4;")
-
+				
 				SmbFile attachementfile = new SmbFile(resultImage.url_path, ntlmPasswordAuthentication)
 				
 				SmbFileInputStream inFile = new SmbFileInputStream(attachementfile)
@@ -148,7 +148,7 @@ class OrderslipResource {
 		try {
 //			NtlmPasswordAuthentication ntlmPasswordAuthentication = new NtlmPasswordAuthentication(null, "hisd3", "xsXY4;")
 			NtlmPasswordAuthentication ntlmPasswordAuthentication = new NtlmPasswordAuthentication(null, "administrator", "xsXY4;")
-
+			
 			def shared = "smb://127.0.0.1/Shared/"
 //			def shared = "smb://172.16.12.30/Diagnostics/HISMKII/"
 			SmbFile directory = new SmbFile(shared, ntlmPasswordAuthentication)

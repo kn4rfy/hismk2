@@ -1,9 +1,7 @@
 package com.hisd3.hismk2.graphqlservices.ancillary
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.hisd3.hismk2.dao.ancillary.DiagnosticResultDao
 import com.hisd3.hismk2.domain.ancillary.DiagnosticResult
-import com.hisd3.hismk2.services.GeneratorService
+import com.hisd3.hismk2.repository.ancillary.DiagnosticsResultRepository
 import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLArgument
 import io.leangen.graphql.annotations.GraphQLQuery
@@ -17,24 +15,18 @@ import org.springframework.stereotype.Component
 class DiagnosticResultService {
 	
 	@Autowired
-	DiagnosticResultDao diagnosticResultDao
-	
-	@Autowired
-	GeneratorService generatorService
-	
-	@Autowired
-	ObjectMapper objectMapper
+	private DiagnosticsResultRepository diagnosticsResultRepository
 	
 	//============== All Queries ====================
 	
-	@GraphQLQuery(name = "DiagnosticResults", description = "Get All Diagnostics Results")
+	@GraphQLQuery(name = "diagnosticResults", description = "Get All Diagnostics Results")
 	List<DiagnosticResult> findAll() {
-		diagnosticResultDao.findAll()
+		diagnosticsResultRepository.findAll()
 	}
 	
-	@GraphQLQuery(name = "ResultsByOrderSlip", description = "Get Results by OrderSilp")
-	List<DiagnosticResult> findByOrderSlipItem(@GraphQLArgument(name = "id") String id = "") {
-		diagnosticResultDao.findByOrderSlipItem(UUID.fromString(id))
+	@GraphQLQuery(name = "resultsByOrderSlip", description = "Get Results by OrderSilp")
+	List<DiagnosticResult> findByOrderSlipItem(@GraphQLArgument(name = "id") UUID id) {
+		diagnosticsResultRepository.findByOrderSlipItem(id)
 	}
 	
 }

@@ -9,9 +9,9 @@ import org.springframework.core.env.SimpleCommandLinePropertySource
 
 @SpringBootApplication
 class Hismk2Application {
-
+	
 	private static def log = LoggerFactory.getLogger(Hismk2Application)
-
+	
 	static void main(String[] args) {
 		
 		println("Starting HISD3 Application...")
@@ -33,10 +33,9 @@ class Hismk2Application {
 		
 		def end = System.currentTimeMillis()
 		log.warn("HISMK2 Started in : ${(end - start) / 1000} seconds")
-
-
+		
 	}
-
+	
 	static def addDefaultProfile(SpringApplication app,
 	                             SimpleCommandLinePropertySource propertySource) {
 		

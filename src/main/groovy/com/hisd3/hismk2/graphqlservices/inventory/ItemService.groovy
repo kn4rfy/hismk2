@@ -26,7 +26,7 @@ class ItemService {
 	List<Item> findByFilter(@GraphQLArgument(name = "filter") String filter) {
 		return itemRepository.itemsByFilter(filter).sort { it.descLong }
 	}
-
+	
 	@GraphQLQuery(name = "itemsByFilterLimited", description = "List of Items Limit 10")
 	List<Item> findByFilterLimited(@GraphQLArgument(name = "filter") String filter) {
 		return itemRepository.itemsByFilter(filter).sort { it.descLong }

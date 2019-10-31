@@ -34,16 +34,18 @@ class Orderslip extends AbstractAuditingEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "case_number", referencedColumnName = "id")
 	Case parentCase
-
-//	@Column(name = "department", columnDefinition = "uuid")
-//	UUID department
+	
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "department", referencedColumnName = "id")
+	Case department
 	
 	@Column(name = "doctors_order", columnDefinition = "uuid")
 	UUID doctorsOrder
-
+	
 	@Column(name = "requesting_physician", columnDefinition = "uuid")
 	UUID requestingPhysician
-
+	
 	@GraphQLQuery
 	@Column(name = "requesting_physician_name", columnDefinition = "varchar")
 	String requestingPhysicianName
@@ -63,7 +65,7 @@ class Orderslip extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "status", columnDefinition = "varchar")
 	String status
-
+	
 	@GraphQLQuery
 	@Column(name = "notes", columnDefinition = "varchar")
 	String notes

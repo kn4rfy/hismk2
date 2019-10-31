@@ -27,11 +27,9 @@ class OrderslipService {
 	
 	@Autowired
 	ObjectMapper objectMapper
-
-
+	
 	//============== All Queries ====================
-
-
+	
 	@GraphQLQuery(name = "orderslips", description = "Get All Orderslips")
 	List<Orderslip> findAll() {
 		orderslipDao.findAll()
@@ -56,7 +54,7 @@ class OrderslipService {
 	
 	@GraphQLQuery(name = "orderslipsByCase", description = "Get All Orderslips by case")
 	List<DiagnosticsResultsDto> findByCase(
-			@GraphQLArgument(name = "id") String id
+			@GraphQLArgument(name = "id") UUID id
 	) {
 		
 		return orderslipDao.findByCase(id)

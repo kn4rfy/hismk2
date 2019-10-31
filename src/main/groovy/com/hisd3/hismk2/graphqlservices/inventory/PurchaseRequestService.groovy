@@ -230,8 +230,8 @@ class PurchaseRequestService {
 				}
 				
 				if (dto) {
-                    dto.prNo  = dto.prNo.concat(","+entry.prNo);
-
+					dto.prNo = dto.prNo.concat("," + entry.prNo)
+					
 					dto.qty += entry.qty
 				} else {
 					poItemList2.add(entry)

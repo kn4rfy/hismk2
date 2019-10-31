@@ -30,7 +30,7 @@ class PurchaseRequestItem extends AbstractAuditingEntity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "`ref_pr`", referencedColumnName = "id")
 	PurchaseRequest refPr
-
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "`ref_po`", referencedColumnName = "id")
