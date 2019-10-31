@@ -16,13 +16,13 @@ class SocketController {
     ObjectMapper objectMapper
 
     @MessageMapping("/ws")
-    @SendTo("/topic/hello")
+    @SendTo("/channel/hello")
     protected String hello(String world) {
         return "Hello Message From Backend, ${world}!"
     }
 
     @MessageMapping("/ws/{topic}")
-    @SendTo("/topic/messages")
+    @SendTo("/channel/messages")
     Message send(@DestinationVariable("topic") String topic,
                  Map<String, Object> message)  throws Exception
     {

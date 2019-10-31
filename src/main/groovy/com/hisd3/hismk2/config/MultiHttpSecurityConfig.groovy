@@ -125,9 +125,9 @@ class MultiHttpSecurityConfig {
 					.antMatchers("/graphql/**").authenticated()
 					.antMatchers("/graphiql/**").authenticated()
 					.antMatchers("/api/**").authenticated()
+					.antMatchers("/ws/**").authenticated()
 					.antMatchers("/ping").permitAll()
 					.antMatchers("/public/**").permitAll()
-					.antMatchers("/chat/**").permitAll()
 					.antMatchers("/").permitAll()
 		}
 	}

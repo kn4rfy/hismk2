@@ -22,11 +22,11 @@ class SocketService {
     SimpMessagingTemplate simpMessagingTemplate
 
     void helloWithPayload(Message payload) {
-        simpMessagingTemplate.convertAndSend("/topic/hello", payload)
+        simpMessagingTemplate.convertAndSend("/channel/hello", payload)
     }
 
-    void helloToUser(Message payload) {
-        simpMessagingTemplate.convertAndSendToUser("admin","/topic/hello", payload)
+    void helloToUser(Message payload,String user = 'admin') {
+        simpMessagingTemplate.convertAndSendToUser(user,"/channel/hello", payload)
     }
 
 }

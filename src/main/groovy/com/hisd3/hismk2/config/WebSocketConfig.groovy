@@ -13,7 +13,7 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry
     @Override
      void configureMessageBroker(MessageBrokerRegistry config)
     {
-        config.enableSimpleBroker("/topic")
+        config.enableSimpleBroker("/channel")
         config.setApplicationDestinationPrefixes("/app")
     }
 

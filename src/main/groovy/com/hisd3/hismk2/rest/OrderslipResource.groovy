@@ -40,16 +40,16 @@ class OrderslipResource {
 	@Autowired
 	SocketService socketService
 
-	@RequestMapping(method = [RequestMethod.GET], value = "/api/testSend")
-	ResponseEntity<String> testSend() {
+	@RequestMapping(method = [RequestMethod.GET], value = "/api/testSend/{username}")
+	ResponseEntity<String> testSend(@PathVariable(value = "username") String username) {
 		HttpHeaders responseHeaders = new HttpHeaders()
 
 		Message mes = new Message()
 			mes.from = "From server"
 			mes.message = "Sample Message"
 			mes.topic = "reload"
-		socketService.helloWithPayload(mes)
-		//socketService.helloToUser(mes)
+		//socketService.helloWithPayload(mes)
+		socketService.helloToUser(mes,username)
 
 	return  new ResponseEntity(responseHeaders, HttpStatus.OK)
 
