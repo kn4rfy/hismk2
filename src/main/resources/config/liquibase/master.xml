@@ -207,4 +207,6 @@
     <include file="classpath:config/liquibase/changelog/77_crisnil_alter_orderslip.sql"
              relativeToChangelogFile="false"/>
 
+    <include file="classpath:config/liquibase/changelog/80_jp_changecolumntype.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>

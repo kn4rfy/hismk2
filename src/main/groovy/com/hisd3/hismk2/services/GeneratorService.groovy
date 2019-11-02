@@ -12,7 +12,8 @@ enum GeneratorType {
 	RR_NO,
 	BILLING_NO,
 	PR_NO,
-	STOCK_REQUEST_NO
+	STOCK_REQUEST_NO,
+	PO_NO
 }
 
 @Service

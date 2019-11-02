@@ -1,7 +1,7 @@
 package com.hisd3.hismk2.rest.dto
 
 class PurchaseOrderDto {
-	UUID id
+	UUID refItemId
 	String prNo
 	String dept
 	String itemCode
