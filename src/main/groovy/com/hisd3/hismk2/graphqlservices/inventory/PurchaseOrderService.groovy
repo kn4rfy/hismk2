@@ -51,7 +51,7 @@ class PurchaseOrderService {
 			purchaseOrder = purchaseOrderRepository.findById(UUID.fromString(fields.get('id').toString())).get()
 			
 		} else {
-			//purchaseOrder.supplier = UUID.fromString(fields.get('supplier').toString())
+			purchaseOrder.supplier = UUID.fromString(fields.get('supplier').toString())
 			purchaseOrder.paymentTerms = fields.get('paymentTerms').toString()
 			purchaseOrder.deliveryTerms = fields.get('deliveryTerms').toString()
 			purchaseOrder.poNumber = generatorService?.getNextValue(GeneratorType.PO_NO, { i ->
