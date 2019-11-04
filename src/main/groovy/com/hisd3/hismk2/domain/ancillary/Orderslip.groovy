@@ -1,6 +1,7 @@
 package com.hisd3.hismk2.domain.ancillary
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
+import com.hisd3.hismk2.domain.Department
 import com.hisd3.hismk2.domain.pms.Case
 import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLQuery
@@ -38,7 +39,7 @@ class Orderslip extends AbstractAuditingEntity {
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "department", referencedColumnName = "id")
-	Case department
+	Department department
 	
 	@Column(name = "doctors_order", columnDefinition = "uuid")
 	UUID doctorsOrder
@@ -52,7 +53,7 @@ class Orderslip extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Column(name = "orderslip_no", columnDefinition = "varchar")
-	String orderslipNo
+	String orderSlipNo
 
 //	@GraphQLQuery
 //	@Column(name = "time_started", columnDefinition = "timestamp")

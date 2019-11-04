@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.dao.ancillary.OrderslipDao
 import com.hisd3.hismk2.domain.ancillary.OrderSlipItem
 import com.hisd3.hismk2.domain.ancillary.Orderslip
-import com.hisd3.hismk2.rest.dto.DiagnosticsResultsDto
+import com.hisd3.hismk2.repository.ancillary.OrderSlipItemRepository
+import com.hisd3.hismk2.repository.ancillary.OrderslipRepository
 import com.hisd3.hismk2.services.GeneratorService
 import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLArgument
+import io.leangen.graphql.annotations.GraphQLContext
 import io.leangen.graphql.annotations.GraphQLMutation
 import io.leangen.graphql.annotations.GraphQLQuery
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi
@@ -18,6 +20,12 @@ import org.springframework.stereotype.Component
 @Component
 @GraphQLApi
 class OrderslipService {
+	
+	@Autowired
+	private OrderslipRepository orderslipRepository
+	
+	@Autowired
+	private OrderSlipItemRepository orderSlipItemRepository
 	
 	@Autowired
 	OrderslipDao orderslipDao
@@ -32,50 +40,37 @@ class OrderslipService {
 	
 	@GraphQLQuery(name = "orderslips", description = "Get All Orderslips")
 	List<Orderslip> findAll() {
-		orderslipDao.findAll()
+		orderslipRepository.findAll()
+	}
+	
+	@GraphQLQuery(name = "orderSlip", description = "Get OrderSlip By Id")
+	Orderslip findById(@GraphQLArgument(name = "id") UUID id) {
+		return orderslipRepository.findById(id).get()
 	}
 	
 	@GraphQLQuery(name = "orderslipsByPatientType", description = "Get All Orderslips by Department")
-	List<Orderslip> orderslipsByPatientType(
-			@GraphQLArgument(name = "type") String type = "",
-			@GraphQLArgument(name = "filter") String filter = ""
-	) {
-		
-		return orderslipDao.filterByPatientType(type, filter)
+	List<Orderslip> orderslipsByPatientType(@GraphQLArgument(name = "type") String type = "", @GraphQLArgument(name = "filter") String filter = "") {
+		orderslipRepository.filterByPatientType(type, filter)
 	}
 	
-	@GraphQLQuery(name = "orderslipsByDepartment", description = "Get All Orderslips by Department")
-	List<Orderslip> findByDepartment(
-			@GraphQLArgument(name = "id") String id = ""
-	) {
-		
-		return orderslipDao.findByDepartment(id)
+	@GraphQLQuery(name = "orderSlipsByCase", description = "Get All Order Slips by Case")
+	List<Orderslip> findByCase(@GraphQLArgument(name = "id") UUID id) {
+		orderslipRepository.getOrderslipsByCase(id)
 	}
 	
-	@GraphQLQuery(name = "orderslipsByCase", description = "Get All Orderslips by case")
-	List<DiagnosticsResultsDto> findByCase(
-			@GraphQLArgument(name = "id") UUID id
-	) {
-		
-		return orderslipDao.findByCase(id)
+	@GraphQLQuery(name = "orderSlipsByNo", description = "Get All Orderslips by OrderSlip No")
+	List<Orderslip> getByOrderSlipNo(@GraphQLArgument(name = "orderSlipNo") String orderSlipNo) {
+		orderslipRepository.getByOrderSlipNo(orderSlipNo)
 	}
 	
-	@GraphQLQuery(name = "findByOrderNoAndCase", description = "Get All Orderslips by orderno and case")
-	List<DiagnosticsResultsDto> findByOrderNoAndCase(
-			@GraphQLArgument(name = "orderNo") String orderNo,
-			@GraphQLArgument(name = "parentCase") String parentCase
-	) {
-		
-		return orderslipDao.findByOrderNoAndCase(orderNo, parentCase)
+	@GraphQLQuery(name = "orderSlipsByDepartment", description = "Get All Orderslips by Department")
+	List<Orderslip> getByOrderSlipDepartment(@GraphQLArgument(name = "departmentId") UUID departmentId) {
+		orderslipRepository.getByOrderSlipDepartment(departmentId)
 	}
 	
-	@GraphQLQuery(name = "orderslipsByCaseAndDepartment", description = "Get All Orderslips filter by case and department")
-	List<DiagnosticsResultsDto> findByCaseAndDeparment(
-			@GraphQLArgument(name = "id") String id,
-			@GraphQLArgument(name = "departmentId") String departmentId
-	) {
-		return orderslipDao.findByCaseAndDepartment(id, departmentId)
-		
+	@GraphQLQuery(name = "orderSlipItems", description = "Get all OrderSlip Items")
+	List<OrderSlipItem> getOrderSlipItems(@GraphQLContext Orderslip orderslip) {
+		orderSlipItemRepository.getByOrderSlip(orderslip.id).sort { it.created }
 	}
 	
 	//============== All Mutations ====================
@@ -91,7 +86,7 @@ class OrderslipService {
 		oSlip = objectMapper.convertValue(fields.get("order"), Orderslip) as Orderslip
 		
 		def ordersItems
-		ordersItems = fields.get("req") as ArrayList<OrderSlipItem>
+		ordersItems = fields.get("requested") as ArrayList<OrderSlipItem>
 		ordersItems.each {
 			it ->
 				def order = objectMapper.convertValue(it, OrderSlipItem)

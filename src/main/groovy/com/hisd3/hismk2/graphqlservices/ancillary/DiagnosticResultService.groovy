@@ -28,5 +28,4 @@ class DiagnosticResultService {
 	List<DiagnosticResult> findByOrderSlipItem(@GraphQLArgument(name = "id") UUID id) {
 		diagnosticsResultRepository.findByOrderSlipItem(id)
 	}
-	
 }

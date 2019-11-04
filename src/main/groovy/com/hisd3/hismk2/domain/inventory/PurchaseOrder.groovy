@@ -21,27 +21,27 @@ class PurchaseOrder extends AbstractAuditingEntity {
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
-
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "`supplier`", referencedColumnName = "id")
 	Supplier supplier
-
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "`prepared_by`", referencedColumnName = "id")
 	Employee preparedBy
-
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "`approvedBy`", referencedColumnName = "id")
 	Employee approvedBy
-
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "`reviewed_by`", referencedColumnName = "id")
 	Employee reviewdBy
-
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "`sent_by`", referencedColumnName = "id")

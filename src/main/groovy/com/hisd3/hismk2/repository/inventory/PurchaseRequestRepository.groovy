@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 
 interface PurchaseRequestRepository extends JpaRepository<PurchaseRequest, UUID> {
-    @Query(value="select pr from PurchaseRequest pr where pr.prNo = :prNo")
-    PurchaseRequest getByPrNo(@Param('prNo') String prNo)
+	@Query(value = "select pr from PurchaseRequest pr where pr.prNo = :prNo")
+	PurchaseRequest getByPrNo(@Param('prNo') String prNo)
 }
