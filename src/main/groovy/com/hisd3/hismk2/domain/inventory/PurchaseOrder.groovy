@@ -1,8 +1,11 @@
 package com.hisd3.hismk2.domain.inventory
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
+import com.hisd3.hismk2.domain.hrm.Employee
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
+import org.hibernate.annotations.NotFound
+import org.hibernate.annotations.NotFoundAction
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
@@ -18,26 +21,31 @@ class PurchaseOrder extends AbstractAuditingEntity {
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
-	
-	@GraphQLQuery
-	@Column(name = "supplier", columnDefinition = "uuid")
-	UUID supplier
-	
-	@GraphQLQuery
-	@Column(name = "prepared_by", columnDefinition = "uuid")
-	UUID preparedBy
-	
-	@GraphQLQuery
-	@Column(name = "approved_by", columnDefinition = "uuid")
-	UUID approvedBy
-	
-	@GraphQLQuery
-	@Column(name = "reviewed_by", columnDefinition = "uuid")
-	UUID reviewdBy
-	
-	@GraphQLQuery
-	@Column(name = "sent_by", columnDefinition = "uuid")
-	UUID sentBy
+
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "`supplier`", referencedColumnName = "id")
+	Supplier supplier
+
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "`prepared_by`", referencedColumnName = "id")
+	Employee preparedBy
+
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "`approvedBy`", referencedColumnName = "id")
+	Employee approvedBy
+
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "`reviewed_by`", referencedColumnName = "id")
+	Employee reviewdBy
+
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "`sent_by`", referencedColumnName = "id")
+	Employee sentBy
 	
 	@GraphQLQuery
 	@Column(name = "sent_date", columnDefinition = "timestamp")
@@ -72,8 +80,8 @@ class PurchaseOrder extends AbstractAuditingEntity {
 	String status
 	
 	@GraphQLQuery
-	@Column(name = "po_number", columnDefinition = "numeric")
-	Integer poNumber
+	@Column(name = "po_number", columnDefinition = "varchar")
+	String poNumber
 	
 	@GraphQLQuery
 	@Column(name = "prepared_by_signature", columnDefinition = "bytea")

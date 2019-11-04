@@ -207,7 +207,7 @@ class PurchaseRequestService {
 					it3 ->
 						if (it3.refItem.id == it.item.id) {
 							PurchaseOrderDto dto = new PurchaseOrderDto()
-							dto.id = it3.refItem.id
+							dto.refItemId = it3.refItem.id
 							dto.prNo = it3.refPr.prNo
 							dto.description = it3.refItem.descLong
 							dto.itemCode = it3.refItem.stockCode
@@ -226,7 +226,7 @@ class PurchaseRequestService {
 			} else {
 				def dto = poItemList2.find {
 					PurchaseOrderDto dto ->
-						(dto.id == entry.id)
+						(dto.refItemId == entry.refItemId)
 				}
 				
 				if (dto) {
