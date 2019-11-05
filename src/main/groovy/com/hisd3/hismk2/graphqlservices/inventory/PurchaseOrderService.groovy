@@ -3,11 +3,7 @@ package com.hisd3.hismk2.graphqlservices.inventory
 import com.hisd3.hismk2.domain.inventory.PurchaseOrder
 import com.hisd3.hismk2.domain.inventory.PurchaseOrderItems
 import com.hisd3.hismk2.domain.inventory.PurchaseRequestItem
-import com.hisd3.hismk2.repository.inventory.PurchaseOrderItemRepository
-import com.hisd3.hismk2.repository.inventory.PurchaseOrderRepository
-import com.hisd3.hismk2.repository.inventory.PurchaseRequestItemRepository
-import com.hisd3.hismk2.repository.inventory.PurchaseRequestRepository
-import com.hisd3.hismk2.repository.inventory.SupplierRepository
+import com.hisd3.hismk2.repository.inventory.*
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
 import groovy.transform.TypeChecked
@@ -35,7 +31,7 @@ class PurchaseOrderService {
 	
 	@Autowired
 	PurchaseRequestRepository purchaseRequestRepository
-
+	
 	@Autowired
 	SupplierRepository supplierRepository
 	

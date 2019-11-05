@@ -98,7 +98,7 @@ class PatientService {
 			Department department = departmentRepository.findById(UUID.fromString(departmentId)).get()
 			
 			patientObj.patientNo = generatorService.getNextValue(GeneratorType.PATIENT_NO) { Long no ->
-				StringUtils.leftPad(no.toString(), 5, "0")
+				StringUtils.leftPad(no.toString(), 6, "0")
 			}
 			def patient = patientRepository.save(patientObj)
 			
