@@ -7,6 +7,7 @@ import com.hisd3.hismk2.repository.inventory.PurchaseOrderItemRepository
 import com.hisd3.hismk2.repository.inventory.PurchaseOrderRepository
 import com.hisd3.hismk2.repository.inventory.PurchaseRequestItemRepository
 import com.hisd3.hismk2.repository.inventory.PurchaseRequestRepository
+import com.hisd3.hismk2.repository.inventory.SupplierRepository
 import com.hisd3.hismk2.services.GeneratorService
 import com.hisd3.hismk2.services.GeneratorType
 import groovy.transform.TypeChecked
@@ -34,6 +35,9 @@ class PurchaseOrderService {
 	
 	@Autowired
 	PurchaseRequestRepository purchaseRequestRepository
+
+	@Autowired
+	SupplierRepository supplierRepository
 	
 	@Autowired
 	GeneratorService generatorService
@@ -51,7 +55,7 @@ class PurchaseOrderService {
 			purchaseOrder = purchaseOrderRepository.findById(UUID.fromString(fields.get('id').toString())).get()
 			
 		} else {
-			purchaseOrder.supplier = UUID.fromString(fields.get('supplier').toString())
+			purchaseOrder.supplier = supplierRepository.findById(UUID.fromString(fields.get('supplier').toString())).get()
 			purchaseOrder.paymentTerms = fields.get('paymentTerms').toString()
 			purchaseOrder.deliveryTerms = fields.get('deliveryTerms').toString()
 			purchaseOrder.poNumber = generatorService?.getNextValue(GeneratorType.PO_NO, { i ->
