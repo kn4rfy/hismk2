@@ -111,7 +111,6 @@ class MultiHttpSecurityConfig {
 					.failureHandler(failureHandler())
 					.usernameParameter("username")
 					.passwordParameter("password")
-			//.defaultSuccessUrl("/graphiql")
 					.and()
 					.httpBasic()
 					.and()

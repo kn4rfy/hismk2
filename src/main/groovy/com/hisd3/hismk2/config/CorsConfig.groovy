@@ -16,7 +16,8 @@ class CorsConfig {
 		def source = new UrlBasedCorsConfigurationSource()
 		def config = new CorsConfiguration()
 		config.allowCredentials = true
-		config.allowedOrigins = Arrays.asList("http://localhost:8000")
+		// TODO update allowed origins when deployed to server
+		config.allowedOrigins = Arrays.asList("*")
 		config.allowedMethods = Collections.singletonList("*")
 		config.allowedHeaders = Collections.singletonList("*")
 		config.maxAge = 3600
