@@ -37,10 +37,18 @@ class PurchaseOrderService {
 	
 	@Autowired
 	GeneratorService generatorService
+
+	@Autowired
+	ItemRepository itemRepository
 	
 	@GraphQLQuery(name = "poList", description = "list of all purchase order")
 	List<PurchaseOrder> poList() {
 		return purchaseOrderRepository.findAll()
+	}
+
+	@GraphQLQuery(name = "poItemList", description = "list of all purchase order")
+	List<PurchaseOrderItems> poItemList(@GraphQLArgument(name= "poId") UUID poId) {
+		return purchaseOrderItemRepository.findByPurchaseOrderId(poId)
 	}
 	
 	@GraphQLMutation(name = "upSertPurchaseOrder", description = "upsert po")
@@ -61,16 +69,17 @@ class PurchaseOrderService {
 			if (items.size() != 0) {
 				items.eachWithIndex { Map<String, Object> entry, int i ->
 					def dto = new PurchaseOrderItems()
-					dto.item = UUID.fromString(entry.get('refItemId').toString())
-					dto.purchaseOrder = purchaseOrder.id
+					dto.item = itemRepository.findById(UUID.fromString(entry.get('refItemId').toString())).get()
+					dto.purchaseOrder = pOrder
 					dto.quantity = entry.get('qty') as Integer
 					dto.supplierLastPrice = entry.get('pkg_price') as Integer
+					dto.prNos = entry.get('prNo') as String
 					def prNo = entry.get('prNo').toString().split(',')
 					prNo.eachWithIndex { String prNos, int idx ->
 						List<PurchaseRequestItem> prItems = purchaseRequestItemRepository.findByPrNo(prNos)
 						
 						prItems.eachWithIndex { PurchaseRequestItem prItem, int prIdx ->
-							if (prItem.refItem.id == dto.item) {
+							if (prItem.refItem.id == UUID.fromString(entry.get('refItemId').toString())) {
 								prItem.refPo = pOrder
 								purchaseRequestItemRepository.save(prItem)
 							}

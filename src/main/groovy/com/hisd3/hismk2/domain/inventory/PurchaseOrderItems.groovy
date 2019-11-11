@@ -3,6 +3,8 @@ package com.hisd3.hismk2.domain.inventory
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
+import org.hibernate.annotations.NotFound
+import org.hibernate.annotations.NotFoundAction
 import org.hibernate.annotations.Type
 
 import javax.persistence.*
@@ -18,14 +20,20 @@ class PurchaseOrderItems extends AbstractAuditingEntity {
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
-	
-	@GraphQLQuery
-	@Column(name = "item", columnDefinition = "uuid")
-	UUID item
+
+
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "item", referencedColumnName = "id")
+	Item item
 	
 	@GraphQLQuery
 	@Column(name = "quantity", columnDefinition = "numeric")
 	Integer quantity
+
+	@GraphQLQuery
+	@Column(name = "pr_nos", columnDefinition = "varchar")
+	String prNos
 	
 	@GraphQLQuery
 	@Column(name = "unit_measure", columnDefinition = "varchar")
@@ -34,10 +42,12 @@ class PurchaseOrderItems extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "date_completed", columnDefinition = "timestamp")
 	LocalDateTime dateCompleted
-	
-	@GraphQLQuery
-	@Column(name = "purchase_order", columnDefinition = "uuid")
-	UUID purchaseOrder
+
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "purchase_order", referencedColumnName = "id")
+	PurchaseOrder purchaseOrder
+
 	
 	@GraphQLQuery
 	@Column(name = "receiving_report", columnDefinition = "uuid")
