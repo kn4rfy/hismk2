@@ -1,6 +1,7 @@
 package com.hisd3.hismk2.domain.pms
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
+import com.hisd3.hismk2.domain.hrm.Employee
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.NotFound
@@ -58,4 +59,9 @@ class Intake extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
 	Instant entryDateTime
+	
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "employee", referencedColumnName = "id")
+	Employee employee
 }

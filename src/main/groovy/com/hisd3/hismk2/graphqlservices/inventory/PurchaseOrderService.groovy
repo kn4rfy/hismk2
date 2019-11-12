@@ -37,7 +37,7 @@ class PurchaseOrderService {
 	
 	@Autowired
 	GeneratorService generatorService
-
+	
 	@Autowired
 	ItemRepository itemRepository
 	
@@ -45,9 +45,9 @@ class PurchaseOrderService {
 	List<PurchaseOrder> poList() {
 		return purchaseOrderRepository.findAll()
 	}
-
+	
 	@GraphQLQuery(name = "poItemList", description = "list of all purchase order")
-	List<PurchaseOrderItems> poItemList(@GraphQLArgument(name= "poId") UUID poId) {
+	List<PurchaseOrderItems> poItemList(@GraphQLArgument(name = "poId") UUID poId) {
 		return purchaseOrderItemRepository.findByPurchaseOrderId(poId)
 	}
 	

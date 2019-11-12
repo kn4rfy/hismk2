@@ -20,8 +20,7 @@ class PurchaseOrderItems extends AbstractAuditingEntity {
 	@Column(name = "id", columnDefinition = "uuid")
 	@Type(type = "pg-uuid")
 	UUID id
-
-
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "item", referencedColumnName = "id")
@@ -30,7 +29,7 @@ class PurchaseOrderItems extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "quantity", columnDefinition = "numeric")
 	Integer quantity
-
+	
 	@GraphQLQuery
 	@Column(name = "pr_nos", columnDefinition = "varchar")
 	String prNos
@@ -42,12 +41,11 @@ class PurchaseOrderItems extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "date_completed", columnDefinition = "timestamp")
 	LocalDateTime dateCompleted
-
+	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "purchase_order", referencedColumnName = "id")
 	PurchaseOrder purchaseOrder
-
 	
 	@GraphQLQuery
 	@Column(name = "receiving_report", columnDefinition = "uuid")

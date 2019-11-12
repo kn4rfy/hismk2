@@ -1,7 +1,6 @@
 package com.hisd3.hismk2.domain.pms
 
 import com.hisd3.hismk2.domain.AbstractAuditingEntity
-import com.hisd3.hismk2.domain.hrm.Employee
 import io.leangen.graphql.annotations.GraphQLQuery
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.NotFound
@@ -12,8 +11,8 @@ import javax.persistence.*
 import java.time.Instant
 
 @Entity
-@Table(schema = "pms", name = "nurse_notes")
-class NurseNote extends AbstractAuditingEntity {
+@Table(schema = "pms", name = "doctor_order_item")
+class DoctorOrderItem extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Id
@@ -25,29 +24,20 @@ class NurseNote extends AbstractAuditingEntity {
 	
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "`case`", referencedColumnName = "id")
-	Case parentCase
+	@JoinColumn(name = "doctor_order", referencedColumnName = "id")
+	DoctorOrder doctorOrder
 	
 	@GraphQLQuery
-	@Column(name = "focus", columnDefinition = "varchar")
-	String focus
+	@Column(name = "order", columnDefinition = "varchar")
+	String order
 	
 	@GraphQLQuery
-	@Column(name = "data", columnDefinition = "varchar")
-	String data
+	@Column(name = "type", columnDefinition = "varchar")
+	String type
 	
 	@GraphQLQuery
-	@Column(name = "action", columnDefinition = "varchar")
-	String action
-	
-	@GraphQLQuery
-	@Column(name = "response", columnDefinition = "varchar")
-	String response
-	
-	@NotFound(action = NotFoundAction.IGNORE)
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "employee", referencedColumnName = "id")
-	Employee employee
+	@Column(name = "status", columnDefinition = "varchar")
+	String status
 	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")

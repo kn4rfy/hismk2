@@ -12,8 +12,8 @@ import javax.persistence.*
 import java.time.Instant
 
 @Entity
-@Table(schema = "pms", name = "vital_signs")
-class VitalSign extends AbstractAuditingEntity {
+@Table(schema = "pms", name = "doctor_orders")
+class DoctorOrder extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
 	@Id
@@ -28,36 +28,12 @@ class VitalSign extends AbstractAuditingEntity {
 	@JoinColumn(name = "`case`", referencedColumnName = "id")
 	Case parentCase
 	
-	@GraphQLQuery
-	@Column(name = "systolic", columnDefinition = "varchar")
-	String systolic
-	
-	@GraphQLQuery
-	@Column(name = "diastolic", columnDefinition = "varchar")
-	String diastolic
-	
-	@GraphQLQuery
-	@Column(name = "temperature", columnDefinition = "varchar")
-	String temperature
-	
-	@GraphQLQuery
-	@Column(name = "pulse_rate", columnDefinition = "varchar")
-	String pulseRate
-	
-	@GraphQLQuery
-	@Column(name = "respiratory_rate", columnDefinition = "varchar")
-	String respiratoryRate
-	
-	@GraphQLQuery
-	@Column(name = "oxygen_saturation", columnDefinition = "varchar")
-	String oxygenSaturation
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "employee", referencedColumnName = "id")
+	Employee orderingPhysician
 	
 	@GraphQLQuery
 	@Column(name = "entry_datetime", columnDefinition = "timestamp")
 	Instant entryDateTime
-	
-	@NotFound(action = NotFoundAction.IGNORE)
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "employee", referencedColumnName = "id")
-	Employee employee
 }
