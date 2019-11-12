@@ -23,7 +23,7 @@ create table pms.doctor_order_item
   entry_datetime     timestamp(6) default CURRENT_TIMESTAMP,
   "order"            varchar(255),
   type               varchar(10),
-  status             varchar(10),
+  status             varchar(10) default 'PENDING',
   doctor_order       uuid
     constraint fk_doctor_order_item_doctor_order
       references pms.doctor_order
