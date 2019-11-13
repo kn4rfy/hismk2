@@ -57,36 +57,52 @@ class PurchaseOrderService {
 		
 		if (fields.get('id')) {
 			purchaseOrder = purchaseOrderRepository.findById(UUID.fromString(fields.get('id').toString())).get()
-			
+			if(fields.get('status')){
+				purchaseOrder.status = fields.get('status')
+			}
+			purchaseOrderRepository.save(purchaseOrder)
 		} else {
 			purchaseOrder.supplier = supplierRepository.findById(UUID.fromString(fields.get('supplier').toString())).get()
 			purchaseOrder.paymentTerms = fields.get('paymentTerms').toString()
 			purchaseOrder.deliveryTerms = fields.get('deliveryTerms').toString()
+			purchaseOrder.status = "NEW"
 			purchaseOrder.poNumber = generatorService?.getNextValue(GeneratorType.PO_NO, { i ->
 				StringUtils.leftPad(i.toString(), 6, "0")
 			})
 			PurchaseOrder pOrder = purchaseOrderRepository.save(purchaseOrder)
 			if (items.size() != 0) {
-				items.eachWithIndex { Map<String, Object> entry, int i ->
-					def dto = new PurchaseOrderItems()
-					dto.item = itemRepository.findById(UUID.fromString(entry.get('refItemId').toString())).get()
-					dto.purchaseOrder = pOrder
-					dto.quantity = entry.get('qty') as Integer
-					dto.supplierLastPrice = entry.get('pkg_price') as Integer
-					dto.prNos = entry.get('prNo') as String
-					def prNo = entry.get('prNo').toString().split(',')
-					prNo.eachWithIndex { String prNos, int idx ->
-						List<PurchaseRequestItem> prItems = purchaseRequestItemRepository.findByPrNo(prNos)
-						
-						prItems.eachWithIndex { PurchaseRequestItem prItem, int prIdx ->
-							if (prItem.refItem.id == UUID.fromString(entry.get('refItemId').toString())) {
-								prItem.refPo = pOrder
-								purchaseRequestItemRepository.save(prItem)
+				if(fields.get('noPr') as Boolean){
+					purchaseOrder.noPr = fields.get('noPr') as Boolean
+					items.eachWithIndex { Map<String, Object> entry, int i ->
+						def dto = new PurchaseOrderItems()
+						dto.item = itemRepository.findById(UUID.fromString(entry.get('refItemId').toString())).get()
+						dto.purchaseOrder = pOrder
+						dto.quantity = entry.get('qty') as Integer
+						dto.supplierLastPrice = entry.get('pkg_price') as Integer
+
+						purchaseOrderItemRepository.save(dto)
+					}
+				}else{
+					items.eachWithIndex { Map<String, Object> entry, int i ->
+						def dto = new PurchaseOrderItems()
+						dto.item = itemRepository.findById(UUID.fromString(entry.get('refItemId').toString())).get()
+						dto.purchaseOrder = pOrder
+						dto.quantity = entry.get('qty') as Integer
+						dto.supplierLastPrice = entry.get('pkg_price') as Integer
+						dto.prNos = entry.get('prNo') as String
+						def prNo = entry.get('prNo').toString().split(',')
+						prNo.eachWithIndex { String prNos, int idx ->
+							List<PurchaseRequestItem> prItems = purchaseRequestItemRepository.findByPrNo(prNos)
+
+							prItems.eachWithIndex { PurchaseRequestItem prItem, int prIdx ->
+								if (prItem.refItem.id == UUID.fromString(entry.get('refItemId').toString())) {
+									prItem.refPo = pOrder
+									purchaseRequestItemRepository.save(prItem)
+								}
 							}
 						}
+
 					}
-					
-					purchaseOrderItemRepository.save(dto)
 				}
 			}
 		}
