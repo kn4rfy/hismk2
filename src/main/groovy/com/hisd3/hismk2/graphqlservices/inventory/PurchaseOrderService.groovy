@@ -83,6 +83,7 @@ class PurchaseOrderService {
 						purchaseOrderItemRepository.save(dto)
 					}
 				}else{
+					purchaseOrder.noPr = fields.get('noPr') as Boolean
 					items.eachWithIndex { Map<String, Object> entry, int i ->
 						def dto = new PurchaseOrderItems()
 						dto.item = itemRepository.findById(UUID.fromString(entry.get('refItemId').toString())).get()
@@ -101,6 +102,8 @@ class PurchaseOrderService {
 								}
 							}
 						}
+						purchaseOrderItemRepository.save(dto)
+
 
 					}
 				}
