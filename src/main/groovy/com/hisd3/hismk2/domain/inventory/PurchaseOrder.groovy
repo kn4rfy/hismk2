@@ -150,7 +150,7 @@ class PurchaseOrder extends AbstractAuditingEntity {
 	@GraphQLQuery
 	@Column(name = "po_sent_to_supplier", columnDefinition = "bool")
 	Boolean poSentToSupplier
-
+	
 	@GraphQLQuery
 	@Column(name = "no_pr", columnDefinition = "bool")
 	Boolean noPr
