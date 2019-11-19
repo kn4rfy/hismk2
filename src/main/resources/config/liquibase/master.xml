@@ -219,4 +219,6 @@
 
     <include file="classpath:config/liquibase/changelog/82_jp_addnewcolum.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/82_kn4rfy_update_doctor_orders.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>

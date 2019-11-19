@@ -11,7 +11,7 @@ import javax.persistence.*
 import java.time.Instant
 
 @Entity
-@Table(schema = "pms", name = "doctor_order_item")
+@Table(schema = "pms", name = "doctor_order_items")
 class DoctorOrderItem extends AbstractAuditingEntity {
 	
 	@GraphQLQuery
@@ -28,7 +28,7 @@ class DoctorOrderItem extends AbstractAuditingEntity {
 	DoctorOrder doctorOrder
 	
 	@GraphQLQuery
-	@Column(name = "order", columnDefinition = "varchar")
+	@Column(name = "`order`", columnDefinition = "varchar")
 	String order
 	
 	@GraphQLQuery
