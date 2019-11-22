@@ -221,4 +221,6 @@
              relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/82_kn4rfy_update_doctor_orders.sql"
              relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/83_kn4rfy_doctor_orders_progress_notes.sql"
+             relativeToChangelogFile="false"/>
 </databaseChangeLog>

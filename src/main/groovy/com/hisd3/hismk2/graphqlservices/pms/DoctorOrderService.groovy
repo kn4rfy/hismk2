@@ -3,7 +3,9 @@ package com.hisd3.hismk2.graphqlservices.pms
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hisd3.hismk2.domain.pms.DoctorOrder
 import com.hisd3.hismk2.domain.pms.DoctorOrderItem
+import com.hisd3.hismk2.domain.pms.DoctorOrderProgressNote
 import com.hisd3.hismk2.repository.pms.DoctorOrderItemRepository
+import com.hisd3.hismk2.repository.pms.DoctorOrderProgressNoteRepository
 import com.hisd3.hismk2.repository.pms.DoctorOrderRepository
 import groovy.transform.TypeChecked
 import io.leangen.graphql.annotations.GraphQLArgument
@@ -21,6 +23,9 @@ class DoctorOrderService {
 	
 	@Autowired
 	private DoctorOrderRepository doctorOrderRepository
+	
+	@Autowired
+	private DoctorOrderProgressNoteRepository doctorOrderProgressNoteRepository
 	
 	@Autowired
 	private DoctorOrderItemRepository doctorOrderItemRepository
@@ -45,7 +50,12 @@ class DoctorOrderService {
 		return doctorOrderRepository.getDoctorOrdersByCase(caseId).sort { it.entryDateTime }
 	}
 	
-	@GraphQLQuery(name = "doctorOrderItems", description = "Get all Case Outputs")
+	@GraphQLQuery(name = "doctorOrderProgressNotes", description = "Get all DoctorOrder DoctorOrderProgressNotes")
+	List<DoctorOrderProgressNote> getDoctorOrderProgressNotesByDoctorOrder(@GraphQLContext DoctorOrder doctorOrder) {
+		return doctorOrderProgressNoteRepository.getDoctorOrderProgressNotesByDoctorOrder(doctorOrder.id).sort { it.entryDateTime }
+	}
+	
+	@GraphQLQuery(name = "doctorOrderItems", description = "Get all DoctorOrder DoctorOrderItems")
 	List<DoctorOrderItem> getDoctorOrderItemsByDoctorOrder(@GraphQLContext DoctorOrder doctorOrder) {
 		return doctorOrderItemRepository.getDoctorOrderItemsByDoctorOrder(doctorOrder.id).sort { it.entryDateTime }
 	}
@@ -55,6 +65,13 @@ class DoctorOrderService {
 			@GraphQLArgument(name = "fields") Map<String, Object> fields
 	) {
 		DoctorOrder doctorOrder = doctorOrderRepository.save(objectMapper.convertValue(fields.get("doctorOrder"), DoctorOrder))
+		
+		DoctorOrderProgressNote doctorOrderProgressNote = objectMapper.convertValue(fields.get("doctorOrderProgressNote"), DoctorOrderProgressNote)
+		if (doctorOrderProgressNote != null) {
+			doctorOrderProgressNote.entryDateTime = doctorOrder.entryDateTime
+			doctorOrderProgressNote.doctorOrder = doctorOrder
+			doctorOrderProgressNoteRepository.save(doctorOrderProgressNote)
+		}
 		
 		List<DoctorOrderItem> doctorOrderItems = fields.get("doctorOrderItems") as ArrayList<DoctorOrderItem>
 		
